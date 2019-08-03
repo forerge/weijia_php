@@ -3,8 +3,9 @@ namespace  app\admin\controller;
 use think\Controller;
 use think\Request;
 
-class User extends Controller{
+class Admin extends Controller{
    public function index(){
+//       $this->view->engine->layout('common/left');
        return view();
    }
 

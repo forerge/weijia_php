@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理系统</title>
+    <meta  charset="utf-8">
+    <link href="{$Think.PROJECT_PATH}/public/static/ht/model/style/adminStyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="wrap">
+    <div class="page-title">
+        <span class="block fl"><i class="order"></i><em>管理员列表</em></span>
+    </div>
+    <div class="operate">
+        <form>
+            <img src="images/icon_search.gif"/>
+            <input type="text" class="textBox length-long" placeholder="输入手机号..."/>
+            <select class="inline-select">
+                <option>--省--</option>
+                <option>上海</option>
+            </select>
+            <select class="inline-select">
+                <option>--市--</option>
+                <option>上海市</option>
+            </select>
+            <select class="inline-select">
+                <option>--区/县--</option>
+                <option>嘉定区</option>
+            </select>
+            <select class="inline-select">
+                <option>--镇/乡--</option>
+                <option>马陆镇</option>
+            </select>
+            <select class="inline-select">
+                <option>--是否受委托--</option>
+                <option>受委托</option>
+                <option>自主</option>
+            </select>
+            <select class="inline-select">
+                <option>--出租类型--</option>
+                <option>整租</option>
+                <option>合租</option>
+            </select>
+            <select class="inline-select">
+                <option>--付款方式--</option>
+                <option>压一付一</option>
+                <option>压一付三</option>
+                <option>半年付</option>
+            </select>
+            <input type="button" value="查询" class="tdBtn"/>
+        </form>
+    </div>
+    <table class="list-style">
+        <tr>
+            <th>编号</th>
+            <th>出租类型</th>
+            <th>付款规则</th>
+            <th>手机号</th>
+            <th>小区名称</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox"/>
+                <a href="order_detail.html">1</a>
+            </td>
+            <td class="center">
+                <span class="block">整租</span>
+            </td>
+            <td class="center" >
+                <span class="block">压一付三</span>
+            </td>
+            <td class="center">
+                <span class="block">13868686969</span>
+            </td>
+            <td class="center">
+                <span class="block">北苑小区</span>
+            </td>
+            <td class="center" width="260">
+                <a href="order_detail.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
+            </td>
+        </tr>
+    </table>
+    <!-- BatchOperation -->
+    <div style="overflow:hidden;">
+        <!-- Operation -->
+        <div class="BatchOperation fl">
+            <input type="checkbox" id="del"/>
+            <label for="del" class="btnStyle middle">全选</label>
+            <input type="button" value="打印" class="btnStyle"/>
+            <input type="button" value="删除" class="btnStyle"/>
+        </div>
+        <!-- turn page -->
+        <div class="turnPage center fr">
+            <a>第一页</a>
+            <a>1</a>
+            <a>最后一页</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

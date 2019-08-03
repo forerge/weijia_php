@@ -10,15 +10,19 @@ class Index extends Controller{
    }
 
     public function top(){
-        return view("top/index");
+        return view();
     }
 
     public function left(){
-        return view("left/index");
+        return view();
     }
 
     public function right(){
-        return view("right/index");
+        return view();
+    }
+
+    public function test1(){
+        echo 'yyy';
     }
 
 

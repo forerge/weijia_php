@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台管理系统</title>
+    <meta  charset="utf-8">
+    <link href="{$Think.PROJECT_PATH}/public/static/ht/model/style/adminStyle.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="wrap">
+    <div class="page-title">
+        <span class="block fl"><i class="order"></i><em>管理员列表</em></span>
+    </div>
+    <div class="operate">
+        <form>
+            <img src="images/icon_search.gif"/>
+            <input type="text" class="textBox length-long" placeholder="输入订单编号或收件人姓名..."/>
+            <select class="inline-select">
+                <option>未付款</option>
+                <option>已付款</option>
+            </select>
+            <input type="button" value="查询" class="tdBtn"/>
+        </form>
+    </div>
+    <table class="list-style">
+        <tr>
+            <th>名称</th>
+            <th>级别</th>
+            <th>创建时间</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox"/>
+                <a href="order_detail.html">admin</a>
+            </td>
+            <td class="center">
+                <span class="block">总管理员</span>
+            </td>
+            <td class="center" >
+                <span class="block">2019-05-21 8:32:32</span>
+            </td>
+            <td class="center">
+                <span class="block">13868686969</span>
+            </td>
+            <td class="center">
+                <span class="block">548965874@qq.com</span>
+            </td>
+            <td class="center" width="260">
+                <a href="order_detail.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
+            </td>
+        </tr>
+    </table>
+    <!-- BatchOperation -->
+    <div style="overflow:hidden;">
+        <!-- Operation -->
+        <div class="BatchOperation fl">
+            <input type="checkbox" id="del"/>
+            <label for="del" class="btnStyle middle">全选</label>
+            <input type="button" value="打印订单" class="btnStyle"/>
+            <input type="button" value="配货" class="btnStyle"/>
+            <input type="button" value="删除订单" class="btnStyle"/>
+        </div>
+        <!-- turn page -->
+        <div class="turnPage center fr">
+            <a>第一页</a>
+            <a>1</a>
+            <a>最后一页</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
