@@ -9,19 +9,13 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-// 事件定义文件
 return [
-    'bind'      => [
+    '__pattern__' => [
+        'name' => '\w+',
+    ],
+    '[hello]'     => [
+        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
+        ':name' => ['index/hello', ['method' => 'post']],
     ],
 
-    'listen'    => [
-        'AppInit'  => [],
-        'HttpRun'  => [],
-        'HttpEnd'  => [],
-        'LogLevel' => [],
-        'LogWrite' => [],
-    ],
-
-    'subscribe' => [
-    ],
 ];

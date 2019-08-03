@@ -1,5 +1,5 @@
-/.idea
-/.vscode
-/vendor
+.idea
+composer.lock
 *.log
-.env
+thinkphp
+/runtime
