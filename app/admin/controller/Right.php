@@ -3,10 +3,15 @@ namespace  app\admin\controller;
 use think\Controller;
 use think\Request;
 
-class Index extends Controller{
+class Right extends Controller{
    public function index(){
-       echo 'bbb';exit;
+//       $this->view->engine->layout('common/left');
+       echo "666";
    }
+
+
+
+
 }
 
 

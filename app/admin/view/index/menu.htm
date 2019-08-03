@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>后台管理系统</title>
+<meta  charset="utf-8">
+<base target="mainCont"/> 
+<link href="style/adminStyle.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+html{overflow-y:scroll;}
+html body{background:#313131;margin-bottom:46px;}
+</style>
+<body>
+<div class="menu-list">
+ <a href="main.html"  class="block menu-list-title center" style="border:none;margin-bottom:8px;color:#fff;">起始页</a>
+ <ul>
+  <li class="menu-list-title">
+   <span>订单管理</span>
+   <i>◢</i>
+  </li>
+  <li >
+   <ul class="menu-children">
+    <li><a href="order_list.html" title="商品列表" >订单列表</a></li>
+   </ul>
+  </li>
+ 
+  <li class="menu-list-title">
+   <span>商品管理</span>
+   <i>◢</i>
+  </li>
+  <li >
+   <ul class="menu-children">
+    <li><a href="product_list.html" title="商品列表" >商品列表</a></li>
+    <li><a href="product_category.html" title="商品分类" >商品分类</a></li>
+    <li><a href="product_recycle.html" title="商品分类" >商品回收站</a></li>
+   </ul>
+  </li>
+  
+  <li class="menu-list-title">
+   <span>会员管理</span>
+   <i>◢</i>
+  </li>
+  <li>
+   <ul class="menu-children">
+    <li><a href="user_list.html" title="会员列表" >会员列表</a></li>
+    <li><a href="user_add.html" title="添加会员" >添加会员</a></li>
+    <li><a href="user_rank.html" title="会员等级" >会员等级</a></li>
+    <li><a href="user_message.html" title="会员留言" >会员留言</a></li>
+   </ul>
+  </li>
+  
+  <li class="menu-list-title">
+   <span>系统设置</span>
+   <i>◢</i>
+  </li>
+  <li>
+   <ul class="menu-children">
+    <li><a href="web_basic_settings.html" title="站点基本设置" >站点基本设置</a></li>
+    <li><a href="admin_list.html" title="站点基本设置" >站点管理员</a></li>
+   </ul>
+  </li>
+  
+  <li class="menu-list-title">
+   <span>广告管理</span>
+   <i>◢</i>
+  </li>
+  <li>
+   <ul class="menu-children">
+    <li><a href="advertising_list.html" title="站点基本设置" >广告列表</a></li>
+   </ul>
+  </li>
+    
+ </ul>
+</div>
+
+
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script>
+	//左侧菜单标题点击事件
+ $('.menu-list-title').click(function(){
+	   $(this).next('li').slideToggle('1500');
+	  });
+ //左侧菜单子标题点击事件
+ $(".menu-children li").click(function(){
+	 $(".menu-children li").css({background:'none'});
+	 $(this).css({background:'#F75E5E'});
+	});
+</script>
+</body>
+</html>

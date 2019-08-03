@@ -17,7 +17,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -129,7 +129,7 @@ return [
         // 模板路径
         'view_path'    => '',
         // 模板后缀
-        'view_suffix'  => 'html',
+        'view_suffix'  => 'htm',
         // 模板文件名分隔符
         'view_depr'    => DS,
         // 模板引擎普通标签开始标记
