@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>后台管理系统</title>
-    <meta  charset="utf-8">
-    <link href="{$Think.PROJECT_PATH}/public/static/ht/model/style/adminStyle.css" rel="stylesheet" type="text/css" />
-</head>
+{include file="common/head" /}
 <body>
 <div class="wrap">
     <div class="page-title">
@@ -12,7 +6,7 @@
     </div>
     <div class="operate">
         <form>
-            <img src="images/icon_search.gif"/>
+            <img class="edit_top" src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_search.gif"/>
             <input type="text" class="textBox length-long" placeholder="输入手机号..."/>
             <select class="inline-select">
                 <option>--省--</option>
