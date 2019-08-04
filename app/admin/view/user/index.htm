@@ -1,4 +1,10 @@
 {include file="common/head" /}
+<style>
+    .many-rule{
+
+    }
+</style>
+
 <body>
 <div class="wrap">
     <div class="page-title">
@@ -7,10 +13,20 @@
     <div class="operate">
         <form>
             <img class="edit_top" src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_search.gif"/>
-            <input type="text" class="textBox length-long" placeholder="输入订单编号或收件人姓名..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="用户名..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="手机号..."/>
+                <input type="checkbox" name="tuijian" id="jingpin1"/>
+                <label for="jingpin1">租客</label>
+                <input type="checkbox" name="tuijian" id="jingpin2"/>
+                <label for="jingpin2">房东</label>
+                <input type="checkbox" name="tuijian" id="jingpin3"/>
+                <label for="jingpin3">职业房东</label>
+                <input type="checkbox" name="tuijian" id="jingpin4"/>
+                <label for="jingpin4">职业经纪人</label>
             <select class="inline-select">
-                <option>未付款</option>
-                <option>已付款</option>
+                <option>用户申请</option>
+                <option>--职业房东--</option>
+                <option>--职业经纪人--</option>
             </select>
             <input type="button" value="查询" class="tdBtn"/>
         </form>
@@ -18,23 +34,26 @@
     <table class="list-style">
         <tr>
             <th>名称</th>
+            <th>手机号</th>
+            <th>剩余代金券</th>
             <th>创建时间</th>
-            <th>微信号</th>
             <th>操作</th>
         </tr>
         <tr>
-            <td>
-                <input type="checkbox"/>
+            <td class="center">
                 <a href="order_detail.html">admin</a>
             </td>
             <td class="center" >
-                <span class="block">2019-05-21 8:32:32</span>
-            </td>
-            <td class="center">
                 <span class="block">13868686969</span>
             </td>
+            <td class="center" >
+                <span class="block">3</span>
+            </td>
+            <td class="center">
+                <span class="block">2019-05-21 8:32:32</span>
+            </td>
             <td class="center" width="260">
-                <a href="order_detail.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                <a href="user/update.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
                 <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
             </td>
         </tr>
@@ -42,12 +61,12 @@
     <!-- BatchOperation -->
     <div style="overflow:hidden;">
         <!-- Operation -->
-        <div class="BatchOperation fl">
-            <input type="checkbox" id="del"/>
-            <label for="del" class="btnStyle middle">全选</label>
-            <input type="button" value="打印" class="btnStyle"/>
-            <input type="button" value="删除" class="btnStyle"/>
-        </div>
+        <!--<div class="BatchOperation fl">-->
+            <!--<input type="checkbox" id="del"/>-->
+            <!--<label for="del" class="btnStyle middle">全选</label>-->
+            <!--<input type="button" value="打印" class="btnStyle"/>-->
+            <!--<input type="button" value="删除" class="btnStyle"/>-->
+        <!--</div>-->
         <!-- turn page -->
         <div class="turnPage center fr">
             <a>第一页</a>

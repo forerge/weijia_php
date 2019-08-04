@@ -1,0 +1,103 @@
+{include file="common/head" /}
+<body>
+<div class="wrap">
+    <div class="page-title">
+        <span class="block fl"><i class="order"></i><em>代金券管理</em></span>
+    </div>
+    <div class="operate">
+        <form>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="初创人姓名..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="所有者姓名..."/>
+            <select class="inline-select">
+                <option>代金券类型</option>
+                <option>租客代金券</option>
+                <option>非租客代金券</option>
+            </select>
+            <select class="inline-select">
+                <option>是否转赠</option>
+                <option>是</option>
+                <option>否</option>
+            </select>
+            <input type="button" value="查询" class="tdBtn"/>
+        </form>
+    </div>
+    <table class="list-style">
+        <tr>
+            <th>编号</th>
+            <th>初创者</th>
+            <th>类型</th>
+            <th>创建时间</th>
+            <th>是否转赠</th>
+            <th>转赠时间</th>
+            <th>是否使用</th>
+            <th>所属权</th>
+            <th>操作</th>
+        </tr>
+            <tr>
+                <td class="center">
+                    <span class="block">45</span>
+                </td>
+                <td class="center">
+                    <span class="block">张三</span>
+                </td>
+                <td class="center">
+                    <span class="block">租客代金券</span>
+                </td>
+                <td class="center" >
+                    <span class="block">2019-04-05  13:22:22</span>
+                </td>
+                <td class="center" >
+                    <span class="block">否</span>
+                </td>
+                <td class="center" >
+                    <span class="block">为转赠</span>
+                </td>
+                <td class="center" >
+                    <span class="block">否</span>
+                </td>
+                <td class="center">
+                    <span class="block">张三</span>
+                </td>
+                <td class="center" width="260">
+                    <a href="update.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                    <a class="inline-block"  title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
+                </td>
+            </tr>
+    </table>
+</div>
+<style>
+    .pagination{
+        width: 300px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+    .pagination li{
+        display: inline;
+        margin: 0 5px;
+        font-size: 16px;
+    }
+</style>
+    <!-- BatchOperation -->
+    <!--<div style="overflow:hidden;">-->
+        <!-- Operation -->
+        <!-- turn page -->
+        <!--<div class="turnPage center fr">-->
+            <!--<a>第一页</a>-->
+            <!--<a>1</a>-->
+            <!--<a>最后一页</a>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+
+</body>
+<script>
+    function del(obj){
+        if(confirm('确定删除？')){
+            $.post('/admin/admin/del',{id:obj},function(result){
+                location.replace(location);
+            })
+        }
+    }
+</script>
+</html>

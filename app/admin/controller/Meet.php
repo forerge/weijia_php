@@ -1,20 +1,18 @@
 <?php
 namespace  app\admin\controller;
 use think\Controller;
-use think\Request;
+use app\admin\Model\AdminModel;
+use think\Db;
 
-class User extends Controller{
+class Meet extends Controller{
    public function index(){
-       return view();
+       return $this->fetch();
    }
-
-    public function add(){
-        return view();
-    }
 
     public function update(){
         return $this->fetch();
     }
+
 
 
 }

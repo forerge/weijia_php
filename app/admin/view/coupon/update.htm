@@ -1,0 +1,68 @@
+﻿{include file="common/head" /}
+<body>
+ <div class="wrap">
+  <div class="page-title">
+     <span class="modular fl"><i class="edit_user"></i><em>代金券详情</em></span>
+  </div>
+  <form action="update" method="post">
+     <table class="list-style">
+    <tr>
+     <td style="width:15%;text-align:right;">初创者：</td>
+     <td><input type="text" class="textBox length-middle" name="a_name" value="张三"/></td>
+    </tr>
+     <tr>
+         <td style="width:15%;text-align:right;">金额：</td>
+         <td><input type="text" class="textBox length-middle" name="a_name" value="200"/></td>
+     </tr>
+     <tr>
+         <td style="text-align:right;">类型：</td>
+         <td>
+             <select name="a_level" class="textBox">
+                 <option value="">租客代金券</option>
+                 <option value="1">租客代金券</option>
+                 <option value="2">非租客代金券</option>
+             </select>
+         </td>
+     </tr>
+     <tr>
+         <td style="text-align:right;">创建时间：</td>
+         <td><input type="text" disabled class="textBox length-middle" value="2019-04-05  13:22:22"/></td>
+     </tr>
+     <tr>
+         <td style="text-align:right;">是否转赠：</td>
+         <td>
+             <select name="a_level" class="textBox">
+                 <option value="">--否--</option>
+                 <option value="1">--是--</option>
+                 <option value="2">--否--</option>
+             </select>
+         </td>
+     </tr>
+     <tr>
+         <td style="text-align:right;">是否使用：</td>
+         <td>
+             <select name="a_level" class="textBox">
+                 <option value="">--否--</option>
+                 <option value="1">--是--</option>
+                 <option value="2">--否--</option>
+             </select>
+         </td>
+     </tr>
+     <tr>
+         <td style="text-align:right;">转赠时间：</td>
+         <td><input type="text" disabled class="textBox length-middle" value="为转赠"/></td>
+     </tr>
+     <tr>
+         <td style="text-align:right;">所有权：</td>
+         <td><input type="text"  class="textBox length-middle" value="张三"/></td>
+     </tr>
+    <tr>
+     <td style="text-align:right;"></td>
+     <td><input type="submit" class="tdBtn" value="更新保存"/></td>
+    </tr>
+   </table>
+  </form>
+
+ </div>
+</body>
+</html>

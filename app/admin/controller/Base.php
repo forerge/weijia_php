@@ -1,17 +1,17 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
+namespace app\admin\controller;
+use think\Controller;
+use think\Db;
+use think\Session;
 
-// [ 应用入口文件 ]
+class Base extends Controller{
+    public function _initialize(){
+        $adm = Session('weijia');
+        if(empty($adm)){
+            $this->redirect('login/index');
+        }
+    }
+}
 
-// 定义应用目录
-define('APP_PATH', __DIR__ . '/../application/');
-// 加载框架引导文件
-require __DIR__ . '/../thinkphp/start.php';
+
+?>

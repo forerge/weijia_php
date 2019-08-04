@@ -7,9 +7,13 @@
     <div class="operate">
         <form>
             <img class="edit_top" src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_search.gif"/>
-            <input type="text" class="textBox length-short" style="width:130px" placeholder="发布人姓名..."/>
-            <input type="text" class="textBox length-short" style="width:130px" placeholder="负责人姓名..." />
-            <input type="text" class="textBox length-short" style="width:130px" placeholder="负责人手机号..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="邀约人..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="被邀约人..."/>
+            <select class="inline-select">
+                <option>--预约结果--</option>
+                <option>--成功--</option>
+                <option>--失败--</option>
+            </select>
             <select class="inline-select">
                 <option>--省--</option>
                 <option>上海</option>
@@ -48,12 +52,15 @@
     <table class="list-style">
         <tr>
             <th>编号</th>
-            <th>发布人</th>
-            <th>是否托管</th>
-            <th>房屋情况</th>
-            <th>租金</th>
-            <th>付款方式</th>
+            <th>预约人</th>
+            <th>预约人编号</th>
+            <th>电话</th>
+            <th>预约时间</th>
+            <th>受约人</th>
+            <th>房屋编号</th>
+            <th>电话</th>
             <th>地址</th>
+            <th>是否成功</th>
             <th>操作</th>
         </tr>
         <tr>
@@ -63,23 +70,32 @@
             <td class="center">
                 <span class="block">张三</span>
             </td>
-            <td class="center" >
-                <span class="block">是</span>
-            </td>
-            <td class="center" >
-                <span class="block">1室</span>
+            <td class="center">
+                <span class="block">55</span>
             </td>
             <td class="center">
-                <span class="block">2400</span>
+                <span class="block">15869693636</span>
             </td>
             <td class="center">
-                <span class="block">压三付一</span>
+                <span class="block">2019-04-05  18:30:00</span>
+            </td>
+            <td class="center">
+                <span class="block">李四</span>
+            </td>
+            <td class="center">
+                <span class="block">66</span>
+            </td>
+            <td class="center">
+                <span class="block">15869693636</span>
             </td>
             <td class="center">
                 <span class="block">上海、上海市、嘉定区、马陆镇、清水湾33号楼1204室</span>
             </td>
+            <td class="center">
+                <span class="block">是</span>
+            </td>
             <td class="center" width="260">
-                <a href="house/update.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                <a href="update" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
                 <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
             </td>
         </tr>

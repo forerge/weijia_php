@@ -6,11 +6,11 @@
     </div>
     <div class="operate">
         <form>
-            <img class="edit_top" src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_search.gif"/>
-            <input type="text" class="textBox length-long" placeholder="输入订单编号或收件人姓名..."/>
             <select class="inline-select">
-                <option>未付款</option>
-                <option>已付款</option>
+                <option>--所有--</option>
+                <option>总管</option>
+                <option>主管</option>
+                <option>员工</option>
             </select>
             <input type="button" value="查询" class="tdBtn"/>
         </form>
@@ -20,50 +20,74 @@
             <th>名称</th>
             <th>级别</th>
             <th>创建时间</th>
+            <th>最后修改时间</th>
             <th>手机号</th>
             <th>邮箱</th>
             <th>操作</th>
         </tr>
-        <tr>
-            <td>
-                <input type="checkbox"/>
-                <a href="order_detail.html">admin</a>
-            </td>
-            <td class="center">
-                <span class="block">总管理员</span>
-            </td>
-            <td class="center" >
-                <span class="block">2019-05-21 8:32:32</span>
-            </td>
-            <td class="center">
-                <span class="block">13868686969</span>
-            </td>
-            <td class="center">
-                <span class="block">548965874@qq.com</span>
-            </td>
-            <td class="center" width="260">
-                <a href="order_detail.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
-                <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
-            </td>
-        </tr>
+        <?php if(!empty($list)){ ?>
+        <?php foreach($list as $v){ ?>
+            <tr>
+                <td class="center">
+                    <span class="block"><?php echo $v['a_name']; ?></span>
+                </td>
+                <td class="center">
+                    <span class="block"><?php echo $v['a_level']; ?></span>
+                </td>
+                <td class="center" >
+                    <span class="block"><?php echo date('Y-m-d H:i:s',$v['a_ctime']) ?></span>
+                </td>
+                <td class="center" >
+                    <span class="block"><?php echo date('Y-m-d H:i:s',$v['a_utime']) ?></span>
+                </td>
+                <td class="center">
+                    <span class="block"><?php echo $v['a_phone']; ?></span>
+                </td>
+                <td class="center">
+                    <span class="block"><?php echo $v['a_email']; ?></span>
+                </td>
+                <td class="center" width="260">
+                    <a href="admin/update.html?id=<?php echo $v['a_id'] ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                    <a class="inline-block" onclick="del(<?php echo $v['a_id'] ?>)" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
+                </td>
+            </tr>
+        <?php }} ?>
     </table>
-    <!-- BatchOperation -->
-    <div style="overflow:hidden;">
-        <!-- Operation -->
-        <div class="BatchOperation fl">
-            <input type="checkbox" id="del"/>
-            <label for="del" class="btnStyle middle">全选</label>
-            <input type="button" value="打印订单" class="btnStyle"/>
-            <input type="button" value="配货" class="btnStyle"/>
-            <input type="button" value="删除订单" class="btnStyle"/>
-        </div>
-        <!-- turn page -->
-        <div class="turnPage center fr">
-            <a>第一页</a>
-            <a>1</a>
-            <a>最后一页</a>
-        </div>
-    </div>
 </div>
+    {$page}
+<style>
+    .pagination{
+        width: 300px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+    .pagination li{
+        display: inline;
+        margin: 0 5px;
+        font-size: 16px;
+    }
+</style>
+    <!-- BatchOperation -->
+    <!--<div style="overflow:hidden;">-->
+        <!-- Operation -->
+        <!-- turn page -->
+        <!--<div class="turnPage center fr">-->
+            <!--<a>第一页</a>-->
+            <!--<a>1</a>-->
+            <!--<a>最后一页</a>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+
 </body>
+<script>
+    function del(obj){
+        if(confirm('确定删除？')){
+            $.post('/admin/admin/del',{id:obj},function(result){
+                location.replace(location);
+            })
+        }
+    }
+</script>
 </html>

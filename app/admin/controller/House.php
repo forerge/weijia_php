@@ -12,6 +12,10 @@ class House extends Controller{
         return view();
     }
 
+    public function update(){
+        return $this->fetch();
+    }
+
 
 
 }

@@ -1,9 +1,9 @@
 <?php
 namespace  app\admin\controller;
-use think\Controller;
-use think\Request;
+//use think\Controller;
+use app\admin\controller\Base;
 
-class Index extends Controller{
+class Index extends Base{
    public function index(){
 //       $this->view->engine->layout('common/left');
        return view();
