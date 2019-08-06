@@ -11,52 +11,66 @@
         <span class="block fl"><i class="order"></i><em>用户列表</em></span>
     </div>
     <div class="operate">
-        <form>
+        <form action="user/index" method="post" target="mainCont">
             <img class="edit_top" src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_search.gif"/>
-            <input type="text" class="textBox length-long" style="width:130px" placeholder="用户名..."/>
-            <input type="text" class="textBox length-long" style="width:130px" placeholder="手机号..."/>
-                <input type="checkbox" name="tuijian" id="jingpin1"/>
-                <label for="jingpin1">租客</label>
-                <input type="checkbox" name="tuijian" id="jingpin2"/>
-                <label for="jingpin2">房东</label>
-                <input type="checkbox" name="tuijian" id="jingpin3"/>
-                <label for="jingpin3">职业房东</label>
-                <input type="checkbox" name="tuijian" id="jingpin4"/>
-                <label for="jingpin4">职业经纪人</label>
-            <select class="inline-select">
-                <option>用户申请</option>
-                <option>--职业房东--</option>
-                <option>--职业经纪人--</option>
+            <input type="text" name="u_name" class="textBox length-long" style="width:130px" placeholder="用户名..."/>
+            <input type="text" name="u_phone" class="textBox length-long" style="width:130px" placeholder="手机号..."/>
+                <input type="checkbox" name="tuijian[]" value="1" />
+                租客
+                <input type="checkbox" name="tuijian[]" value="2"/>
+                房东
+                <input type="checkbox" name="tuijian[]" value="3"/>
+                职业房东
+                <input type="checkbox" name="tuijian[]" value="4"/>
+                职业经纪人
+            <select name="u_sex" class="inline-select">
+                <option value="0">--性别--</option>
+                <option value="1">--男--</option>
+                <option value="-1">--女--</option>
             </select>
-            <input type="button" value="查询" class="tdBtn"/>
+            <input type="submit" value="查询" class="tdBtn"/>
         </form>
     </div>
     <table class="list-style">
         <tr>
             <th>名称</th>
+            <th>性别</th>
+            <th>角色</th>
             <th>手机号</th>
-            <th>剩余代金券</th>
             <th>创建时间</th>
             <th>操作</th>
         </tr>
+        <?php if(!empty($list)){ ?>
+        <?php foreach($list as $v){ ?>
         <tr>
             <td class="center">
-                <a href="order_detail.html">admin</a>
+                <span class="block"><?php echo $v['u_name'] ?></span>
             </td>
             <td class="center" >
-                <span class="block">13868686969</span>
+                <span class="block"><?php echo user_sex($v['u_sex']); ?></span>
             </td>
             <td class="center" >
-                <span class="block">3</span>
+                <span class="block">
+                    <?php
+                    if($v['u_one'] == 1){echo '租客、';}
+                    if($v['u_two'] == 1){echo '房东、';}
+                    if($v['u_three'] == 1){echo '职业房东、';}
+                    if($v['u_four'] == 1){echo '职业经纪人';}
+                    ?>
+                </span>
+            </td>
+            <td class="center" >
+                <span class="block"><?php echo $v['u_phone'] ?></span>
             </td>
             <td class="center">
-                <span class="block">2019-05-21 8:32:32</span>
+                <span class="block"><?php echo date('Y-m-d H:i:s',$v['u_ctime']);  ?></span>
             </td>
             <td class="center" width="260">
-                <a href="user/update.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                <a href="user/update.html?id=<?php echo $v['u_id'] ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
                 <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
             </td>
         </tr>
+        <?php }} ?>
     </table>
     <!-- BatchOperation -->
     <div style="overflow:hidden;">
