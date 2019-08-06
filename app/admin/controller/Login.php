@@ -22,9 +22,16 @@ class Login extends Controller{
                return $this->error('密码错误！');
            }
        }else{
+
            return view();
        }
    }
+
+    public function login_out(){
+        Session::set('weijia','');
+        return $this->redirect('index');
+    }
+
 }
 
 

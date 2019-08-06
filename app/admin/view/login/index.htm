@@ -5,6 +5,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
  <title>后台登录</title>
  <link href="{$Think.PROJECT_PATH}/public/static/ht/model/style/adminStyle.css" rel="stylesheet">
+ <script  src="{$Think.PROJECT_PATH}/public/static/common/jquery-3.4.1.min.js"></script>
 </head>
 <style>
  html{height:100%;}
@@ -32,6 +33,19 @@
     <button  type="submit" class="loginbtn" >登陆</button>
    </div>
  </form>
+ <input type="hidden" id="weijia" value="<?php isset($weijia)? $weijia:'' ?>">
 </div>
+<?php
+if(isset($weijia)){
+var_dump($weijia);
+}else{
+echo 0;
+}
+?>
+<script>
+// $(document).ready(function(){
+//  window.location.reload();
+// })
+</script>
 </body>
 </html>

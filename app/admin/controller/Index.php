@@ -21,8 +21,8 @@ class Index extends Base{
         return view();
     }
 
-    public function test1(){
-        echo 'yyy';
+    public function go(){
+        return $this->fetch();
     }
 
 
