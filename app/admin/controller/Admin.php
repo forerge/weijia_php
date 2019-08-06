@@ -1,7 +1,7 @@
 <?php
 namespace  app\admin\controller;
 use think\Controller;
-use app\admin\Model\AdminModel;
+use app\admin\model\AdminModel;
 use think\Db;
 
 class Admin extends Controller{
