@@ -10,9 +10,6 @@ class User extends Controller{
    public function index(){
        if($_POST){
            $data = array_filter($_POST);
-           if(!empty($data['u_phone'])){
-                $data['u_phone'] = intval($data['u_phone']);
-           }
            if(!empty($data['u_sex'])){
                $data['u_sex'] = intval($data['u_sex']);
            }
@@ -49,11 +46,10 @@ class User extends Controller{
             $map['u_ctime'] = time();
             $users = new UserModel();
             if($users->save($map)){
-                $this->success('添加成功！','index');
+                $this->success('添加成功！','/admin/user/index');
             }else{
                 $this->error('添加失败！');
             }
-
         }else{
             return view();
         }
@@ -72,8 +68,7 @@ class User extends Controller{
             $result = CommonModel::upload_img($_POST['u_id']);     //图片上传
             $data = array_merge($data,$result);
             Db::table('user')->where('u_id','=',$id)->update($data);
-
-            $this->success('修改成功！','index');
+            $this->success('修改成功！','/admin/user/index');
         }else{
             $id = $_GET['id'];
             $user = Db::table('user')->where('u_id','=',$id)->find();

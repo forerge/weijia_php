@@ -22,7 +22,7 @@ class Admin extends Controller{
             }else{
                 $adm = new AdminModel();
                 if($adm->save($result)){
-                    $this->success('添加成功','index',1);
+                    $this->success('添加成功','/admin/admin/index',1);
                 }else{
                     $this->error('添加失败！');
                 }
@@ -37,7 +37,7 @@ class Admin extends Controller{
             $adm = new AdminModel();
             $result = AdminModel::update_data($_POST);
             if($adm->save($result[0],['a_id'=>$result[1]])){
-                $this->success('修改成功','index');
+                $this->success('修改成功','/admin/admin/index');
             }else{
                 $this->error('修改失败');
             }
