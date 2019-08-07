@@ -62,7 +62,9 @@ class Admin extends Controller{
         Db::table('admin')->where('a_id','=',$id)->update(['a_status'=>-1]);
     }
 
-
+    public function come(){
+        return $this->fetch();
+    }
 
 }
 
