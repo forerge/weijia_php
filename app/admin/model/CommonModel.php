@@ -5,12 +5,13 @@ use think\Upload;
 use  think\Db;
 
 class CommonModel extends Model{
-    public static function upload_img($id){
+    public static function upload_img(){
+        $image = [];
         $file = request()->file('u_num0');
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'.DS.'id_card');
             if($info){
-                $image['u_num0'] = $info->getSaveName();
+                $image['u_num0'] = 'id_card\\'.$info->getSaveName();
             }
         }
 
@@ -18,7 +19,7 @@ class CommonModel extends Model{
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'.DS.'id_card');
             if($info){
-                $image['u_num1'] = $info->getSaveName();
+                $image['u_num1'] = 'id_card\\'.$info->getSaveName();
             }
         }
 
@@ -26,25 +27,24 @@ class CommonModel extends Model{
         if($file){
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'.DS.'license');
             if($info){
-                $image['u_img'] = $info->getSaveName();
+                $image['u_img'] = 'license\\'.$info->getSaveName();
             }
         }
+        return $image;
+    }
 
-//        判断是否是新增数据的图片上传      新增：直接上传，  修改：要清空之前的图片
-        if($id){
-            if(isset($image['u_img'])){
-                Db::table('user')->where('u_id','=',$id)->update(['u_img'=>'']);
-            }
-            if(isset($image['u_num0'])){
-                Db::table('user')->where('u_id','=',$id)->update(['u_num0'=>'']);
-            }
-            if(isset($image['u_num1'])){
-                Db::table('user')->where('u_id','=',$id)->update(['u_num1'=>'']);
-            }
+    public static function del_img($id){
+        $list = Db::table('user')->where('u_id','=',$id)->find();
+        $image = $_FILES;
+        if($image['u_img']['error'] == 0 ){
+            unlink(ROOT_PATH . 'public' . DS . 'uploads'.DS.$list['u_img']);
         }
-
-
-
+        if($image['u_num0']['error'] == 0 ){
+            unlink(ROOT_PATH . 'public' . DS . 'uploads'.DS.$list['u_num0']);
+        }
+        if($image['u_num1']['error'] == 0 ){
+            unlink(ROOT_PATH . 'public' . DS . 'uploads'.DS.$list['u_num1']);
+        }
     }
 }
 

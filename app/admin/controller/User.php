@@ -61,19 +61,19 @@ class User extends Controller{
 
     public function update(){
         if($_POST){
-            $result = CommonModel::upload_img($_POST['u_id']);
             $data = array_filter($_POST) ;
             if(!isset($data['u_one'])){ $data['u_one'] = -1; }else{ $data['u_one'] = intval($data['u_one']); }
             if(!isset($data['u_two'])){ $data['u_two'] = -1; }else{ $data['u_two'] = intval($data['u_two']); }
             if(!isset($data['u_three'])){ $data['u_three'] = -1; }else{ $data['u_three'] = intval($data['u_three']); }
             if(!isset($data['u_four'])){ $data['u_four'] = -1; }else{ $data['u_four'] = intval($data['u_four']); }
             $id = $data['u_id'];
+            CommonModel::del_img($id);//判断是否是新增数据的图片上传      新增：直接上传，  修改：要清空之前的图片
             unset($data['u_id']);
-            if(Db::table('user')->where('u_id','=',$id)->update($data)){
-                $this->success('修改成功！','index');
-            }else{
-                $this->error('修改失败！');
-            }
+            $result = CommonModel::upload_img($_POST['u_id']);     //图片上传
+            $data = array_merge($data,$result);
+            Db::table('user')->where('u_id','=',$id)->update($data);
+
+            $this->success('修改成功！','index');
         }else{
             $id = $_GET['id'];
             $user = Db::table('user')->where('u_id','=',$id)->find();
