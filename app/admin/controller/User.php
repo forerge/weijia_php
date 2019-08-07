@@ -13,21 +13,21 @@ class User extends Controller{
            if(!empty($data['u_sex'])){
                $data['u_sex'] = intval($data['u_sex']);
            }
-           if(!empty($data['tuijian'])){
-               if(in_array(1,$data['tuijian'])){
-                   $data['u_one'] = 1;
-               }
-               if(in_array(2,$data['tuijian'])){
-                   $data['u_two'] = 1;
-               }
-               if(in_array(3,$data['tuijian'])){
-                   $data['u_three'] = 1;
-               }
-               if(in_array(4,$data['tuijian'])){
-                   $data['u_four'] = 1;
-               }
-               unset($data['tuijian']);
-           }
+//           if(!empty($data['tuijian'])){
+//               if(in_array(1,$data['tuijian'])){
+//                   $data['u_one'] = 1;
+//               }
+//               if(in_array(2,$data['tuijian'])){
+//                   $data['u_two'] = 1;
+//               }
+//               if(in_array(3,$data['tuijian'])){
+//                   $data['u_three'] = 1;
+//               }
+//               if(in_array(4,$data['tuijian'])){
+//                   $data['u_four'] = 1;
+//               }
+//               unset($data['tuijian']);
+//           }
            $list = Db::table('user')->where($data)->select();
        }else{
            $list = Db::table('user')->select();

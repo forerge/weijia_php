@@ -1,0 +1,42 @@
+﻿{include file="common/head" /}
+<body>
+ <div class="wrap">
+  <div class="page-title">
+     <span class="modular fl"><i class="edit_user"></i><em>申请详细资料</em></span>
+  </div>
+  <form action="update" method="post">
+     <table class="list-style">
+    <tr>
+     <td style="width:15%;text-align:right;">申请用户名：</td>
+     <td><input type="text" disabled value="<?php echo $u_name; ?>" class="textBox length-middle" /></td>
+    </tr>
+    <tr>
+     <td style="text-align:right;">申请类型：</td>
+     <td><input type="text" disabled class="textBox length-middle" value="<?php echo shenqing_level($s_level); ?>" /></td>
+    </tr>
+     <tr>
+         <td style="text-align:right;">申请状态：</td>
+         <td><input type="text" disabled value="<?php echo shenqing_status($s_status); ?>"  class="textBox length-middle" /></td>
+     </tr>
+     <tr>
+         <td style="text-align:right;">申请时间：</td>
+         <td><input type="text" disabled value="<?php echo date('Y-m-d H:i:s',$s_ctime); ?>" class="textBox length-middle" /></td>
+     </tr>
+         <tr>
+             <td style="text-align:right;">真是姓名：</td>
+             <td><input type="text" disabled value="<?php echo $s_name; ?>" class="textBox length-long" /></td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">证件照片：</td>
+             <td><img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $s_img ;?>" alt="" style="width:160px;height:160px"></td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">拒绝意见：</td>
+             <td><textarea class="textarea"></textarea></td>
+         </tr>
+   </table>
+  </form>
+
+ </div>
+</body>
+</html>

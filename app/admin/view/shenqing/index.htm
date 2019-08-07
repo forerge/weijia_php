@@ -2,46 +2,41 @@
 <body>
 <div class="wrap">
     <div class="page-title">
-        <span class="block fl"><i class="order"></i><em>管理员列表</em></span>
+        <span class="block fl"><i class="order"></i><em>认证/申请列表</em></span>
     </div>
     <table class="list-style">
         <tr>
             <th>编号</th>
-            <th>发布人</th>
-            <th>是否托管</th>
-            <th>房屋情况</th>
-            <th>租金</th>
-            <th>付款方式</th>
-            <th>地址</th>
+            <th>申请用户</th>
+            <th>申请类型</th>
+            <th>申请状态</th>
+            <th>发起时间</th>
             <th>操作</th>
         </tr>
-        <tr>
-            <td class="center">
-                <a href="order_detail.html">1</a>
-            </td>
-            <td class="center">
-                <span class="block">张三</span>
-            </td>
-            <td class="center" >
-                <span class="block">是</span>
-            </td>
-            <td class="center" >
-                <span class="block">1室</span>
-            </td>
-            <td class="center">
-                <span class="block">2400</span>
-            </td>
-            <td class="center">
-                <span class="block">压三付一</span>
-            </td>
-            <td class="center">
-                <span class="block">上海、上海市、嘉定区、马陆镇、清水湾33号楼1204室</span>
-            </td>
-            <td class="center" width="260">
-                <a href="edit.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
-                <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
-            </td>
-        </tr>
+        <?php if(!empty($list)){ ?>
+        <?php foreach($list as $k => $v){ ?>
+            <tr>
+                <td class="center">
+                    <a href="order_detail.html"><?php echo $k; ?></a>
+                </td>
+                <td class="center">
+                    <span class="block"><?php echo $v['s_name']; ?></span>
+                </td>
+                <td class="center" >
+                    <span class="block"><?php echo shenqing_level($v['s_level']) ; ?></span>
+                </td>
+                <td class="center" >
+                    <span class="block"><?php echo shenqing_status($v['s_status']) ; ?></span>
+                </td>
+                <td class="center">
+                    <span class="block"><?php echo date('Y-m-d H:i:s',$v['s_ctime']); ?></span>
+                </td>
+                <td class="center" width="260">
+                    <a href="/admin/shenqing/detail?id=<?php echo $v['s_id']; ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                    <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
+                </td>
+            </tr>
+        <?php }} ?>
     </table>
     <!-- BatchOperation -->
     <div style="overflow:hidden;">
