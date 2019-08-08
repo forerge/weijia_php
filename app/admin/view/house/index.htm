@@ -8,8 +8,7 @@
         <form>
             <img class="edit_top" src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_search.gif"/>
             <input type="text" class="textBox length-short" style="width:130px" placeholder="发布人姓名..."/>
-            <input type="text" class="textBox length-short" style="width:130px" placeholder="负责人姓名..." />
-            <input type="text" class="textBox length-short" style="width:130px" placeholder="负责人手机号..."/>
+            <input type="text" class="textBox length-short" style="width:130px" placeholder="小区名称..."/>
             <select class="inline-select">
                 <option>--省--</option>
                 <option>上海</option>
@@ -47,42 +46,41 @@
     </div>
     <table class="list-style">
         <tr>
-            <th>编号</th>
-            <th>发布人</th>
-            <th>是否托管</th>
-            <th>房屋情况</th>
-            <th>租金</th>
-            <th>付款方式</th>
-            <th>地址</th>
-            <th>操作</th>
+            <th class="center">编号</th>
+            <th class="center">发布人</th>
+            <th class="center">发布平台</th>
+            <th class="center">租金</th>
+            <th class="center">付款方式</th>
+            <th class="center">地址</th>
+            <th class="center">操作</th>
         </tr>
+        <?php if(!empty($list)){ ?>
+        <?php foreach($list as $k => $v){ ?>
         <tr>
             <td class="center">
-                <a href="order_detail.html">1</a>
+                <a href="order_detail.html"><?php echo $k; ?></a>
             </td>
             <td class="center">
-                <span class="block">张三</span>
+                <span class="block"><?php echo $v['hu_name']; ?></span>
             </td>
             <td class="center" >
-                <span class="block">是</span>
-            </td>
-            <td class="center" >
-                <span class="block">1室</span>
+                <span class="block"><?php echo house_status($v['h_status']) ; ?></span>
             </td>
             <td class="center">
-                <span class="block">2400</span>
+                <span class="block"><?php echo $v['h_money']; ?></span>
             </td>
             <td class="center">
-                <span class="block">压三付一</span>
+                <span class="block"><?php echo $v['h_rule']; ?></span>
             </td>
             <td class="center">
-                <span class="block">上海、上海市、嘉定区、马陆镇、清水湾33号楼1204室</span>
+                <span class="block"><?php echo $v['h_province'].'、'.$v['h_city'].'、'.$v['h_area'].'、'.$v['h_town'].'、'.$v['h_qv']; ?></span>
             </td>
             <td class="center" width="260">
-                <a href="house/update.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                <a href="/admin/house/update?id=<?php echo $v['h_id']; ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
                 <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
             </td>
         </tr>
+        <?php }} ?>
     </table>
     <!-- BatchOperation -->
     <div style="overflow:hidden;">
