@@ -9,7 +9,10 @@ class Shenqing extends Controller{
         if($_POST){
 
         }else{
-            $list = Db::table('shenqing')->select();
+            $list = Db::table('shenqing s')
+                ->join('user u','u.u_id = s.su_id','left')
+                ->field('s.*,u.u_id,u.u_name')
+                ->select();
         }
         $this->assign('list',$list);
         return $this->fetch();
@@ -20,11 +23,25 @@ class Shenqing extends Controller{
     }
 
    public function user(){
-       return $this->fetch();
+       $list = Db::table('shenqing s')
+           ->join('user u','u.u_id=s.su_id','left')
+           ->field('s.*,u.u_id,u.u_name')
+           ->where('s_level','=',1)
+           ->where('s_status','=',1)
+           ->select();
+       $this->assign('list',$list);
+       return $this->fetch('index');
    }
 
     public function house(){
-        return $this->fetch();
+        $list = Db::table('shenqing s')
+            ->join('user u','u.u_id=s.su_id','left')
+            ->field('s.*,u.u_id,u.u_name')
+            ->where('s_level','=',2)
+            ->where('s_status','=',1)
+            ->select();
+        $this->assign('list',$list);
+        return $this->fetch('index');
     }
 
     public function detail(){
@@ -55,6 +72,35 @@ class Shenqing extends Controller{
         }else{
             return $this->fetch();
         }
+    }
+
+    public function apply(){
+        $list = $_POST;
+        $map['u_tname'] = $list['name'];
+        $map['u_num'] = $list['num'];
+        $map['u_img'] = $list['img'];
+        $map['u_money'] = $list['money'];
+        if($list['level'] == 1){
+            $map['u_three'] = 1;
+        }else if($list['level'] == 2){
+            $map['u_four'] = 1;
+        }else if($list['level'] == 5){
+            $map['u_two'] = 1;
+        }
+        $_POST['data'] = array_filter($map);
+//        var_dump($_POST['data']);die;
+        $user = Db::table('user')->where('u_id','=',$list['u_id'])->find();
+        if($list['status'] == 1){
+            Db::transaction(function(){
+                Db::table('shenqing')->where('s_id','=',$_POST['s_id'])->update(['s_status'=>2]);
+                Db::table('user')->where('u_id','=',$_POST['u_id'])->update($_POST['data']);
+            });
+        }else{
+            $result['s_status'] = -1;
+            $result['s_refuse'] = $list['refuse'];
+            Db::table('shenqing')->where('s_id','=',$list['id'])->update($result);
+        }
+        echo 1;
     }
 
 

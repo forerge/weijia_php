@@ -4,7 +4,7 @@
   <div class="page-title">
      <span class="modular fl"><i class="edit_user"></i><em>申请详细资料</em></span>
   </div>
-  <form action="update" method="post">
+  <form>
      <table class="list-style">
     <tr>
      <td style="width:15%;text-align:right;">申请用户名：</td>
@@ -24,7 +24,15 @@
      </tr>
          <tr>
              <td style="text-align:right;">真是姓名：</td>
-             <td><input type="text" disabled value="<?php echo $s_name; ?>" class="textBox length-long" /></td>
+             <td><input type="text" id="s_name" disabled value="<?php echo $s_name; ?>" class="textBox length-long" /></td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">身份证号：</td>
+             <td><input type="text" id="s_num" disabled value="<?php echo $s_num; ?>" class="textBox length-long" /></td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">押金：</td>
+             <td><input type="text" id="s_money" disabled value="<?php echo $s_money; ?>" class="textBox length-long" /></td>
          </tr>
          <tr>
              <td style="text-align:right;">证件照片：</td>
@@ -32,10 +40,57 @@
          </tr>
          <tr>
              <td style="text-align:right;">拒绝意见：</td>
-             <td><textarea class="textarea"></textarea></td>
+             <td><textarea name="s_refuse" id="refuse" class="textarea"></textarea></td>
+         </tr>
+         <tr>
+             <td style="text-align:right;"></td>
+             <style>
+                 .agree{
+                     color: #fff;
+                     background-color: #337ab7;
+                     border-color: #2e6da4;
+                 }
+                 .no-agree{
+                     color: #fff;
+                     background-color: #d9534f;
+                     border-color: #d43f3a;
+                 }
+             </style>
+             <input type="hidden" id="s_id" value="<?php echo $s_id; ?>"/>
+             <input type="hidden" id="u_id" value="<?php echo $u_id; ?>"/>
+             <input type="hidden" id="s_img" value="<?php echo $s_img; ?>"/>
+             <input type="hidden" id="s_level" value="<?php echo $s_level; ?>"/>
+             <td><button type="button" onclick="shen_edit(1)" class="btn btn-success">通过</button><button onclick="shen_edit(0)" type="button" class="btn btn-danger">拒绝</button></td>
          </tr>
    </table>
   </form>
+     <script>
+         function shen_edit(obj){
+             var refuse = $('#refuse').val();
+             var s_id = $('#s_id').val();
+             var u_id = $('#u_id').val();
+             var s_name = $('#s_name').val();
+             var s_num = $('#s_num').val();
+             var s_money = $('#s_money').val();
+             var s_img = $('#s_img').val();
+             var s_level = $('#s_level').val();
+             var data;
+             data = {
+                 name: s_name,
+                 num: s_num,
+                 money: s_money,
+                 img: s_img,
+                 refuse: refuse,
+                 level:s_level,
+                 s_id: s_id,
+                 u_id:u_id,
+                 status:obj,
+             };
+             $.post('/admin/shenqing/apply',data,function(list){
+                 console.log(list);
+             })
+         }
+     </script>
 
  </div>
 </body>

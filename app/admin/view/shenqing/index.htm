@@ -4,6 +4,25 @@
     <div class="page-title">
         <span class="block fl"><i class="order"></i><em>认证/申请列表</em></span>
     </div>
+    <div class="operate">
+        <form>
+            <select class="inline-select">
+                <option>--申请状态--</option>
+                <option value="2">--申请中--</option>
+                <option value="2">--通过--</option>
+                <option value="-1">--未通过--</option>
+            </select>
+            <select class="inline-select">
+                <option>--申请类型--</option>
+                <option value="1">--职业房东--</option>
+                <option value="2">--职业经纪人--</option>
+                <option value="3">房源转至青年公寓</option>
+                <option value="4">--房产认证--</option>
+                <option value="5">--实名认证--</option>
+            </select>
+            <input type="button" value="查询" class="tdBtn"/>
+        </form>
+    </div>
     <table class="list-style">
         <tr>
             <th>编号</th>
@@ -20,7 +39,7 @@
                     <a href="order_detail.html"><?php echo $k; ?></a>
                 </td>
                 <td class="center">
-                    <span class="block"><?php echo $v['s_name']; ?></span>
+                    <span class="block"><?php echo $v['u_name']; ?></span>
                 </td>
                 <td class="center" >
                     <span class="block"><?php echo shenqing_level($v['s_level']) ; ?></span>

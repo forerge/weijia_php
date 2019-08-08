@@ -1,10 +1,10 @@
 ﻿{include file="common/head" /}
 <body>
- <div class="wrap">
+<form action="update" method="post" enctype="multipart/form-data">
+    <div class="wrap">
   <div class="page-title">
-     <span class="modular fl"><i class="edit_user"></i><em>编辑用户资料</em></span>
+     <span class="modular fl"><i class="edit_user"></i><em>用户基本资料</em></span>
   </div>
-  <form action="update" method="post" enctype="multipart/form-data">
       <input type="hidden" class="textBox length-middle" name="u_id" value="<?php echo $u_id; ?>"/>
      <table class="list-style">
     <tr>
@@ -31,25 +31,6 @@
          <input <?php if($u_four ==1 ){echo "checked";} ?> type="checkbox" value="<?php echo $u_four?$u_one:-1; ?>" name="u_four" id="jingpin4"/>
          <label for="jingpin4">职业经纪人</label>
      </td>
-        <script>
-            window.onload = function () {
-                new uploadPreview({ UpBtn: "up_img", DivShow: "imgdiv", ImgShow: "imgShow" });
-                new uploadPreview({ UpBtn: "up_img1", DivShow: "imgdiv1", ImgShow: "imgShow1" });
-                new uploadPreview({ UpBtn: "up_img2", DivShow: "imgdiv2", ImgShow: "imgShow2" });
-            }
-        </script>
-    </tr>
-         <tr>
-             <td style="text-align:right;">证件照片：</td>
-             <td ><input type="file" name="u_img"  class="textBox " id="up_img" /><span id="imgdiv"><img src="{$Think.PROJECT_PATH}/public/uploads/{$u_img}" id="imgShow" width="100" height="100" /></span></td>
-         </tr>
-         <tr>
-             <td style="text-align:right;">身份证正面照：</td>
-             <td><input type="file" name="u_num0"  class="textBox " id="up_img1"  /><span id="imgdiv1"><img src="{$Think.PROJECT_PATH}/public/uploads/{$u_num0}"  id="imgShow1" width="100" height="100" /></span></td>
-         </tr>
-         <tr>
-             <td style="text-align:right;">身份证反面照：</td>
-             <td><input type="file" name="u_num1"  class="textBox " id="up_img2"  /><span id="imgdiv2"><img  src="{$Think.PROJECT_PATH}/public/uploads/{$u_num1}" id="imgShow2" width="100" height="100" /></span></td>
          </tr>
          <tr>
              <td style="text-align:right;">邀请码：</td>
@@ -59,6 +40,7 @@
              <td style="text-align:right;">受邀码：</td>
              <td><input disabled type="text" value="<?php echo $u_mato ?>"  class="textBox length-long" /></td>
          </tr>
+
          <tr>
              <td style="text-align:right;">租房福利券</td>
              <td>
@@ -68,21 +50,58 @@
                  剩余：<input disabled type="text"  class="textBox length-short" />
              </td>
          </tr>
-         <tr>
-             <td style="text-align:right;">非租房福利券：</td>
-             <td>
-                 总数：<input disabled type="text"  class="textBox length-short" />
-                 使用：<input disabled type="text"  class="textBox length-short" />
-                 剩余：<input disabled type="text"  class="textBox length-short" />
-             </td>
-         </tr>
-    <tr>
-     <td style="text-align:right;"></td>
-     <td><input type="submit" class="tdBtn" value="更新保存"/></td>
-    </tr>
    </table>
-  </form>
-
  </div>
+    <div class="wrap">
+        <div class="page-title">
+            <span class="modular fl"><i class="edit_user"></i><em>更多资料</em></span>
+        </div>
+        <table class="list-style">
+            <tr>
+                <td style="width:15%;text-align:right;">真实姓名：</td>
+                <td><input type="text" class="textBox length-middle" name="u_name" value="<?php echo $u_name; ?>" /></td>
+            </tr>
+            <tr>
+                <td style="width:15%;text-align:right;">身份证号：</td>
+                <td><input type="text" class="textBox length-middle" name="u_num" value="<?php echo $u_num; ?>" /></td>
+            </tr>
+            <tr>
+                <td style="width:15%;text-align:right;">押金：</td>
+                <td><input type="text" class="textBox length-middle" name="u_money" value="<?php echo $u_money; ?>" /></td>
+            </tr>
+            <script>
+                window.onload = function () {
+                    new uploadPreview({ UpBtn: "up_img", DivShow: "imgdiv", ImgShow: "imgShow" });
+                    new uploadPreview({ UpBtn: "up_img1", DivShow: "imgdiv1", ImgShow: "imgShow1" });
+                    new uploadPreview({ UpBtn: "up_img2", DivShow: "imgdiv2", ImgShow: "imgShow2" });
+                }
+            </script>
+            <tr>
+                <td style="text-align:right;">证件照片：</td>
+                <td ><span><input type="file" name="u_img"  class="textBox " id="up_img" /></span><span id="imgdiv"><img src="{$Think.PROJECT_PATH}/public/uploads/{$u_img}" id="imgShow" width="100" height="100" /></span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">身份证正面照：</td>
+                <td><input type="file" name="u_num0"  class="textBox " id="up_img1"  /><span id="imgdiv1"><img src="{$Think.PROJECT_PATH}/public/uploads/{$u_num0}"  id="imgShow1" width="100" height="100" /></span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">身份证反面照：</td>
+                <td><input type="file" name="u_num1"  class="textBox " id="up_img2"  /><span id="imgdiv2"><img  src="{$Think.PROJECT_PATH}/public/uploads/{$u_num1}" id="imgShow2" width="100" height="100" /></span></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">非租房福利券：</td>
+                <td>
+                    总数：<input disabled type="text"  class="textBox length-short" />
+                    使用：<input disabled type="text"  class="textBox length-short" />
+                    剩余：<input disabled type="text"  class="textBox length-short" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;"></td>
+                <td><input type="submit" class="tdBtn" value="更新保存"/></td>
+            </tr>
+        </table>
+    </div>
+</form>
 </body>
 </html>
