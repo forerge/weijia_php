@@ -170,23 +170,92 @@
     <td style="text-align:right;">房源描述：</td>
     <td><textarea name="h_content" class="textarea"><?php echo $h_content ?></textarea></td>
    </tr>
+   <style>
+      #house_uploads>div{
+       float:left;
+       width:130px;
+       height:130px;
+       margin-right: 5px;
+      }
+      .house_img_many{
+       /*width: 130px;*/
+       /*height: 130px;*/
+       line-height: 130px;
+       text-align: center;
+       background: #96aecd;
+       font-size: 66px;
+       color: #fff;
+      }
+      .house_img_many_div{
+       position: relative;
+       border: 1px solid #666;
+      }
+      .house_img_many_div input{
+       width: 85px;
+       height: 36px;
+       border: 1px solid #666;
+      }
+      .house_img_many_div span{
+       width: 41px;
+       display: block;
+       height: 36px;
+       position: absolute;
+       top: 0px;
+       left: 86px;
+       line-height: 32px;
+       text-align: center;
+       font-size: 30px;
+       background: red;
+       color: #fff;
+      }
+      .house_img_many_div div{
+       width: 100%;
+       height: 90px;
+      }
+      .house_img_many_div div img{
+       width: 100%;
+       height: 100%;
+      }
+   </style>
+
    <tr>
     <td style="text-align:right;">详情照片：</td>
-    <td>
-     <input type="file"  multiple="multiple" id="chanpinzhutu" class="hide"/>
-     <label for="chanpinzhutu" class="labelBtn2">本地上传(最多选择N张)</label>
+    <td id="house_uploads">
+      <div class="house_img_many" id="house_img_many">+</div>
+     <?php if(!empty($h_uploads)){ ?>
+     <?php foreach($h_uploads as $k => $v){ ?>
+        <div class="house_img_many_div" id="house_img_many_div<?php echo $k ?>" data-id="<?php echo $k ?>">
+         <input type="file" name="h_uploads[]"  class="textBox " id="up_img<?php echo $k ?>" /><span onclick="del_upload(<?php echo $k ?>)">-</span><div id="imgdiv<?php echo $k ?>"><img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $h_uploads[$k] ;?>" id="img_img<?php echo $k ?>" width="100" height="100" /></div>
+        </div>
+     <?php }}else{ ?>
+        <div class="house_img_many_div" id="house_img_many_div1" data-id="1">
+         <input type="file" name="h_uploads[]"  class="textBox " id="up_img1" /><span onclick="del_upload(1)">-</span><div id="imgdiv1"><img src="" id="img_img1" width="100" height="100" /></div>
+        </div>
+     <?php } ?>
     </td>
    </tr>
-   <tr>
-    <td style="text-align:right;"></td>
-    <td>
-     <img src="#" width="80" height="80"/>
-     <img src="#" width="80" height="80"/>
-     <img src="#" width="80" height="80"/>
-     <img src="#" width="80" height="80"/>
-     <img src="#" width="80" height="80"/>
-    </td>
-   </tr>
+   <script>
+      $('#house_img_many').on('click',function(){
+        var height = $('#house_uploads').children("div:last-child").attr('data-id');
+        var num = ++height;
+        var dome = $('#house_uploads');
+        dome.append("<div class='house_img_many_div' id='house_img_many_div"+num+"' data-id='"+num+"'> <input type='file' name='h_uploads[]'  class='textBox' id='up_img"+num+"' /> <span onclick='del_upload("+num+")'>-</span><div id='imgdiv"+num+"'><img src='' id='img_img"+num+"' width='100' height='100' /></div></div>")
+           new uploadPreview({ UpBtn: "up_img"+num, DivShow: "imgdiv"+num, ImgShow: "img_img"+num });
+      })
+      function del_upload(obj){
+       $('#house_img_many_div'+obj).remove();
+      }
+   </script>
+   <script>
+      window.onload = function () {
+       new uploadPreview({ UpBtn: "up_img0", DivShow: "imgdiv0", ImgShow: "img_img0" });
+       new uploadPreview({ UpBtn: "up_img1", DivShow: "imgdiv1", ImgShow: "img_img1" });
+       new uploadPreview({ UpBtn: "up_img2", DivShow: "imgdiv2", ImgShow: "img_img2" });
+       new uploadPreview({ UpBtn: "up_img3", DivShow: "imgdiv3", ImgShow: "img_img3" });
+       new uploadPreview({ UpBtn: "up_img4", DivShow: "imgdiv4", ImgShow: "img_img4" });
+       new uploadPreview({ UpBtn: "up_img5", DivShow: "imgdiv5", ImgShow: "img_img5" });
+      }
+   </script>
    <tr>
     <td style="text-align:right;"></td>
     <td><input type="submit" value="修改" class="tdBtn"/></td>
