@@ -45,22 +45,14 @@ class House extends Controller{
             $images = json_decode($data['h_uploads'],true);
             unset($list['h_id']);
             $result = HouseModel::upload_add($images);
-            HouseModel::del_images($images);
+//            HouseModel::del_images($images);
             $list['h_config'] = json_encode($list['h_config'],true);
             $list['h_ask'] = json_encode($list['h_ask'],true);
             $list['h_inmoney'] = json_encode($list['h_inmoney'],true);
-            var_dump($images);
-            echo '<hr>';
-            var_dump($result[0]);
-            echo '<hr>';
-            var_dump($result[1]);die;
+            $list['h_uploads'] = json_encode($result[1],true);
             $house = new HouseModel();
-            if($house->save($list,['h_id'=>$id])){
-                $this->redirect('/admin/house/index');
-            }else{
-                $this->error('修改失败！');
-            }
-
+            $house->save($list,['h_id'=>$id]);
+            $this->redirect('/admin/house/index');
         }else{
             $id = $_GET['id'];
             $list = Db::table('house')->where('h_id','=',$id)->find();
@@ -72,6 +64,17 @@ class House extends Controller{
             $this->assign($list);
         }
         return $this->fetch();
+    }
+
+    public function del_image(){
+        $list = Db::table('house')->where('h_id','=',$_POST['h_id'])->find();
+        $uploads = json_decode($list['h_uploads'],true);
+        unset($uploads[$_POST['num']]);
+        $json = json_encode($uploads,true);
+        if(file_exists(ROOT_PATH . 'public' . DS . 'uploads'.DS.$uploads[$_POST['num']])) {
+            unlink(ROOT_PATH . 'public' . DS . 'uploads' . DS . $uploads[$_POST['num']]);
+        }
+        Db::table('house')->where('h_id','=',$_POST['h_id'])->update(['h_uploads'=>$json]);
     }
 
 

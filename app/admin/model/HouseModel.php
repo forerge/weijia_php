@@ -14,18 +14,22 @@ class HouseModel extends Model{
             $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'. DS . 'house');
             if($info){
                 $list[] = 'house\\'.$info->getSaveName();
-            }else{
-                // 上传失败获取错误信息
-                echo $file->getError().'错误';
             }
         }
         if(!empty($data)){
             foreach($_FILES['h_uploads']['name'] as $k => $v){
-                if(!empty($v) && isset($data[$k])){
-                    $new = 0;
-                    unlink(ROOT_PATH . 'public' . DS . 'uploads'.DS.$data[$k]);
-                    $data[$k] = $list[$new];
-                    $new++;
+                if(!empty($v)){
+                    static $new = 0;
+                    if(isset($data[$k])){
+                        if(file_exists(ROOT_PATH . 'public' . DS . 'uploads'.DS.$data[$k])){
+                            unlink(ROOT_PATH . 'public' . DS . 'uploads'.DS.$data[$k]);
+                        }
+                        $data[$k] = $list[$new];
+                    }
+                    if(!isset($data[$k])){
+                        $data[$k] = $list[$new];
+                    }
+                    $new+=1;
                 }
             }
             return [$list,$data];
@@ -35,13 +39,7 @@ class HouseModel extends Model{
 
     }
 
-    public static function del_images($data){
-        foreach($_FILES['h_uploads']['name'] as $k => $v){
-            if(!empty($v) && isset($data[$k])){
-                unlink(ROOT_PATH . 'public' . DS . 'uploads'.DS.$data[$k]);
-            }
-        }
-
+    public static function upload_update($data){
     }
 
 }
