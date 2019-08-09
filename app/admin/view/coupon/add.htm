@@ -2,40 +2,34 @@
 <body>
 <div class="wrap">
     <div class="page-title">
-        <span class="modular fl"><i class="add_user"></i><em>管理员添加</em></span>
+        <span class="modular fl"><i class="add_user"></i><em>福利券添加</em></span>
     </div>
-    <form action="/admin/admin/add" method="post">
+    <form action="/admin/coupon/add" method="post">
         <table class="list-style">
             <tr>
-                <td style="width:15%;text-align:right;">管理员昵称：</td>
-                <td><input type="text" name="a_name" class="textBox length-middle"/></td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">会员等级：</td>
+                <td style="text-align:right;">获取人：</td>
                 <td>
-                    <select name="a_level" class="textBox">
+                    <select name="cu_id" class="textBox">
                         <option >--请选择--</option>
-                        <option value=1>--总管--</option>
-                        <option value=2>--主管--</option>
-                        <option value=3>--员工--</option>
+                        <?php foreach($users as $v){ ?>
+                            <option value="<?php echo $v['u_id']; ?>"><?php echo $v['u_name']; ?></option>
+                        <?php } ?>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td style="text-align:right;">设置密码：</td>
-                <td><input type="text" name="a_pwd" class="textBox length-middle"/></td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">管理员邮箱：</td>
-                <td><input type="text" name="a_email" class="textBox length-middle"/></td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">手机号码：</td>
-                <td><input type="text" name="a_phone" class="textBox length-middle"/></td>
+                <td style="text-align:right;">福利券类型：</td>
+                <td>
+                    <select name="c_level" class="textBox">
+                        <option value="0" >--请选择--</option>
+                        <option value="1" >--租房类型--</option>
+                        <option value="2" >--非租房类型--</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td style="text-align:right;"></td>
-                <td><input type="submit" class="tdBtn" value="添加新用户"/></td>
+                <td><input type="submit" class="tdBtn" value="添加"/></td>
             </tr>
         </table>
     </form>
