@@ -75,3 +75,25 @@ function house_elevator($a){
     $arr = ['不限','有','无'];
     return $arr[$num];
 }
+
+function coupon_status($a){
+    $num = is_int($a)?$a:intval($a);
+    $arr = ['不限','未用','已用'];
+    return $arr[$num];
+}
+function coupon_level($a){
+    $num = is_int($a)?$a:intval($a);
+    $arr = ['不限','租房福利券','非租房福利券'];
+    return $arr[$num];
+}
+function coupon_state($a){
+    $num = is_int($a)?$a:intval($a);
+    $arr = ['不限','未赠送','已赠送'];
+    return $arr[$num];
+}
+
+function meet_level($a){
+    $num = is_int($a)?$a:intval($a);
+    $arr = [-1=>'拒绝',0=>'不限',1=>'申请中',2=>'预约成功'];
+    return $arr[$num];
+}

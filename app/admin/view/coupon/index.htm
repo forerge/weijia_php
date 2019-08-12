@@ -24,46 +24,38 @@
     <table class="list-style">
         <tr>
             <th class="center">编号</th>
-            <th class="center">初创者</th>
+            <th class="center">拥有者</th>
+            <th class="center">初建者</th>
             <th class="center">类型</th>
             <th class="center">创建时间</th>
-            <th class="center">是否转赠</th>
-            <th class="center">转赠时间</th>
-            <th class="center">是否使用</th>
-            <th class="center">所属权</th>
             <th class="center">操作</th>
         </tr>
+        <?php if(!empty($list)){ ?>
+        <?php foreach($list as $k => $v){ ?>
             <tr>
                 <td class="center">
-                    <span class="block">45</span>
+                    <span class="block"><?php echo $k; ?></span>
                 </td>
                 <td class="center">
-                    <span class="block">张三</span>
+                    <span class="block"><?php echo $v['cu_sname']; ?></span>
                 </td>
                 <td class="center">
-                    <span class="block">租客代金券</span>
-                </td>
-                <td class="center" >
-                    <span class="block">2019-04-05  13:22:22</span>
-                </td>
-                <td class="center" >
-                    <span class="block">否</span>
-                </td>
-                <td class="center" >
-                    <span class="block">为转赠</span>
-                </td>
-                <td class="center" >
-                    <span class="block">否</span>
+                    <span class="block"><?php echo $v['cu_name']; ?></span>
                 </td>
                 <td class="center">
-                    <span class="block">张三</span>
+                    <span class="block"><?php echo coupon_level($v['c_level']); ?></span>
+                </td>
+                <td class="center" >
+                    <span class="block"><?php echo date('Y-m-d H:i:s',$v['c_ctime']); ?></span>
                 </td>
                 <td class="center" width="260">
-                    <a href="update.html" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                    <a href="/admin/coupon/update?id=<?php echo $v['c_id']; ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
                     <a class="inline-block"  title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
                 </td>
             </tr>
+        <?php }} ?>
     </table>
+
 </div>
 <style>
     .pagination{

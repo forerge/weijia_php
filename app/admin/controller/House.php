@@ -45,11 +45,13 @@ class House extends Controller{
             $images = json_decode($data['h_uploads'],true);
             unset($list['h_id']);
             $result = HouseModel::upload_add($images);
-//            HouseModel::del_images($images);
             $list['h_config'] = json_encode($list['h_config'],true);
             $list['h_ask'] = json_encode($list['h_ask'],true);
             $list['h_inmoney'] = json_encode($list['h_inmoney'],true);
-            $list['h_uploads'] = json_encode($result[1],true);
+            if(!empty($result[1])){
+                $list['h_uploads'] = json_encode($result[1],true);
+            }
+
             $house = new HouseModel();
             $house->save($list,['h_id'=>$id]);
             $this->redirect('/admin/house/index');

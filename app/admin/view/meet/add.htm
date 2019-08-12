@@ -4,12 +4,12 @@
     <div class="page-title">
         <span class="modular fl"><i class="add_user"></i><em>福利券添加</em></span>
     </div>
-    <form action="/admin/coupon/add" method="post">
+    <form action="/admin/meet/add" method="post">
         <table class="list-style">
             <tr>
-                <td style="text-align:right;">获取人：</td>
+                <td style="text-align:right;">预约人：</td>
                 <td>
-                    <select name="cu_id" class="textBox" id="cu_id">
+                    <select name="u_id" class="textBox" id="cu_id">
                         <option >--请选择--</option>
                         <?php foreach($users as $v){ ?>
                             <option value="<?php echo $v['u_id']; ?>"><?php echo $v['u_name']; ?></option>
@@ -17,20 +17,20 @@
                     </select>
                 </td>
             </tr>
-            <input type="hidden" id="c_name" name="cu_name">
             <tr>
-                <td style="text-align:right;">福利券类型：</td>
+                <td style="text-align:right;">房源：</td>
                 <td>
-                    <select name="c_level" class="textBox">
+                    <select name="h_id" class="textBox">
                         <option value="0" >--请选择--</option>
-                        <option value="1" >--租房类型--</option>
-                        <option value="2" >--非租房类型--</option>
+                        <?php foreach($houses as $vv){ ?>
+                        <option value="<?php echo $vv['h_id']; ?>"><?php echo $vv['hu_name']; ?></option>
+                        <?php } ?>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td style="text-align:right;"></td>
-                <td><input type="submit" class="tdBtn" value="添加"/></td>
+                <td><input type="submit" class="tdBtn" value="预约"/></td>
             </tr>
         </table>
     </form>

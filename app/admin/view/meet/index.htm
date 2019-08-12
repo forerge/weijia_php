@@ -5,100 +5,66 @@
         <span class="block fl"><i class="order"></i><em>管理员列表</em></span>
     </div>
     <div class="operate">
-        <form>
+        <form action="/admin/meet/index" method="post" >
             <img class="edit_top" src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_search.gif"/>
-            <input type="text" class="textBox length-long" style="width:130px" placeholder="邀约人..."/>
-            <input type="text" class="textBox length-long" style="width:130px" placeholder="被邀约人..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="邀约人名称..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="邀约人电话..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="房源联系人..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="房源联系电话..."/>
             <select class="inline-select">
-                <option>--预约结果--</option>
-                <option>--成功--</option>
-                <option>--失败--</option>
-            </select>
-            <select class="inline-select">
-                <option>--省--</option>
-                <option>上海</option>
-            </select>
-            <select class="inline-select">
-                <option>--市--</option>
-                <option>上海市</option>
-            </select>
-            <select class="inline-select">
-                <option>--区/县--</option>
-                <option>嘉定区</option>
-            </select>
-            <select class="inline-select">
-                <option>--镇/乡--</option>
-                <option>马陆镇</option>
-            </select>
-            <select class="inline-select">
-                <option>--是否受委托--</option>
-                <option>受委托</option>
-                <option>自主</option>
-            </select>
-            <select class="inline-select">
-                <option>--出租类型--</option>
-                <option>整租</option>
-                <option>合租</option>
-            </select>
-            <select class="inline-select">
-                <option>--付款方式--</option>
-                <option>压一付一</option>
-                <option>压一付三</option>
-                <option>半年付</option>
+                <option>--预约状态--</option>
+                <option>--申请中--</option>
+                <option>--预约成功--</option>
+                <option>--预约失败--</option>
             </select>
             <input type="button" value="查询" class="tdBtn"/>
         </form>
     </div>
     <table class="list-style">
         <tr>
-            <th>编号</th>
-            <th>预约人</th>
-            <th>预约人编号</th>
-            <th>电话</th>
-            <th>预约时间</th>
-            <th>受约人</th>
-            <th>房屋编号</th>
-            <th>电话</th>
-            <th>地址</th>
-            <th>是否成功</th>
-            <th>操作</th>
+            <th  class="center">编号</th>
+            <th  class="center">预约人名称</th>
+            <th  class="center">预约人联系电话</th>
+            <th  class="center">预约时间</th>
+            <th  class="center">地址</th>
+            <th  class="center">房源联系人</th>
+            <th  class="center">房源联系电话</th>
+            <th  class="center">预约状态</th>
+            <th  class="center">操作</th>
         </tr>
+        <?php if(!empty($list)){ ?>
+        <?php foreach($list as $k => $v){ ?>
         <tr>
             <td class="center">
-                <a href="order_detail.html">1</a>
+                <a href="order_detail.html"><?php echo $k; ?></a>
             </td>
             <td class="center">
-                <span class="block">张三</span>
+                <span class="block"><?php echo $v['mu_name']; ?></span>
             </td>
             <td class="center">
-                <span class="block">55</span>
+                <span class="block"><?php echo $v['mu_phone']; ?></span>
             </td>
             <td class="center">
-                <span class="block">15869693636</span>
+                <span class="block"><?php echo date('Y-m-d H:i:s',$v['m_ctime']);  ?></span>
             </td>
             <td class="center">
-                <span class="block">2019-04-05  18:30:00</span>
+                <span class="block"><?php echo $v['mh_addr']; ?></span>
             </td>
             <td class="center">
-                <span class="block">李四</span>
+                <span class="block"><?php echo $v['mh_name']; ?></span>
             </td>
             <td class="center">
-                <span class="block">66</span>
+                <span class="block"><?php echo $v['mh_phone']; ?></span>
             </td>
             <td class="center">
-                <span class="block">15869693636</span>
-            </td>
-            <td class="center">
-                <span class="block">上海、上海市、嘉定区、马陆镇、清水湾33号楼1204室</span>
-            </td>
-            <td class="center">
-                <span class="block">是</span>
+                <span class="block"><?php echo meet_level($v['m_level']); ?></span>
             </td>
             <td class="center" width="260">
-                <a href="update" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                <a href="/admin/meet/update?id=<?php echo $v['m_id']; ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
                 <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
             </td>
         </tr>
+        <?php }} ?>
     </table>
     <!-- BatchOperation -->
     <div style="overflow:hidden;">

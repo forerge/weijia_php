@@ -2,15 +2,30 @@
 namespace  app\admin\controller;
 use think\Controller;
 use app\admin\model\CouponModel;
+use think\Request;
 use think\Db;
 
 class Coupon extends Controller{
    public function index(){
+       $list = Db::table('coupon')->select();
+       $this->assign('list',$list);
        return $this->fetch();
    }
 
     public function update(){
+        if($_POST){
+            $list = $_POST;
+            $id = $list['c_id'];
+            unset($list['c_id']);
+            $cou = new CouponModel();
+            $cou->save($list,['c_id'=>$id]);
+            $this->redirect('/admin/coupon/index');
+        }else{
+            $id = $_GET['id'];
+            $coupon = Db::table('coupon')->where('c_id','=',$id)->find();
+            $this->assign($coupon);
             return $this->fetch();
+        }
     }
 
     public function del(){
@@ -31,6 +46,8 @@ class Coupon extends Controller{
             }
             $map['c_status'] = 1;
             $map['c_state'] = 1;
+            $map['cu_name'] = $_POST['cu_name'];
+            $map['cu_sname'] = $_POST['cu_name'];
             $map['c_ctime'] =time();
             $map['cu_id'] = $_POST['cu_id'];
             $cou = new CouponModel();
