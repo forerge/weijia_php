@@ -1,6 +1,7 @@
 <?php
 namespace  app\admin\controller;
 use think\Controller;
+use app\admin\model\CouponModel;
 use think\Db;
 
 class Coupon extends Controller{
@@ -19,12 +20,22 @@ class Coupon extends Controller{
 
     public function add(){
         if($_POST){
+            $company_data = Db::table('record')->find();
+            $r_money0 = $company_data['r_coupon0'];     //租房劵的面值
+            $r_money1 = $company_data['r_coupon0'];     //非租房劵的面值
             $map['c_level'] = $_POST['c_level'];
+            if($_POST['c_level'] == 1){
+                $map['c_money'] = $r_money0;
+            }else if($_POST['c_level'] == 2){
+                $map['c_money'] = $r_money1;
+            }
             $map['c_status'] = 1;
             $map['c_state'] = 1;
             $map['c_ctime'] =time();
             $map['cu_id'] = $_POST['cu_id'];
-            var_dump($_POST);die;
+            $cou = new CouponModel();
+            $cou->save($map);
+            $this->redirect('/admin/coupon/index');
         }else{
             $users = Db::table('user')->field('u_id,u_name')->select();
             $this->assign('users',$users);

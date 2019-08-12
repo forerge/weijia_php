@@ -9,7 +9,7 @@ class Login extends Controller{
        if($_POST){
            $name = trim($_POST['a_name']);
            $pw = trim($_POST['a_pwd']);
-           $list = Db::table('admin')->where('a_name','=',$name)->find();
+           $list = Db::table('admin')->where('a_name','=',$name)->where('a_status','=',1)->find();
            if(empty($list)){
                return $this->error('账号不存在！');
            }
