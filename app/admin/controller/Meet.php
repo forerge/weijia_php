@@ -30,7 +30,7 @@ class Meet extends Controller{
             $house['h_config'] = json_decode($house['h_config'],true);
             $house['h_ask'] = json_decode($house['h_ask'],true);
             $house['h_inmoney'] = json_decode($house['h_inmoney'],true);
-            if(!empty($h_uploads)){
+            if(!empty($house['h_uploads'])){
                 $house['h_uploads'] = json_decode($house['h_uploads'],true);
             }else{
                 $house['h_uploads'] = [];

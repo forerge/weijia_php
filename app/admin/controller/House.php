@@ -48,9 +48,18 @@ class House extends Controller{
             $list['h_config'] = json_encode($list['h_config'],true);
             $list['h_ask'] = json_encode($list['h_ask'],true);
             $list['h_inmoney'] = json_encode($list['h_inmoney'],true);
-            if(!empty($result[1])){
-                $list['h_uploads'] = json_encode($result[1],true);
+            if(!empty($images)){
+                if(!empty($result[1])){
+                    $list['h_uploads'] = json_encode($result[1],true);
+                }else{
+                    $list['h_uploads'] = json_encode($images,true);
+                }
+            }else{
+                if(!empty($result)){
+                    $list['h_uploads'] = json_encode($result,true);
+                }
             }
+
 
             $house = new HouseModel();
             $house->save($list,['h_id'=>$id]);

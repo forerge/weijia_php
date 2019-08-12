@@ -262,7 +262,9 @@
      <?php } ?>
      <?php }else{ ?>
         <div class="house_img_many_div" id="house_img_many_div1" data-id="1">
-         <input type="file" name="h_uploads[]"  class="textBox " id="up_img1" /><span onclick="del_upload(1)">-</span><div id="imgdiv1"><img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $h_uploads[0] ;?>" id="img_img1" width="100" height="100" /></div>
+         <input type="file" name="h_uploads[]"  class="textBox " id="up_img1" />
+         <span onclick="del_upload(1)">-</span>
+         <div id="imgdiv1"><img src="" id="img_img1" width="100" height="100" /></div>
         </div>
      <?php } ?>
     </td>
@@ -290,6 +292,11 @@
        new uploadPreview({ UpBtn: "up_img4", DivShow: "imgdiv4", ImgShow: "img_img4" });
        new uploadPreview({ UpBtn: "up_img5", DivShow: "imgdiv5", ImgShow: "img_img5" });
       }
+   </script>
+   <script>
+    window.onload = function () {
+     new uploadPreview({ UpBtn: "up_img1", DivShow: "imgdiv1", ImgShow: "img_img1" });
+    }
    </script>
    <tr>
     <td style="text-align:right;"></td>
