@@ -13,21 +13,6 @@ class User extends Controller{
            if(!empty($data['u_sex'])){
                $data['u_sex'] = intval($data['u_sex']);
            }
-//           if(!empty($data['tuijian'])){
-//               if(in_array(1,$data['tuijian'])){
-//                   $data['u_one'] = 1;
-//               }
-//               if(in_array(2,$data['tuijian'])){
-//                   $data['u_two'] = 1;
-//               }
-//               if(in_array(3,$data['tuijian'])){
-//                   $data['u_three'] = 1;
-//               }
-//               if(in_array(4,$data['tuijian'])){
-//                   $data['u_four'] = 1;
-//               }
-//               unset($data['tuijian']);
-//           }
            $list = Db::table('user')->where($data)->select();
        }else{
            $list = Db::table('user')->select();
@@ -58,15 +43,16 @@ class User extends Controller{
     public function update(){
         if($_POST){
             $data = array_filter($_POST) ;
-            if(!isset($data['u_one'])){ $data['u_one'] = -1; }else{ $data['u_one'] = intval($data['u_one']); }
-            if(!isset($data['u_two'])){ $data['u_two'] = -1; }else{ $data['u_two'] = intval($data['u_two']); }
-            if(!isset($data['u_three'])){ $data['u_three'] = -1; }else{ $data['u_three'] = intval($data['u_three']); }
-            if(!isset($data['u_four'])){ $data['u_four'] = -1; }else{ $data['u_four'] = intval($data['u_four']); }
             $id = $data['u_id'];
-            CommonModel::del_img($id);//判断是否是新增数据的图片上传      新增：直接上传，  修改：要清空之前的图片
+            UserModel::del_img($id);//判断是否是新增数据的图片上传      新增：直接上传，  修改：要清空之前的图片
             unset($data['u_id']);
-            $result = CommonModel::upload_img($_POST['u_id']);     //图片上传
+            $result = UserModel::upload_img($_POST['u_id']);     //图片上传
             $data = array_merge($data,$result);
+            if(!isset($data['u_one'])){ $data['u_one'] = '-1'; }
+            if(!isset($data['u_two'])){ $data['u_two'] = '-1'; }
+            if(!isset($data['u_three'])){ $data['u_three'] = '-1'; }
+            if(!isset($data['u_four'])){ $data['u_four'] = '-1'; }
+            if(!isset($data['u_five'])){ $data['u_five'] = '-1'; }
             Db::table('user')->where('u_id','=',$id)->update($data);
             $this->success('修改成功！','/admin/user/index');
         }else{

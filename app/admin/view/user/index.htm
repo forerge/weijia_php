@@ -53,12 +53,12 @@
     </div>
     <table class="list-style">
         <tr>
-            <th>名称</th>
-            <th>性别</th>
-            <th>角色</th>
-            <th>手机号</th>
-            <th>创建时间</th>
-            <th>操作</th>
+            <th class="center">名称</th>
+            <th class="center">性别</th>
+            <th class="center">角色</th>
+            <th class="center">手机号</th>
+            <th class="center">创建时间</th>
+            <th class="center">操作</th>
         </tr>
         <?php if(!empty($list)){ ?>
         <?php foreach($list as $v){ ?>
@@ -75,7 +75,8 @@
                     if($v['u_one'] == 1){echo '租客、';}
                     if($v['u_two'] == 1){echo '房东、';}
                     if($v['u_three'] == 1){echo '职业房东、';}
-                    if($v['u_four'] == 1){echo '职业经纪人';}
+                    if($v['u_four'] == 1){echo '职业经纪人、';}
+                    if($v['u_five'] == 1){echo '服务/维修方';}
                     ?>
                 </span>
             </td>
