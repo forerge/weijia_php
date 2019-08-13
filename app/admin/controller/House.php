@@ -19,6 +19,7 @@ class House extends Controller{
     public function add(){
         if($_POST){
             $data = $_POST;
+            var_dump($data);die;
             $result = HouseModel::upload_add();
             $data['h_img'] = $result[0];
             $data['h_uploads'] = json_encode($result,true);
@@ -33,6 +34,8 @@ class House extends Controller{
                 $this->error('添加失败！');
             }
         }else{
+            $provinces = Db::table('j_position_provice')->select();
+            $this->assign('provinces',$provinces);
             return view();
         }
     }
@@ -86,6 +89,22 @@ class House extends Controller{
             unlink(ROOT_PATH . 'public' . DS . 'uploads' . DS . $uploads[$_POST['num']]);
         }
         Db::table('house')->where('h_id','=',$_POST['h_id'])->update(['h_uploads'=>$json]);
+    }
+
+    public function province(){
+        $id = $_POST['id'];
+        $data = Db::table('j_position_city')->where('province_id','=',$id)->select();
+        return json_encode($data,JSON_UNESCAPED_UNICODE);
+    }
+    public function city(){
+        $id = $_POST['id'];
+        $data_county = Db::table('j_position_county')->where('city_id','=',$id)->select();
+        return json_encode($data_county,JSON_UNESCAPED_UNICODE);
+    }
+    public function county(){
+        $id = $_POST['id'];
+        $data_town = Db::table('j_position_town')->where('county_id','=',$id)->select();
+        return json_encode($data_town,JSON_UNESCAPED_UNICODE);
     }
 
 

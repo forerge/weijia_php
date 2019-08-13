@@ -88,8 +88,6 @@ class Shenqing extends Controller{
             $map['u_two'] = 1;
         }
         $_POST['data'] = array_filter($map);
-//        var_dump($_POST['data']);die;
-        $user = Db::table('user')->where('u_id','=',$list['u_id'])->find();
         if($list['status'] == 1){
             Db::transaction(function(){
                 Db::table('shenqing')->where('s_id','=',$_POST['s_id'])->update(['s_status'=>2]);
@@ -98,7 +96,7 @@ class Shenqing extends Controller{
         }else{
             $result['s_status'] = -1;
             $result['s_refuse'] = $list['refuse'];
-            Db::table('shenqing')->where('s_id','=',$list['id'])->update($result);
+            Db::table('shenqing')->where('s_id','=',$list['s_id'])->update($result);
         }
         echo 1;
     }

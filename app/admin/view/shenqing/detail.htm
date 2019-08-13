@@ -40,7 +40,7 @@
          </tr>
          <tr>
              <td style="text-align:right;">拒绝意见：</td>
-             <td><textarea name="s_refuse" id="refuse" class="textarea"></textarea></td>
+             <td><textarea name="s_refuse" id="refuse" class="textarea"><?php if($s_status == '-1'){ echo $s_refuse; } ?></textarea></td>
          </tr>
          <tr>
              <td style="text-align:right;"></td>
@@ -87,7 +87,7 @@
                  status:obj,
              };
              $.post('/admin/shenqing/apply',data,function(list){
-                 console.log(list);
+                 window.location.href=document.referrer;
              })
          }
      </script>

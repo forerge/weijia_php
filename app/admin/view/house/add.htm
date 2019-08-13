@@ -9,10 +9,64 @@
             <tr>
                 <td style="text-align:right;width:15%;">地址：</td>
                 <td>
-                    <input type="text" name="h_province" class="textBox length-short"/>：省、
-                    <input type="text" name="h_city" class="textBox length-short"/>：市、
-                    <input type="text" name="h_area" class="textBox length-short"/> ：区/县、
-                    <input type="text" name="h_town" class="textBox length-short"/>：乡/镇、
+                    <select name="h_province" class="textBox" id="province">
+                        <option value="0">省</option>
+                        <?php foreach($provinces as $v){ ?>
+                            <option data-id="<?php echo $v['provice_id'] ?>" value="<?php echo $v['provice_name'] ?>"><?php echo $v['provice_name'] ?></option>
+                        <?php } ?>
+                    </select>
+                    <select name="h_city" class="textBox" id="city">
+                        <option value="0">市</option>
+                    </select>
+                    <select name="h_area" class="textBox" id="county">
+                        <option value="0">区/县</option>
+                    </select>
+                    <select name="h_town" class="textBox" id="town">
+                        <option value="0">乡/镇</option>
+                    </select>
+                    <script>
+                        $('#province').on('change',function(){
+                            var id = $(this).find('option:selected').attr('data-id');
+                            $.post('/admin/house/province',{id:id},function(list){
+                                var list = JSON.parse(list,true);
+                                var html = '';
+                                $.each(list,function(k,v){
+                                    html += "<option data-id='"+v['city_id']+"' value='"+v['city_name']+"'>"+v['city_name']+"</option>";
+                                })
+                                $("#city").empty().append(html);
+                                select_city();
+                            })
+                        })
+                        function select_city(){
+                            var id_city = $('#city').find('option:selected').attr('data-id');
+                            $.post('/admin/house/city',{id:id_city},function(list1){
+                                var list1 = JSON.parse(list1);
+                                var html1 = '';
+                                $.each(list1,function(k1,v1){
+                                    html1 += "<option data-id='"+v1['county_id']+"' value='"+v1['county_name']+"'>"+v1['county_name']+"</option>"
+                                })
+                                $("#county").empty().append(html1);
+                                select_county();
+                            })
+                        }
+                        function select_county(){
+                            var id_qv = $('#county').find('option:selected').attr('data-id');
+                            $.post('/admin/house/county',{id:id_qv},function(list2){
+                                var list2 = JSON.parse(list2);
+                                var html2 = '';
+                                $.each(list2,function(k2,v2){
+                                    html2 += "<option data-id='"+v2['town_id']+"' value='"+v2['town_name']+"'>"+v2['town_name']+"</option>";
+                                })
+                                $('#town').empty().append(html2);
+                            })
+                        }
+                        $('#city').on('change',function(){
+                            select_city();
+                        })
+                        $('#qv').on('change',function(){
+                            select_county();
+                        })
+                    </script>
                     <input type="text" style="width:130px" name="h_qv" class="textBox length-short"/>：小区，
                     详细地址：<input type="text" name="h_addr" class="textBox length-long"/>
                 </td>
