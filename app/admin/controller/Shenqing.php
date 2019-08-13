@@ -76,19 +76,26 @@ class Shenqing extends Controller{
 
     public function apply(){
         $list = $_POST;
-        $map['u_tname'] = $list['name'];
-        $map['u_num'] = $list['num'];
-        $map['u_img'] = $list['img'];
-        $map['u_money'] = $list['money'];
-        if($list['level'] == 1){
-            $map['u_three'] = 1;
-        }else if($list['level'] == 2){
-            $map['u_four'] = 1;
-        }else if($list['level'] == 5){
-            $map['u_two'] = 1;
-        }
-        $_POST['data'] = array_filter($map);
         if($list['status'] == 1){
+            $map['u_tname'] = $list['name'];
+            $map['u_num'] = $list['num'];
+            $map['u_img'] = $list['img'];
+            $map['u_money'] = $list['money'];
+            if($list['level'] == 1){
+                $map['u_three'] = 1;
+            }else if($list['level'] == 2){
+                $map['u_four'] = 1;
+            }else if($list['level'] == 3){
+
+
+            }else if($list['level'] == 4){
+
+
+
+            }else if($list['level'] == 5){
+                $map['u_two'] = 1;
+            }
+            $_POST['data'] = array_filter($map);
             Db::transaction(function(){
                 Db::table('shenqing')->where('s_id','=',$_POST['s_id'])->update(['s_status'=>2]);
                 Db::table('user')->where('u_id','=',$_POST['u_id'])->update($_POST['data']);

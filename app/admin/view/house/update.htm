@@ -10,10 +10,64 @@
    <tr>
     <td style="text-align:right;width:15%;">地址：</td>
     <td>
-     <input value="<?php echo $h_province; ?>"  type="text" name="h_province" class="textBox length-short"/>：省、
-     <input value="<?php echo $h_city; ?>"  type="text" name="h_city" class="textBox length-short"/>：市、
-     <input value="<?php echo $h_area; ?>"  type="text" name="h_area" class="textBox length-short"/> ：区/县、
-     <input value="<?php echo $h_town; ?>"  type="text" name="h_town" class="textBox length-short"/>：乡/镇、
+     <select name="h_province" class="textBox" id="province">
+      <option value="<?php echo $h_province; ?>"><?php echo $h_province; ?></option>
+      <?php foreach($provinces as $v){ ?>
+      <option data-id="<?php echo $v['provice_id'] ?>" value="<?php echo $v['provice_name'] ?>"><?php echo $v['provice_name'] ?></option>
+      <?php } ?>
+     </select>
+     <select name="h_city" class="textBox" id="city">
+      <option value="<?php echo $h_city; ?>"><?php echo $h_city; ?></option>
+     </select>
+     <select name="h_area" class="textBox" id="county">
+      <option value="<?php echo $h_area; ?>"><?php echo $h_area; ?></option>
+     </select>
+     <select name="h_town" class="textBox" id="town">
+      <option value="<?php echo $h_town; ?>"><?php echo $h_town; ?></option>
+     </select>
+     <script>
+      $('#province').on('change',function(){
+       var id = $(this).find('option:selected').attr('data-id');
+       $.post('/admin/house/province',{id:id},function(list){
+        var list = JSON.parse(list,true);
+        var html = '';
+        $.each(list,function(k,v){
+         html += "<option data-id='"+v['city_id']+"' value='"+v['city_name']+"'>"+v['city_name']+"</option>";
+        })
+        $("#city").empty().append(html);
+        select_city();
+       })
+      })
+      function select_city(){
+       var id_city = $('#city').find('option:selected').attr('data-id');
+       $.post('/admin/house/city',{id:id_city},function(list1){
+        var list1 = JSON.parse(list1);
+        var html1 = '';
+        $.each(list1,function(k1,v1){
+         html1 += "<option data-id='"+v1['county_id']+"' value='"+v1['county_name']+"'>"+v1['county_name']+"</option>"
+        })
+        $("#county").empty().append(html1);
+        select_county();
+       })
+      }
+      function select_county(){
+       var id_qv = $('#county').find('option:selected').attr('data-id');
+       $.post('/admin/house/county',{id:id_qv},function(list2){
+        var list2 = JSON.parse(list2);
+        var html2 = '';
+        $.each(list2,function(k2,v2){
+         html2 += "<option data-id='"+v2['town_id']+"' value='"+v2['town_name']+"'>"+v2['town_name']+"</option>";
+        })
+        $('#town').empty().append(html2);
+       })
+      }
+      $('#city').on('change',function(){
+       select_city();
+      })
+      $('#qv').on('change',function(){
+       select_county();
+      })
+     </script>
      <input value="<?php echo $h_qv; ?>"  type="text" style="width:130px" name="h_qv" class="textBox length-short"/>：小区，
      详细地址：<input value="<?php echo $h_addr; ?>"  type="text" name="h_addr" class="textBox length-long"/>
     </td>
@@ -61,6 +115,7 @@
      <input class="json-many"  type="checkbox" name="h_ask[zuhuwending]" <?php if(isset($h_ask['zuhuwending']) && $h_ask['zuhuwending'] ==1){echo "checked value='1'";}else{echo ''; }  ?> />租户稳定、
      <input class="json-many"  type="checkbox" name="h_ask[zuoxizhengchang]" <?php if(isset($h_ask['zuoxizhengchang']) && $h_ask['zuoxizhengchang'] ==1){echo "checked value='1'";}else{echo ''; }  ?> "/>作息正常、
      <input class="json-many"  type="checkbox" name="h_ask[jinyan]" <?php if(isset($h_ask['jinyan']) && $h_ask['jinyan'] ==1){echo "checked value='1'";}else{echo ''; }  ?> "/>禁烟
+     <input class="json-many"  type="checkbox" name="h_ask[no]" <?php if(isset($h_ask['no']) && $h_ask['no'] ==1){echo "checked value='1'";}else{echo ''; }  ?> "/>无
     </td>
    </tr>
    <tr>
@@ -73,6 +128,7 @@
      <input class="json-many"  type="checkbox" name="h_inmoney[wuyefei]" <?php if(isset($h_inmoney['wuyefei']) && $h_inmoney['wuyefei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >物业费、
      <input class="json-many"  type="checkbox" name="h_inmoney[youxiandianshifei]" <?php if(isset($h_inmoney['youxiandianshifei']) && $h_inmoney['youxiandianshifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >有限电视费、
      <input class="json-many"  type="checkbox" name="h_inmoney[tingche]" <?php if(isset($h_inmoney['tingche']) && $h_inmoney['tingche'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >停车
+     <input class="json-many"  type="checkbox" name="h_inmoney[no]" <?php if(isset($h_inmoney['no']) && $h_inmoney['no'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >无
     </td>
    </tr>
    <script>

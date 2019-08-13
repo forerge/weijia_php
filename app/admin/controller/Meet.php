@@ -10,7 +10,11 @@ class Meet extends Controller{
        if($_POST){
 
        }else{
-           $list = Db::table('meet')->select();
+           $list = Db::table('meet m')
+               ->join('user u','u.u_id=m.mu_id','left')
+               ->join('house h','h.h_id = m.mh_id','left')
+               ->field('u.u_name,u.u_phone,h.h_addr')
+               ->select();
            $this->assign('list',$list);
 
        }

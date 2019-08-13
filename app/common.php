@@ -75,6 +75,11 @@ function house_elevator($a){
     $arr = ['不限','有','无'];
     return $arr[$num];
 }
+function house_weijia($a){
+    $arr = ['不限','唯家房源','社会房源'];
+    return $arr[$a];
+}
+
 
 function coupon_status($a){
     $num = is_int($a)?$a:intval($a);

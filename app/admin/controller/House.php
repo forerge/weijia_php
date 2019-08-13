@@ -19,10 +19,13 @@ class House extends Controller{
     public function add(){
         if($_POST){
             $data = $_POST;
-            var_dump($data);die;
             $result = HouseModel::upload_add();
-            $data['h_img'] = $result[0];
-            $data['h_uploads'] = json_encode($result,true);
+            if(!empty($result)){
+                $data['h_img'] = $result[0];
+                $data['h_uploads'] = json_encode($result,true);
+            }else{
+                $data['h_uploads'] = 0;
+            }
             $data['h_config'] = json_encode($data['h_config'],true);
             $data['h_ask'] = json_encode($data['h_ask'],true);
             $data['h_inmoney'] = json_encode($data['h_inmoney'],true);
@@ -70,11 +73,12 @@ class House extends Controller{
         }else{
             $id = $_GET['id'];
             $list = Db::table('house')->where('h_id','=',$id)->find();
-//            var_dump($list);die;
             $list['h_inmoney'] = json_decode($list['h_inmoney'],true);
             $list['h_config'] = json_decode($list['h_config'],true);
             $list['h_ask'] = json_decode($list['h_ask'],true);
             $list['h_uploads'] = json_decode($list['h_uploads'],true);
+            $provinces = Db::table('j_position_provice')->select();
+            $this->assign('provinces',$provinces);
             $this->assign($list);
         }
         return $this->fetch();
