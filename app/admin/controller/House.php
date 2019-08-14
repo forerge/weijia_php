@@ -7,13 +7,10 @@ use think\Request;
 
 class House extends Controller{
    public function index(){
-       if($_POST){
-
-       }else{
-           $list = Db::table('house')->select();
-       }
-       $this->assign('list',$list);
-       return view();
+       $result = HouseModel::page_list($_POST);
+       $this->assign('list',$result['list']);
+       $this->assign('pagelist',$result['pagelist']);
+       return $this->fetch();
    }
 
     public function add(){
@@ -25,6 +22,11 @@ class House extends Controller{
                 $data['h_uploads'] = json_encode($result,true);
             }else{
                 $data['h_uploads'] = 0;
+            }
+            if(isset($data['weijia']) && $data['weijia'] == 2){
+                $data['hu_name'] = $_POST['hu_name'];
+            }else{
+                $data['hu_name'] = '唯家';
             }
             $data['h_config'] = json_encode($data['h_config'],true);
             $data['h_ask'] = json_encode($data['h_ask'],true);

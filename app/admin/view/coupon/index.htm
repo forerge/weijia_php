@@ -37,10 +37,10 @@
                     <span class="block"><?php echo $k; ?></span>
                 </td>
                 <td class="center">
-                    <span class="block"><?php echo $v['cu_sname']; ?></span>
+                    <span class="block"><?php echo $v['u_sname']; ?></span>
                 </td>
                 <td class="center">
-                    <span class="block"><?php echo $v['cu_name']; ?></span>
+                    <span class="block"><?php echo $v['u_name']; ?></span>
                 </td>
                 <td class="center">
                     <span class="block"><?php echo coupon_level($v['c_level']); ?></span>
@@ -69,27 +69,19 @@
         font-size: 16px;
     }
 </style>
-    <!-- BatchOperation -->
-    <!--<div style="overflow:hidden;">-->
-        <!-- Operation -->
-        <!-- turn page -->
-        <!--<div class="turnPage center fr">-->
-            <!--<a>第一页</a>-->
-            <!--<a>1</a>-->
-            <!--<a>最后一页</a>-->
-        <!--</div>-->
-
-    <!--</div>-->
-
-
+    <div style="overflow:hidden;">
+        <div class="turnPage center fr">
+            {$pagelist}
+        </div>
+    </div>
 </body>
 <script>
-    function del(obj){
-        if(confirm('确定删除？')){
-            $.post('/admin/admin/del',{id:obj},function(result){
-                location.replace(location);
-            })
-        }
-    }
+//    function del(obj){
+//        if(confirm('确定删除？')){
+//            $.post('/admin/admin/del',{id:obj},function(result){
+//                location.replace(location);
+//            })
+//        }
+//    }
 </script>
 </html>

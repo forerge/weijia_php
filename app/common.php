@@ -97,8 +97,21 @@ function coupon_state($a){
     return $arr[$num];
 }
 
+
 function meet_level($a){
     $num = is_int($a)?$a:intval($a);
     $arr = [-1=>'拒绝',0=>'不限',1=>'申请中',2=>'预约成功'];
+    return $arr[$num];
+}
+
+
+function fuwu_level($a){
+    $num = is_int($a)?$a:intval($a);
+    $arr = ['不限','维修服务','保洁服务'];
+    return $arr[$num];
+}
+function fuwu_status($a){
+    $num = is_int($a)?$a:intval($a);
+    $arr = ['不限','请求中','处理中','完成'];
     return $arr[$num];
 }

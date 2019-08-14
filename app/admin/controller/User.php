@@ -8,16 +8,9 @@ use think\Request;
 
 class User extends Controller{
    public function index(){
-       if($_POST){
-           $data = array_filter($_POST);
-           if(!empty($data['u_sex'])){
-               $data['u_sex'] = intval($data['u_sex']);
-           }
-           $list = Db::table('user')->where($data)->select();
-       }else{
-           $list = Db::table('user')->select();
-       }
-       $this->assign('list',$list);
+       $result = UserModel::page_data($_POST);
+       $this->assign('list',$result['list']);
+       $this->assign('pagelist',$result['pagelist']);
        return view();
    }
 

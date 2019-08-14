@@ -1,5 +1,6 @@
 <?php
 namespace app\admin\model;
+use app\admin\Tools\Page;
 use think\Model;
 use think\Upload;
 use  think\Db;
@@ -40,6 +41,23 @@ class HouseModel extends Model{
     }
 
     public static function upload_update($data){
+    }
+
+    public static function page_list($data){
+        $total = Db::table('house')->count();
+        $many = 5;
+
+        $page = new Page($total,$many);
+
+        $list = Db::table('house')->limit($page->offset,$many);
+        if(!empty($data)){
+            $map = array_filter($data);
+            $list->where($map);
+        }
+        $data_list = $list->select();
+
+        $pagelist = $page->fpage([3,4,5,6,7,8]);
+        return ['list'=>$data_list,'pagelist'=>$pagelist];
     }
 
 }

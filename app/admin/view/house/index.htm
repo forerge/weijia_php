@@ -58,7 +58,7 @@
         <?php foreach($list as $k => $v){ ?>
         <tr>
             <td class="center">
-                <a href="order_detail.html"><?php echo $k; ?></a>
+                <a href="order_detail.html"><?php echo $v['h_id']; ?></a>
             </td>
             <td class="center">
                 <span class="block"><?php echo $v['hu_name']; ?></span>
@@ -70,7 +70,7 @@
                 <span class="block"><?php echo $v['h_money']; ?></span>
             </td>
             <td class="center">
-                <span class="block"><?php echo $v['h_rule']; ?></span>
+                <span class="block"><?php echo house_rule($v['h_rule']) ; ?></span>
             </td>
             <td class="center">
                 <span class="block"><?php echo $v['h_province'].'、'.$v['h_city'].'、'.$v['h_area'].'、'.$v['h_town'].'、'.$v['h_qv'].'、'.$v['h_addr']; ?></span>
@@ -84,15 +84,8 @@
     </table>
     <!-- BatchOperation -->
     <div style="overflow:hidden;">
-        <!-- Operation -->
-        <div class="BatchOperation fl">
-            <input type="button" value="打印" class="btnStyle"/>
-        </div>
-        <!-- turn page -->
         <div class="turnPage center fr">
-            <a>第一页</a>
-            <a>1</a>
-            <a>最后一页</a>
+            {$pagelist}
         </div>
     </div>
 </div>

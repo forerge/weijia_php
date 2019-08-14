@@ -1,5 +1,6 @@
 <?php
 namespace app\admin\model;
+use app\admin\Tools\Page;
 use think\Model;
 use think\Upload;
 use  think\Db;
@@ -52,6 +53,24 @@ class UserModel extends Model{
                 unlink(ROOT_PATH . 'public' . DS . 'uploads'.DS.$list['u_num1']);
             }
         }
+    }
+
+    public static function page_data($data){
+        $total = Db::table('user')->count();
+
+        $many = 6;
+
+        $page = new Page($total,$many);
+
+        $list = Db::table('user')->limit($page->offset,$many);
+        if(!empty($data)){
+            $map = array_filter($data);
+            $list->where($map);
+        }
+        $data_list = $list->select();
+
+        $pagelist = $page->fpage([3,4,5,6,7,8]);
+        return ['list'=>$data_list,'pagelist'=>$pagelist];
     }
 
 }

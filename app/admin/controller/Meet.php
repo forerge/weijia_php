@@ -2,7 +2,7 @@
 namespace  app\admin\controller;
 use app\admin\model\MeetModel;
 use think\Controller;
-use app\admin\model\AdminModel;
+use app\admin\tools\Page;
 use think\Db;
 
 class Meet extends Controller{
@@ -10,13 +10,9 @@ class Meet extends Controller{
        if($_POST){
 
        }else{
-           $list = Db::table('meet m')
-               ->join('user u','u.u_id=m.mu_id','left')
-               ->join('house h','h.h_id = m.mh_id','left')
-               ->field('u.u_name,u.u_phone,h.h_addr')
-               ->select();
-           $this->assign('list',$list);
-
+           $result = MeetModel::page_list();
+           $this->assign('list',$result['list']);
+           $this->assign('pagelist',$result['pagelist']);
        }
        return $this->fetch();
    }
@@ -49,20 +45,13 @@ class Meet extends Controller{
 
     public function add(){
         if($_POST){
-            $house = Db::table('house')->where('h_id','=',$_POST['h_id'])->find();
-            $user = Db::table('user')->where('u_id','=',$_POST['u_id'])->find();
-            $map['mu_name'] = $user['u_name'];
             $map['mu_id'] = $_POST['u_id'];
             $map['mh_id'] = $_POST['h_id'];
-            $map['mu_phone'] = $user['u_phone'];
-            $map['mh_name'] = $house['hu_name'];
-            $map['mh_phone'] = $house['hu_phone'];
-            $map['mh_addr'] = $house['h_province'].'、'.$house['h_city'].'、'.$house['h_area'].'、'.$house['h_town'].'、'.$house['h_qv'].'、'.$house['h_addr'];
             $map['m_ctime'] = time();
             $meet = new MeetModel();
             $meet->save($map);
+//            echo Db::table('meet')->getLastSql();die;
             $this->redirect('/admin/meet/index');
-
         }else{
             $users = Db::table('user')->where('u_level','=',1)->select();
             $houses = Db::table('house')->where('h_level','=',1)->select();

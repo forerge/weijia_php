@@ -41,7 +41,7 @@ class Record extends Controller{
                 $this->redirect('/admin/record/update');
             }
         }else{
-            $list = Db::table('record')->find();
+            $list = Db::table('record')->where('r_level','=',1)->find();
             $this->assign($list);
         }
             return $this->fetch();
@@ -53,6 +53,10 @@ class Record extends Controller{
         }else{
             return $this->fetch();
         }
+    }
+
+    public function hetong(){
+        return $this->fetch();
     }
 
 

@@ -7,8 +7,9 @@ use think\Db;
 
 class Coupon extends Controller{
    public function index(){
-       $list = Db::table('coupon')->select();
-       $this->assign('list',$list);
+       $result = CouponModel::page_list($_POST);
+       $this->assign('list',$result['list']);
+       $this->assign('pagelist',$result['pagelist']);
        return $this->fetch();
    }
 
@@ -35,7 +36,7 @@ class Coupon extends Controller{
 
     public function add(){
         if($_POST){
-            $company_data = Db::table('record')->find();
+            $company_data = Db::table('record')->where('r_level','=',1)->find();
             $r_money0 = $company_data['r_coupon0'];     //租房劵的面值
             $r_money1 = $company_data['r_coupon0'];     //非租房劵的面值
             $map['c_level'] = $_POST['c_level'];
@@ -46,10 +47,9 @@ class Coupon extends Controller{
             }
             $map['c_status'] = 1;
             $map['c_state'] = 1;
-            $map['cu_name'] = $_POST['cu_name'];
-            $map['cu_sname'] = $_POST['cu_name'];
             $map['c_ctime'] =time();
             $map['cu_id'] = $_POST['cu_id'];
+            $map['cu_sid'] = $_POST['cu_id'];
             $cou = new CouponModel();
             $cou->save($map);
             $this->redirect('/admin/coupon/index');

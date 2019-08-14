@@ -6,15 +6,17 @@ use think\Db;
 
 class Shenqing extends Controller{
     public function index(){
-        if($_POST){
-
-        }else{
-            $list = Db::table('shenqing s')
-                ->join('user u','u.u_id = s.su_id','left')
-                ->field('s.*,u.u_id,u.u_name')
-                ->select();
-        }
-        $this->assign('list',$list);
+//        if($_POST){
+//
+//        }else{
+//            $list = Db::table('shenqing s')
+//                ->join('user u','u.u_id = s.su_id','left')
+//                ->field('s.*,u.u_id,u.u_name')
+//                ->select();
+//        }
+        $result = ShenqingModel::page_list($_POST);
+        $this->assign('list',$result['list']);
+        $this->assign('pagelist',$result['pagelist']);
         return $this->fetch();
     }
 
