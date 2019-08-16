@@ -48,11 +48,6 @@
              <td style="text-align:right;">受邀码（被邀请）：</td>
              <td><input disabled type="text" value="<?php echo $u_mato ?>"  class="textBox length-long" /></td>
          </tr>
-         <tr>
-             <td style="text-align:right;">暂住房源编号：</td>
-             <td><input disabled type="text" value="45"  class="textBox length-long" /></td>
-         </tr>
-
          <!--<tr>-->
              <!--<td style="text-align:right;">租房福利券</td>-->
              <!--<td>-->
@@ -64,6 +59,42 @@
          <!--</tr>-->
    </table>
  </div>
+    <div class="wrap">
+        <div class="page-title">
+            <span class="modular fl"><i class="edit_user"></i><em>用户主房资料</em></span>
+        </div>
+        <input type="hidden" class="textBox length-middle" name="u_id" value="<?php echo $u_id; ?>"/>
+        <table class="list-style">
+            <tr>
+                <td style="width:15%;text-align:right;">暂住房源：</td>
+                <td><a href="/admin/house/update?id=<?php echo $uh_id ?>"><?php echo $uh_id ?></a></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">月租金：</td>
+                <td><input disabled type="text" class="textBox length-middle" value="<?php echo $u_zujin; ?>" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">住房押金：</td>
+                <td><input type="text" disabled class="textBox length-middle" value="<?php echo $u_yajin; ?>" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">余额：</td>
+                <td><input type="text" disabled class="textBox length-middle" value="<?php echo $u_money1; ?>" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">入住时间：</td>
+                <td><input disabled type="text" value="<?php echo date('Y-m-d H:i:s',$u_intime); ?>"  class="textBox length-long" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">退房时间：</td>
+                <td><input disabled type="text" value="<?php echo date('Y-m-d H:i:s',$u_outtime); ?>"  class="textBox length-long" /></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">房源收藏：</td>
+                <td><input disabled type="text" value="<?php echo json_decode($u_shoucang,true); ?>"  class="textBox length-long" /></td>
+            </tr>
+        </table>
+    </div>
     <div class="wrap">
         <div class="page-title">
             <span class="modular fl"><i class="edit_user"></i><em>更多资料</em></span>
@@ -78,7 +109,7 @@
                 <td><input type="text" class="textBox length-middle" name="u_num" value="<?php echo $u_num; ?>" /></td>
             </tr>
             <tr>
-                <td style="width:15%;text-align:right;">押金：</td>
+                <td style="width:15%;text-align:right;">商业保证金：</td>
                 <td><input type="text" class="textBox length-middle" name="u_money" value="<?php echo $u_money; ?>" /></td>
             </tr>
             <script>

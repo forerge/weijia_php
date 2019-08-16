@@ -115,3 +115,17 @@ function fuwu_status($a){
     $arr = ['不限','请求中','处理中','完成'];
     return $arr[$num];
 }
+
+
+function book_level($a){
+    $arr = ['不限','租房合同','居间合同'];
+    return $arr[$a];
+}
+function book_state($a){
+    $arr = ['不限','有效中','到期',''];
+    return $arr[$a];
+}
+function book_status($a){
+    $arr = ['不限','审核中','审核成功','已归档'];
+    return $arr[$a];
+}

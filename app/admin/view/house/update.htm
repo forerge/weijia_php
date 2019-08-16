@@ -8,6 +8,48 @@
   <input value="<?php echo $h_id; ?>"  type="hidden" name="h_id" id="h_id" />
   <table class="list-style">
    <tr>
+    <td style="text-align:right;">特殊情况：</td>
+    <td>
+     <?php if($h_pid > 0){ ?>
+       <a href="/admin/house/update?id=<?php echo $h_pid; ?>"><?php echo $h_pid; ?></a>
+     <?php }else{ ?>
+       <span>
+        <?php
+        if($h_pid == 0){
+         echo '';
+         }else if($h_pid == -1){
+         echo '全权委托房';
+         }else if($h_pid == -2){
+         echo '委托带看房';
+         }
+        ?>
+       </span>
+     <?php } ?>
+     <span>（1、全权委托，2、委托带客看房，3、从现有房源分离出来的新房源）</span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">浏览记录：</td>
+    <td>
+     <span><?php echo json_decode($h_jilu); ?></span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">成交价：</td>
+    <td>
+     <span><?php echo json_decode($h_money1); ?></span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">是否参与推荐：</td>
+    <td>
+     <select name="h_tuijian" class="textBox">
+      <option value="1">--不参与--</option>
+      <option value="2">--参与推荐--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
     <td style="text-align:right;width:15%;">地址：</td>
     <td>
      <select name="h_province" class="textBox" id="province">
@@ -123,7 +165,7 @@
     <td>
      <input class="json-many"  type="checkbox" name="h_inmoney[shuifei]" <?php if(isset($h_inmoney['shuifei']) && $h_inmoney['shuifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >水费、
      <input class="json-many"  type="checkbox" name="h_inmoney[dianfei]" <?php if(isset($h_inmoney['dianfei']) && $h_inmoney['dianfei'] ==1){echo "checked value='1'";}else{echo ''; } ?> >电费、
-     <input class="json-many"  type="checkbox" name="h_inmoney[ranqifei]" <?php if(isset($h_inmoney['ranqifei']) && $h_inmoney['ranqifei'] ==1){echo "checked value='1'";}else{echo ''; } ?> ?>" >燃气费、
+     <input class="json-many"  type="checkbox" name="h_inmoney[ranqifei]" <?php if(isset($h_inmoney['ranqifei']) && $h_inmoney['ranqifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>" >燃气费、
      <input class="json-many"  type="checkbox" name="h_inmoney[kuandaifei]" <?php if(isset($h_inmoney['kuandaifei']) && $h_inmoney['kuandaifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >宽带费、
      <input class="json-many"  type="checkbox" name="h_inmoney[wuyefei]" <?php if(isset($h_inmoney['wuyefei']) && $h_inmoney['wuyefei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >物业费、
      <input class="json-many"  type="checkbox" name="h_inmoney[youxiandianshifei]" <?php if(isset($h_inmoney['youxiandianshifei']) && $h_inmoney['youxiandianshifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >有限电视费、

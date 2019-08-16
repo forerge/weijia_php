@@ -1,0 +1,67 @@
+{include file="common/head" /}
+<body>
+<div class="wrap">
+    <div class="page-title">
+        <span class="block fl"><i class="order"></i><em>管理员列表</em></span>
+    </div>
+    <div class="operate">
+        <form action="/admin/book/index" method="post" >
+            <img class="edit_top" src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_search.gif"/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="甲方名称..."/>
+            <select class="inline-select">
+                <option>--合同类型--</option>
+                <option>--租房合同--</option>
+                <option>--居间合同--</option>
+            </select>
+            <select class="inline-select">
+                <option>--合同状态--</option>
+                <option>--审核中--</option>
+                <option>--审核成功--</option>
+                <option>--已归档--</option>
+            </select>
+            <input type="button" value="查询" class="tdBtn"/>
+        </form>
+    </div>
+    <table class="list-style">
+        <tr>
+            <th  class="center">甲方</th>
+            <th  class="center">房源编号</th>
+            <th  class="center">合同编号</th>
+            <th  class="center">合同类型</th>
+            <th  class="center">是否归档</th>
+            <th  class="center">操作</th>
+        </tr>
+        <?php if(!empty($list)){ ?>
+        <?php foreach($list as $v){ ?>
+        <tr>
+            <td class="center">
+                <a href="/admin/user/update?id=<?php echo $v['bu_id']; ?>"><?php echo $v['u_name']; ?></a>
+            </td>
+            <td class="center">
+                <a href="/admin/house/update?id=<?php echo $v['uh_id']; ?>"><?php echo $v['uh_id']; ?></a>
+            </td>
+            <td class="center">
+                <span class="block"><?php echo ''; ?></span>
+            </td>
+            <td class="center">
+                <span class="block"><?php echo book_level($v['b_level']); ?></span>
+            </td>
+            <td class="center">
+                <span class="block"><?php echo book_status($v['b_status']);  ?></span>
+            </td>
+
+            <td class="center" width="260">
+                <a href="/admin/book/update?id=<?php echo $v['b_id']; ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                <a class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
+            </td>
+        </tr>
+        <?php  }} ?>
+    </table>
+    <div style="overflow:hidden;">
+        <div class="turnPage center fr">
+            {$pagelist}
+        </div>
+    </div>
+</div>
+</body>
+</html>
