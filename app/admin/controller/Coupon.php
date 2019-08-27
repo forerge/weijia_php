@@ -28,6 +28,9 @@ class Coupon extends Controller{
                 ->field('c.*,u.u_name')
                 ->where('c_id','=',$id)
                 ->find();
+            $cu_sname = Db::table('coupon c')->join('user u','u.u_id = c.cu_sid','left')
+                ->field('u.u_name')->where('c_id','=',$id)->find();
+            $coupon['cu_sname'] = $cu_sname['u_name'];
             $this->assign($coupon);
             return $this->fetch();
         }

@@ -22,9 +22,21 @@ class Book extends Controller{
             $image2 = BookModel::upload_people1($data);
             $image3 = BookModel::upload_people2($data);
             $map = array_filter($_POST);
-            $map['b_card'] = $image1;
-            $map['b_people1'] = $image2;
-            $map['b_people2'] = $image3;
+            if(!empty($image1)){
+                $map['b_card'] = $image1;
+            }else{
+                $image1 = '';
+            }
+            if(!empty($image2)){
+                $map['b_people1'] = $image2;
+            }else{
+                $image2 = '';
+            }
+            if(!empty($image3)){
+                $map['b_people2'] = $image3;
+            }else{
+                $image3 = '';
+            }
             $book->save($map,['b_id'=>$id]);
             $this->redirect('/admin/book/index');
 

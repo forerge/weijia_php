@@ -37,14 +37,14 @@ class Record extends Controller{
                 }
             }
             $record = new RecordModel();
-            if($record->save($list,['r_id'=>$id])){
-                $this->redirect('/admin/record/update');
-            }
-        }else{
+            $record->save($list,['r_id'=>$id]);
+//                return $this->redirect('/admin/record/update');
+//            }
+        }
             $list = Db::table('record')->where('r_level','=',1)->find();
             $this->assign($list);
-        }
-            return $this->fetch();
+
+        return $this->fetch();
     }
     public function add(){
         if($_POST){
