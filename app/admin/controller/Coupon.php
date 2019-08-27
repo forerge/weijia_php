@@ -23,7 +23,11 @@ class Coupon extends Controller{
             $this->redirect('/admin/coupon/index');
         }else{
             $id = $_GET['id'];
-            $coupon = Db::table('coupon')->where('c_id','=',$id)->find();
+            $coupon = Db::table('coupon c')
+                ->join('user u','u.u_id = c.cu_id','left')
+                ->field('c.*,u.u_name')
+                ->where('c_id','=',$id)
+                ->find();
             $this->assign($coupon);
             return $this->fetch();
         }

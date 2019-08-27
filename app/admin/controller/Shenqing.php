@@ -2,6 +2,7 @@
 namespace  app\admin\controller;
 use think\Controller;
 use app\admin\model\ShenqingModel;
+use app\admin\tools\Page;
 use think\Db;
 
 class Shenqing extends Controller{
@@ -25,24 +26,16 @@ class Shenqing extends Controller{
     }
 
    public function user(){
-       $list = Db::table('shenqing s')
-           ->join('user u','u.u_id=s.su_id','left')
-           ->field('s.*,u.u_id,u.u_name')
-           ->where('s_level','=',1)
-           ->where('s_status','=',1)
-           ->select();
-       $this->assign('list',$list);
+       $result = ShenqingModel::page_list_user();
+       $this->assign('list',$result['list']);
+       $this->assign('pagelist',$result['pagelist']);
        return $this->fetch('index');
    }
 
     public function house(){
-        $list = Db::table('shenqing s')
-            ->join('user u','u.u_id=s.su_id','left')
-            ->field('s.*,u.u_id,u.u_name')
-            ->where('s_level','=',2)
-            ->where('s_status','=',1)
-            ->select();
-        $this->assign('list',$list);
+        $result = ShenqingModel::page_list_user();
+        $this->assign('list',$result['list']);
+        $this->assign('pagelist',$result['pagelist']);
         return $this->fetch('index');
     }
 

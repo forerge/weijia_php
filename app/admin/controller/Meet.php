@@ -27,9 +27,21 @@ class Meet extends Controller{
             $house = Db::table('house h')->where('h_id','=',$meet['mh_id'])
                 ->join('user u','u.u_id = h.hu_id','left')
                 ->find();
-            $house['h_config'] = json_decode($house['h_config'],true);
-            $house['h_ask'] = json_decode($house['h_ask'],true);
-            $house['h_inmoney'] = json_decode($house['h_inmoney'],true);
+            if(!empty($house['h_config'])){
+                $house['h_config'] = json_decode($house['h_config'],true);
+            }else{
+                $house['h_config'] = '';
+            }
+            if(!empty($house['h_ask'])){
+                $house['h_ask'] = json_decode($house['h_ask'],true);
+            }else{
+                $house['h_ask'] = '';
+            }
+            if(!empty($house['h_inmoney'])){
+                $house['h_inmoney'] = json_decode($house['h_inmoney'],true);
+            }else{
+                $house['h_inmoney'] = '';
+            }
             if(!empty($house['h_uploads'])){
                 $house['h_uploads'] = json_decode($house['h_uploads'],true);
             }else{

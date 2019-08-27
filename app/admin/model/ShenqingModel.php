@@ -1,6 +1,6 @@
 <?php
 namespace app\admin\model;
-use app\admin\Tools\Page;
+use app\admin\tools\Page;
 use think\Model;
 use think\Upload;
 use  think\Db;
@@ -36,6 +36,37 @@ class ShenqingModel extends Model{
         return ['list'=>$data_list,'pagelist'=>$pagelist];
 
     }
+
+    public static function page_list_user(){
+        $list = Db::table('shenqing s')
+            ->join('user u','u.u_id=s.su_id','left')
+            ->field('s.*,u.u_id,u.u_name')
+            ->where('s_level','=',1)
+            ->where('s_status','=',1)
+            ->select();
+        $total = count($list);
+        $many = 6;
+        $page = new Page($total,$many);
+
+        $pagelist = $page->fpage([3,4,5,6,7,8]);
+        return ['list'=>$list,'pagelist'=>$pagelist];
+    }
+
+    public static function page_list_house(){
+        $list = Db::table('shenqing s')
+            ->join('user u','u.u_id=s.su_id','left')
+            ->field('s.*,u.u_id,u.u_name')
+            ->where('s_level','=',2)
+            ->where('s_status','=',1)
+            ->select();
+        $total = count($list);
+        $many = 6;
+        $page = new Page($total,$many);
+
+        $pagelist = $page->fpage([3,4,5,6,7,8]);
+        return ['list'=>$list,'pagelist'=>$pagelist];
+    }
+
 
 }
 

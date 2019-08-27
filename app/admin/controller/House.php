@@ -75,10 +75,30 @@ class House extends Controller{
         }else{
             $id = $_GET['id'];
             $list = Db::table('house')->where('h_id','=',$id)->find();
-            $list['h_inmoney'] = json_decode($list['h_inmoney'],true);
-            $list['h_config'] = json_decode($list['h_config'],true);
-            $list['h_ask'] = json_decode($list['h_ask'],true);
-            $list['h_uploads'] = json_decode($list['h_uploads'],true);
+            if(!empty($list['h_inmoney'])){
+                $list['h_inmoney'] = json_decode($list['h_inmoney'],true);
+            }else{
+                $list['h_inmoney'] = '';
+            }
+
+            if(!empty($list['h_inmoney'])){
+                $list['h_config'] = json_decode($list['h_config'],true);
+            }else{
+                $list['h_config'] = '';
+            }
+            if(!empty($list['h_inmoney'])){
+                $list['h_ask'] = json_decode($list['h_ask'],true);
+            }else{
+                $list['h_ask'] = '';
+            }
+            if(!empty($list['h_inmoney'])){
+                $list['h_uploads'] = json_decode($list['h_uploads'],true);
+            }else{
+                $list['h_uploads'] ='';
+            }
+
+
+
             $provinces = Db::table('j_position_provice')->select();
             $this->assign('provinces',$provinces);
             $this->assign($list);

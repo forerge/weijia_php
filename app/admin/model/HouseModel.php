@@ -1,6 +1,6 @@
 <?php
 namespace app\admin\model;
-use app\admin\Tools\Page;
+use app\admin\tools\Page;
 use think\Model;
 use think\Upload;
 use  think\Db;

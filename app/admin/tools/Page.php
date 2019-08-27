@@ -1,7 +1,7 @@
 <?php
 
 //命名空间(以下命名空间最后会转换为目录的部分，进而获得本身类文件)
-namespace app\admin\Tools;
+namespace app\admin\tools;
 
 class Page {
 
