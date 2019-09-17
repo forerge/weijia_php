@@ -10,12 +10,11 @@
     }
 </style>
 <div>
-    <form action="">
+    <form action="/admin/record/hetong" method="post">
         <h1>租房合同</h1>
-        <div id="editor" type="text/plain" style="width:1024px;height:1500px;"></div>
+        <div id="editor" type="text/plain" style="width:1024px;height:1500px;"><?php echo $list['r_hetong']; ?></div>
         <input class="btn btn-success" style="margin-left: 800px;" type="submit" value="提交">
     </form>
-
 </div>
 <script type="text/javascript">
 
@@ -33,7 +32,7 @@
         UE.dom.domUtils.preventDefault(e)
     }
     function insertHtml() {
-        var value = prompt('插入html代码', '');
+        var value = prompt('插入html代码', '<?php echo $list["r_hetong"]; ?>');
         UE.getEditor('editor').execCommand('insertHtml', value)
     }
     function createEditor() {

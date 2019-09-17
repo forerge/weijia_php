@@ -56,7 +56,14 @@ class Record extends Controller{
     }
 
     public function hetong(){
-        return $this->fetch();
+        if($_POST){
+            $data = $_POST['editorValue'];
+            Db::table('record')->where('r_id','=',2)->update(['r_hetong'=>$data]);
+        }
+            $list = Db::table('record')->where('r_id','=',2)->field('r_hetong')->find();
+            $this->assign('list',$list);
+            return $this->fetch();
+
     }
 
 
