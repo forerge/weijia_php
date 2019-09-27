@@ -1,0 +1,226 @@
+﻿{include file="common/head" /}
+<body>
+<div class="wrap">
+ <div class="page-title">
+  <span class="modular fl"><i class="edit_user"></i><em>预约情况</em></span>
+ </div>
+ <form action="update" method="post">
+  <input type="hidden" class="textBox length-middle" name="m_id" />
+  <table class="list-style">
+   <tr>
+    <td style="text-align:right;">预约状态：</td>
+    <td>
+     <select name="m_level" class="textBox">
+      <option value="<?php echo $m_level; ?>" ><?php echo meet_level($m_level); ?></option>
+      <option value="1" >申请中</option>
+      <option value="2" >预约成功</option>
+      <option value="-1" >拒绝</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="width:15%;text-align:right;">预约时间：</td>
+    <td><input type="text" class="textBox length-middle" name="m_ctime" value="<?php echo date('Y-m-d H:i:s',$m_ctime); ?>" /></td>
+   </tr>
+   <?php if($m_level == -1){ ?>
+   <tr>
+    <td style="text-align:right;">失败原因：</td>
+    <td><textarea class="textarea"><?php echo $m_because; ?></textarea></td>
+   </tr>
+   <?php } ?>
+  </table>
+ </form>
+</div>
+<div class="wrap">
+ <div class="page-title">
+  <span class="modular fl"><i class="edit_user"></i><em>预约人资料</em></span>
+ </div>
+  <input type="hidden" class="textBox length-middle" name="a_id" />
+  <table class="list-style">
+   <tr>
+    <td style="width:15%;text-align:right;">预约者名称：</td>
+    <td><input type="text" disabled class="textBox length-middle" value="<?php echo $user['u_name']; ?>" /></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">预约者手机号码：</td>
+    <td><input type="text" disabled class="textBox length-middle" value="<?php echo $user['u_phone']; ?>"  /></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">注册时间：</td>
+    <td><input type="text" disabled  class="textBox length-middle" value="<?php echo date('Y-m-d H:i:s',$user['u_ctime']) ;?>"  /></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">角色：</td>
+    <td>
+     <input type="checkbox" disabled  name="tuijian" <?php if($user['u_one'] == 1){ echo "checked='checked'"; } ?>  id="jingpin1"/>
+     <label for="jingpin1">租客</label>
+     <input type="checkbox" disabled  name="tuijian" <?php if($user['u_two'] == 1){ echo "checked='checked'"; } ?>  id="jingpin2"/>
+     <label for="jingpin2">房东</label>
+     <input type="checkbox" disabled name="tuijian" <?php if($user['u_three'] == 1){ echo "checked='checked'"; } ?>  id="jingpin3"/>
+     <label for="jingpin3">职业房东</label>
+     <input type="checkbox" disabled name="tuijian" <?php if($user['u_four'] == 1){ echo "checked='checked'"; } ?>  id="jingpin4"/>
+     <label for="jingpin4">职业经纪人</label>
+    </td>
+   </tr>
+    <td style="text-align:right;">真是姓名：</td>
+    <td><input type="text" disabled class="textBox length-long"  value="<?php if(!empty($user['u_tname'])){ echo $user['u_tname']; } ?>"  /></td>
+   </tr>
+  </table>
+
+</div>
+ <div class="wrap">
+  <div class="page-title">
+    <span class="modular fl"><i class="add"></i><em>房源详情</em></span>
+  </div>
+  <table class="list-style">
+   <tr>
+    <td style="text-align:right;width:15%;">地址：</td>
+    <td>
+     省：<input disabled type="text"  value="<?php if(!empty($h_province)){ echo $h_province; } ?>"   class="textBox length-short"/>
+     市：<input disabled type="text" value="<?php if(!empty($h_city)){ echo $h_city; } ?>" class="textBox length-short"/>
+     区/县：<input disabled type="text" value="<?php if(!empty($h_area)){ echo $h_area; } ?>" class="textBox length-short"/>
+     乡/镇：<input disabled type="text" value="<?php if(!empty($h_town)){ echo $h_town; } ?>" class="textBox length-short"/>
+     小区：<input disabled type="text" value="<?php if(!empty($h_qv)){ echo $h_qv; } ?>" style="width:130px"  class="textBox length-short"/>
+     <input disabled type="text" value="<?php if(!empty($h_addr)){ echo $h_addr; } ?>"  class="textBox length-long"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;width:15%;">房屋情况：</td>
+    <td>
+     <input disabled value="<?php if(!empty($h_shi)){ echo $h_shi; } ?>"  type="text" class="textBox length-short"/>：室
+     <input disabled value="<?php if(!empty($h_wei)){ echo $h_wei; } ?>"  type="text" class="textBox length-short"/>：卫
+     <input disabled value="<?php if(!empty($h_ting)){ echo $h_ting; } ?>"  type="text" class="textBox length-short"/>：厅
+     <input disabled value="<?php if(!empty($h_floor)){ echo $h_floor; } ?>"  type="text" class="textBox length-short"/>：楼，
+     朝向：<input disabled value="<?php if(!empty($h_xiang)){ echo $h_xiang; } ?>"  type="text" class="textBox length-short"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房屋配置：</td>
+    <td>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['kuandai']) && $h_config['kuandai'] == 1 ){ echo "checked='checked'"; } ?> id="rexiao1"/><label for="rexiao1">宽带</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['chuang']) && $h_config['chuang'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao2"/><label for="rexiao2">床</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['yigui']) && $h_config['yigui'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao3"/><label for="rexiao3">衣柜</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['shafa']) && $h_config['shafa'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao4"/><label for="rexiao4">沙发</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['zhuoyi']) && $h_config['zhuoyi'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao5"/><label for="rexiao5">桌椅</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['dianshi']) && $h_config['dianshi'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao6"/><label for="rexiao6">电视</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['kongtiao']) && $h_config['kongtiao'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao7"/><label for="rexiao7">空调</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['xiyiji']) && $h_config['xiyiji'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao8"/><label for="rexiao8">洗衣机</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['bingxiang']) && $h_config['bingxiang'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao9"/><label for="rexiao9">冰箱</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['reshuiqi']) && $h_config['reshuiqi'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao10"/><label for="rexiao10">热水器</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['ranqizao']) && $h_config['ranqizao'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao11"/><label for="rexiao11">燃气灶</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['chouyanji']) && $h_config['chouyanji'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao12"/><label for="rexiao12">抽烟机</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['diancilou']) && $h_config['diancilou'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao13"/><label for="rexiao13">电磁炉</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['duliweishengjian']) && $h_config['duliweishengjian'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao14"/><label for="rexiao14">独立卫生间</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['yangtai']) && $h_config['yangtai'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao15"/><label for="rexiao15">阳台</label>
+     <input disabled type="checkbox" name="tuijian" <?php if( isset($h_config['kezuofan']) && $h_config['kezuofan'] == 1 ){ echo "checked='checked'"; } ?>  id="rexiao16"/><label for="rexiao16">可做饭</label>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">出租要求：</td>
+    <td>
+     <input disabled type="checkbox" <?php if( isset($h_ask['zhixiannvsheng']) && $h_ask['zhixiannvsheng'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao1"/><label for="xiao1">只限女生</label>
+     <input disabled type="checkbox" <?php if( isset($h_ask['yijiaren']) && $h_ask['yijiaren'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao2"/><label for="xiao2">一家人</label>
+     <input disabled type="checkbox" <?php if( isset($h_ask['jinzhiyangchongwu']) && $h_ask['jinzhiyangchongwu'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao3"/><label for="xiao3">禁止养宠物</label>
+     <input disabled type="checkbox" <?php if( isset($h_ask['bannianqizu']) && $h_ask['bannianqizu'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao4"/><label for="xiao4">半年起租</label>
+     <input disabled type="checkbox" <?php if( isset($h_ask['yinianqizu']) && $h_ask['yinianqizu'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao5"/><label for="xiao5">一年起租</label>
+     <input disabled type="checkbox" <?php if( isset($h_ask['zuhuwending']) && $h_ask['zuhuwending'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao6"/><label for="xiao6">租户稳定</label>
+     <input disabled type="checkbox" <?php if( isset($h_ask['zuoxizhengchang']) && $h_ask['zuoxizhengchang'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao7"/><label for="xiao7">作息正常</label>
+     <input disabled type="checkbox" <?php if( isset($h_ask['jinyan']) && $h_ask['jinyan'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao8"/><label for="xiao8">禁烟</label>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">租金包含费用：</td>
+    <td>
+     <input disabled type="checkbox" <?php if( isset($h_inmoney['shuifei']) && $h_inmoney['shuifei'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao21"/><label for="xiao1">水费</label>
+     <input disabled type="checkbox" <?php if( isset($h_inmoney['dianfei']) && $h_inmoney['dianfei'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao22"/><label for="xiao2">电费</label>
+     <input disabled type="checkbox" <?php if( isset($h_inmoney['ranqifei']) && $h_inmoney['ranqifei'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao23"/><label for="xiao3">燃气费</label>
+     <input disabled type="checkbox" <?php if( isset($h_inmoney['kuandaifei']) && $h_inmoney['kuandaifei'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao24"/><label for="xiao4">宽带费</label>
+     <input disabled type="checkbox" <?php if( isset($h_inmoney['wuyefei']) && $h_inmoney['wuyefei'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao25"/><label for="xiao5">物业费</label>
+     <input disabled type="checkbox" <?php if( isset($h_inmoney['youxiandianshifei']) && $h_inmoney['youxiandianshifei'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao26"/><label for="xiao6">有限电视费</label>
+     <input disabled type="checkbox" <?php if( isset($h_inmoney['tingche']) && $h_inmoney['tingche'] == 1 ){ echo "checked='checked'"; } ?>  name="tuijian" id="xiao27"/><label for="xiao7">停车</label>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">是否整租：</td>
+    <td>
+     <select disabled class="textBox">
+      <option><?php echo yesno($h_state); ?></option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">有无电梯：</td>
+    <td>
+     <select disabled class="textBox">
+      <option><?php echo haveno($h_elevator); ?></option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">负责人电话：</td>
+    <td>
+     <input type="text" disabled class="textBox length-long" value="<?php echo $u_phone; ?>" />
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">负责人名称：</td>
+    <td>
+     <input disabled type="text" value="<?php echo $u_tname; ?>"  class="textBox length-long"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">租金：</td>
+    <td>
+     <input disabled value="<?php echo $h_money; ?>"   type="text" class="textBox length-short"/>
+     <span>元</span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">付款方式：</td>
+    <td>
+     <select disabled class="inline-select">
+      <option>--<?php echo house_rule($h_rule); ?>--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">产权人：</td>
+    <td>
+     <input disabled type="text" value="<?php echo $h_hname; ?>"  class="textBox length-short"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房产证号：</td>
+    <td>
+     <input disabled type="text" value="<?php echo $h_hnum; ?>"  class="textBox length-long"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">门锁密码：</td>
+    <td>
+     <input disabled value="<?php echo $h_lock; ?>"   type="text" class="textBox length-long"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">接听电话时间：</td>
+    <td>
+     <input disabled value="<?php echo $h_listen; ?>"   type="text" class="textBox length-long"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房源图片：</td>
+    <td>
+     <?php if(!empty($h_uploads)){ ?>
+     <?php foreach($h_uploads as $v){ ?>
+     <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $v ;?>" width="80" height="80"/>
+     <?php }} ?>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房源描述：</td>
+    <td><textarea class="textarea"> <?php echo $h_content; ?> </textarea></td>
+   </tr>
+  </table>
+ </div>
+</body>
+</html>

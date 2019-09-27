@@ -1,0 +1,50 @@
+﻿{include file="common/head" /}
+<body>
+ <div class="wrap">
+  <div class="page-title">
+     <span class="modular fl"><i class="edit_user"></i><em>编辑会员资料</em></span>
+  </div>
+  <form action="update" method="post">
+      <input type="hidden" class="textBox length-middle" name="a_id" value="<?php echo $a_id ?>"/>
+     <table class="list-style">
+    <tr>
+     <td style="width:15%;text-align:right;">昵称：</td>
+     <td><input type="text" class="textBox length-middle" name="a_name" value="<?php echo $a_name ?>"/></td>
+    </tr>
+    <tr>
+     <td style="text-align:right;">电子邮件：</td>
+     <td><input type="text" class="textBox length-middle" name="a_email" value="<?php echo $a_email ?>"/></td>
+    </tr>
+    <tr>
+     <td style="text-align:right;">手机号码：</td>
+     <td><input type="text" class="textBox length-middle" name="a_phone" value="<?php echo $a_phone ?>"/></td>
+    </tr>
+     <tr>
+         <td style="text-align:right;">注册时间：</td>
+         <td><input type="text" disabled class="textBox length-middle" value="<?php echo date('Y-m-d H:i:s',$a_ctime) ?>"/></td>
+     </tr>
+     <tr>
+         <td style="text-align:right;">最后修改时间：</td>
+         <td><input type="text" disabled class="textBox length-middle" value="<?php echo date('Y-m-d H:i:s',$a_utime) ?>"/></td>
+     </tr>
+    <tr>
+     <td style="text-align:right;">等级：</td>
+     <td>
+      <select name="a_level" class="textBox">
+       <option value="<?php echo $a_level ?>"><?php echo admin_level($a_level)  ?></option>
+       <option value="1">--总管--</option>
+       <option value="2">--主管--</option>
+       <option value="3">--员工--</option>
+      </select>
+     </td>
+    </tr>
+    <tr>
+     <td style="text-align:right;"></td>
+     <td><input type="submit" class="tdBtn" value="更新保存"/></td>
+    </tr>
+   </table>
+  </form>
+
+ </div>
+</body>
+</html>

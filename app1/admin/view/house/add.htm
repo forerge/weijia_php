@@ -1,0 +1,300 @@
+{include file="common/head" /}
+<body>
+<div class="wrap">
+    <div class="page-title">
+        <span class="modular fl"><i class="add"></i><em>房源详情</em></span>
+    </div>
+    <form action="/admin/house/add" method="post" enctype="multipart/form-data">
+        <table class="list-style">
+            <tr>
+                <td style="text-align:right;width:15%;">地址：</td>
+                <td>
+                    <select name="h_province" class="textBox" id="province">
+                        <option value="0">省</option>
+                        <?php foreach($provinces as $v){ ?>
+                            <option data-id="<?php echo $v['provice_id'] ?>" value="<?php echo $v['provice_name'] ?>"><?php echo $v['provice_name'] ?></option>
+                        <?php } ?>
+                    </select>
+                    <select name="h_city" class="textBox" id="city">
+                        <option value="0">市</option>
+                    </select>
+                    <select name="h_area" class="textBox" id="county">
+                        <option value="0">区/县</option>
+                    </select>
+                    <select name="h_town" class="textBox" id="town">
+                        <option value="0">乡/镇</option>
+                    </select>
+                    <script>
+                        $('#province').on('change',function(){
+                            var id = $(this).find('option:selected').attr('data-id');
+                            $.post('/admin/house/province',{id:id},function(list){
+                                var list = JSON.parse(list,true);
+                                var html = '';
+                                $.each(list,function(k,v){
+                                    html += "<option data-id='"+v['city_id']+"' value='"+v['city_name']+"'>"+v['city_name']+"</option>";
+                                })
+                                $("#city").empty().append(html);
+                                select_city();
+                            })
+                        })
+                        function select_city(){
+                            var id_city = $('#city').find('option:selected').attr('data-id');
+                            $.post('/admin/house/city',{id:id_city},function(list1){
+                                var list1 = JSON.parse(list1);
+                                var html1 = '';
+                                $.each(list1,function(k1,v1){
+                                    html1 += "<option data-id='"+v1['county_id']+"' value='"+v1['county_name']+"'>"+v1['county_name']+"</option>"
+                                })
+                                $("#county").empty().append(html1);
+                                select_county();
+                            })
+                        }
+                        function select_county(){
+                            var id_qv = $('#county').find('option:selected').attr('data-id');
+                            $.post('/admin/house/county',{id:id_qv},function(list2){
+                                var list2 = JSON.parse(list2);
+                                var html2 = '';
+                                $.each(list2,function(k2,v2){
+                                    html2 += "<option data-id='"+v2['town_id']+"' value='"+v2['town_name']+"'>"+v2['town_name']+"</option>";
+                                })
+                                $('#town').empty().append(html2);
+                            })
+                        }
+                        $('#city').on('change',function(){
+                            select_city();
+                        })
+                        $('#qv').on('change',function(){
+                            select_county();
+                        })
+                    </script>
+                    <input type="text" style="width:130px" name="h_qv" class="textBox length-short"/>：小区，
+                    详细地址：<input type="text" name="h_addr" class="textBox length-long"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;width:15%;">房屋情况：</td>
+                <td>
+                    <input type="text" name="h_shi" class="textBox length-short"/>：室、
+                    <input type="text" name="h_wei" class="textBox length-short"/>：卫、
+                    <input type="text" name="h_ting" class="textBox length-short"/>：厅、
+                    <input type="text" name="h_floor" class="textBox length-short"/>：楼(层)，
+                    朝向：<input type="text" name="h_xiang" class="textBox length-short"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">房屋配置：</td>
+                <td>
+                    <input type="checkbox" name="h_config[kuandai]" value="1" id="rexiao1"/><label for="rexiao1">宽带</label>
+                    <input type="checkbox" name="h_config[chuang]" value="1"  id="rexiao2"/><label for="rexiao2">床</label>
+                    <input type="checkbox" name="h_config[yigui]" value="1"  id="rexiao3"/><label for="rexiao3">衣柜</label>
+                    <input type="checkbox" name="h_config[shafa]" value="1"  id="rexiao4"/><label for="rexiao4">沙发</label>
+                    <input type="checkbox" name="h_config[zhuoyi]" value="1"  id="rexiao5"/><label for="rexiao5">桌椅</label>
+                    <input type="checkbox" name="h_config[dianshi]" value="1"  id="rexiao6"/><label for="rexiao6">电视</label>
+                    <input type="checkbox" name="h_config[kongtiao]" value="1"  id="rexiao7"/><label for="rexiao7">空调</label>
+                    <input type="checkbox" name="h_config[xiyiji]" value="1"  id="rexiao8"/><label for="rexiao8">洗衣机</label>
+                    <input type="checkbox" name="h_config[bingxiang]" value="1"  id="rexiao9"/><label for="rexiao9">冰箱</label>
+                    <input type="checkbox" name="h_config[reshuiqi]" value="1"  id="rexiao10"/><label for="rexiao10">热水器</label>
+                    <input type="checkbox" name="h_config[ranqizao]" value="1"  id="rexiao11"/><label for="rexiao11">燃气灶</label>
+                    <input type="checkbox" name="h_config[chouyanji]" value="1"  id="rexiao12"/><label for="rexiao12">抽烟机</label>
+                    <input type="checkbox" name="h_config[diancilou]" value="1"  id="rexiao13"/><label for="rexiao13">电磁炉</label>
+                    <input type="checkbox" name="h_config[duliweishengjian]" value="1"  id="rexiao14"/><label for="rexiao14">独立卫生间</label>
+                    <input type="checkbox" name="h_config[yangtai]" value="1"  id="rexiao15"/><label for="rexiao15">阳台</label>
+                    <input type="checkbox" name="h_config[kezuofan]" value="1"  id="rexiao16"/><label for="rexiao16">可做饭</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">出租要求：</td>
+                <td>
+                    <input type="checkbox" name="h_ask[zhixiannvsheng]" value="1"  id="xiao1"/><label for="xiao1">只限女生</label>
+                    <input type="checkbox" name="h_ask[yijiaren]" value="1"  id="xiao2"/><label for="xiao2">一家人</label>
+                    <input type="checkbox" name="h_ask[jinzhiyangchongwu]" value="1"  id="xiao3"/><label for="xiao3">禁止养宠物</label>
+                    <input type="checkbox" name="h_ask[bannianqizu]" value="1"  id="xiao4"/><label for="xiao4">半年起租</label>
+                    <input type="checkbox" name="h_ask[yinianqizu]" value="1"  id="xiao5"/><label for="xiao5">一年起租</label>
+                    <input type="checkbox" name="h_ask[zuhuwending]" value="1"  id="xiao6"/><label for="xiao6">租户稳定</label>
+                    <input type="checkbox" name="h_ask[zuoxizhengchang]" value="1"  id="xiao7"/><label for="xiao7">作息正常</label>
+                    <input type="checkbox" name="h_ask[jinyan]" value="1"  id="xiao8"/><label for="xiao8">禁烟</label>
+                    <input type="checkbox" name="h_ask[no]" value="1"  id="xiao9"/><label for="xiao9">无</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">租金包含费用：</td>
+                <td>
+                    <input type="checkbox" name="h_inmoney[shuifei]"  value="1"  id="in_money1"/><label for="in_money1">水费</label>
+                    <input type="checkbox" name="h_inmoney[dianfei]" value="1"  id="in_money2"/><label for="in_money2">电费</label>
+                    <input type="checkbox" name="h_inmoney[ranqifei]" value="1"  id="in_money3"/><label for="in_money3">燃气费</label>
+                    <input type="checkbox" name="h_inmoney[kuandaifei]" value="1"  id="in_money4"/><label for="in_money4">宽带费</label>
+                    <input type="checkbox" name="h_inmoney[wuyefei]" value="1"  id="in_money5"/><label for="in_money5">物业费</label>
+                    <input type="checkbox" name="h_inmoney[youxiandianshifei]" value="1"  id="in_money6"/><label for="in_money6">有限电视费</label>
+                    <input type="checkbox" name="h_inmoney[tingche]" value="1"  id="in_money7"/><label for="in_money7">停车</label>
+                    <input type="checkbox" name="h_inmoney[no]" value="1"  id="in_money8"/><label for="in_money8">无</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">是否整租：</td>
+                <td>
+                    <select name="h_state" class="textBox">
+                        <option value="0">--不限--</option>
+                        <option value="1">--整租--</option>
+                        <option value="2">--合租--</option>
+                    </select>
+                </td>
+            </tr>
+
+            <!--<tr>-->
+                <!--<td style="text-align:right;">房源展示平台：</td>-->
+                <!--<td>-->
+                    <!--<select name="h_status" class="textBox">-->
+                        <!--<option value="0">&#45;&#45;不限&#45;&#45;</option>-->
+                        <!--<option value="1">&#45;&#45;快租房&#45;&#45;</option>-->
+                        <!--<option value="2">&#45;&#45;青年公寓&#45;&#45;</option>-->
+                    <!--</select>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr>
+                <td style="text-align:right;">有无电梯：</td>
+                <td>
+                    <select name="h_elevator" class="textBox">
+                        <option value="0">--不限--</option>
+                        <option value="1">--有--</option>
+                        <option value="-1">--无--</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">租金：</td>
+                <td>
+                    <input name="h_money" type="text" class="textBox length-short"/>
+                    <span>元</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">面积：</td>
+                <td>
+                    <input name="h_space" type="text" class="textBox length-short"/>
+                    <span>m³</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">房产证号：</td>
+                <td>
+                    <input name="h_hnum" type="text" class="textBox length-long"/>
+                    <span></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">业主姓名：</td>
+                <td>
+                    <input name="h_hname" type="text" class="textBox length-short"/>
+                    <span></span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">宜住人数：</td>
+                <td>
+                    <input name="h_many" type="text" class="textBox length-short"/>
+                    <span>人</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">门锁密码：</td>
+                <td>
+                    <input type="text" name="h_lock" class="textBox length-long"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">付款方式：</td>
+                <td>
+                    <select name="h_rule" class="inline-select">
+                        <option value='0'>--不限--</option>
+                        <option value="1" >压一付一</option>
+                        <option value="2" >压一付三</option>
+                        <option value="3" >半年付</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">房源描述：</td>
+                <td><textarea name="h_content" class="textarea">...这里直接调用文本编辑器...移除此处的“textarea”即可</textarea></td>
+            </tr>
+            <style>
+                #house_uploads>div{
+                    float:left;
+                    width:130px;
+                    height:130px;
+                    margin-right: 5px;
+                }
+                .house_img_many{
+                    /*width: 130px;*/
+                    /*height: 130px;*/
+                    line-height: 130px;
+                    text-align: center;
+                    background: #96aecd;
+                    font-size: 66px;
+                    color: #fff;
+                }
+                .house_img_many_div{
+                    position: relative;
+                    border: 1px solid #666;
+                }
+                .house_img_many_div input{
+                    width: 85px;
+                    height: 36px;
+                    border: 1px solid #666;
+                }
+                .house_img_many_div span{
+                    width: 41px;
+                    display: block;
+                    height: 36px;
+                    position: absolute;
+                    top: 0px;
+                    left: 86px;
+                    line-height: 32px;
+                    text-align: center;
+                    font-size: 30px;
+                    background: red;
+                    color: #fff;
+                }
+                .house_img_many_div div{
+                    width: 100%;
+                    height: 90px;
+                }
+                .house_img_many_div div img{
+                    width: 100%;
+                    height: 100%;
+                }
+            </style>
+
+            <tr>
+                <td style="text-align:right;">详情照片：</td>
+                <td id="house_uploads">
+                    <div class="house_img_many" id="house_img_many">+</div>
+                    <div class="house_img_many_div" id="house_img_many_div1" data-id="1">
+                        <input type="file" name="h_uploads[]"  class="textBox " id="up_img1" /><span onclick="del_upload(0)">-</span><div id="imgdiv1"><img src="" id="img_img1" width="100" height="100" /></div>
+                    </div>
+                </td>
+            </tr>
+            <script>
+                $('#house_img_many').on('click',function(){
+                    var height = $('#house_uploads').children("div:last-child").attr('data-id');
+                    var num = ++height;
+                    var dome = $('#house_uploads');
+                    dome.append("<div class='house_img_many_div' id='house_img_many_div"+num+"' data-id='"+num+"'> <input type='file' name='h_uploads[]'  class='textBox' id='up_img"+num+"' /> <span onclick='del_upload("+num+")'>-</span><div id='imgdiv"+num+"'><img src='' id='img_img"+num+"' width='100' height='100' /></div></div>")
+                    new uploadPreview({ UpBtn: "up_img"+num, DivShow: "imgdiv"+num, ImgShow: "img_img"+num });
+                })
+                function del_upload(obj){
+                    $('#house_img_many_div'+obj).remove();
+                }
+            </script>
+            <script>
+                window.onload = function () {
+                    new uploadPreview({ UpBtn: "up_img1", DivShow: "imgdiv1", ImgShow: "img_img1" });
+                }
+            </script>
+            <tr>
+                <td style="text-align:right;"></td>
+                <td><input type="submit" value="添加" class="tdBtn"/></td>
+            </tr>
+        </table>
+</div>
+</body>
+</html>

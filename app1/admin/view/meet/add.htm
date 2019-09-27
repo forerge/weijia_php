@@ -1,0 +1,45 @@
+{include file="common/head" /}
+<body>
+<div class="wrap">
+    <div class="page-title">
+        <span class="modular fl"><i class="add_user"></i><em>福利券添加</em></span>
+    </div>
+    <form action="/admin/meet/add" method="post">
+        <table class="list-style">
+            <tr>
+                <td style="text-align:right;">预约人：</td>
+                <td>
+                    <select name="u_id" class="textBox" id="cu_id">
+                        <option >--请选择--</option>
+                        <?php foreach($users as $v){ ?>
+                            <option value="<?php echo $v['u_id']; ?>"><?php echo $v['u_name']; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;">房源：</td>
+                <td>
+                    <select name="h_id" class="textBox">
+                        <option value="0" >--请选择--</option>
+                        <?php foreach($houses as $vv){ ?>
+                        <option value="<?php echo $vv['h_id']; ?>"><?php echo $vv['hu_name']; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:right;"></td>
+                <td><input type="submit" class="tdBtn" value="预约"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+<script>
+    $('#cu_id').on('change',function(){
+        var name = $("#cu_id").find("option:selected").text();
+       $('#c_name').val(name);
+    })
+</script>
+</html>

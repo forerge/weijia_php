@@ -1,0 +1,69 @@
+﻿{include file="common/head" /}
+<body>
+ <div class="wrap">
+  <div class="page-title">
+     <span class="modular fl"><i class="edit_user"></i><em>代金券详情</em></span>
+  </div>
+  <form action="/admin/coupon/update" method="post">
+      <input type="hidden" class="textBox length-middle" name="c_id" value="<?php echo $c_id; ?>"/>
+     <table class="list-style">
+         <tr>
+             <td style="width:15%;text-align:right;">创建者：</td>
+             <td><input type="text" disabled class="textBox length-middle" name="cu_name" value="<?php echo $u_name; ?>"/></td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">是否转赠：</td>
+             <td>
+                 <select name="c_state" class="textBox">
+                     <option value="<?php echo $c_state; ?>">--<?php echo coupon_state($c_state); ?>--</option>
+                     <option value="1">--未转赠--</option>
+                     <option value="2">--已转赠--</option>
+                 </select>
+             </td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">拥有者：</td>
+             <td><input type="text" disabled class="textBox length-middle" name="cu_sname" value="<?php echo $cu_sname; ?>"/></td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">金额：</td>
+             <td><input type="text"  class="textBox length-middle" name="c_money" value="<?php echo $c_money; ?>"/></td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">是否使用：</td>
+             <td>
+                 <select name="c_status" class="textBox">
+                     <option value="<?php echo $c_status; ?>">--<?php echo coupon_status($c_status); ?>--</option>
+                     <option value="1">--未使用--</option>
+                     <option value="2">--已使用--</option>
+                 </select>
+             </td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">类型：</td>
+             <td>
+                 <select name="c_level" class="textBox">
+                     <option value="<?php echo $c_level ?>"><?php echo coupon_level($c_level); ?></option>
+                     <option value="1">租客代金券</option>
+                     <option value="2">非租客代金券</option>
+                 </select>
+             </td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">创建时间：</td>
+             <td><input type="text" disabled class="textBox length-middle" name="c_ctime" value="<?php echo date('Y-m-d H:i:s',$c_ctime); ?>"/></td>
+         </tr>
+         <tr>
+             <td style="text-align:right;">转赠时间：</td>
+             <td><input type="text" disabled name="c_stime" class="textBox length-middle" value="<?php if($c_stime>1){ echo date('Y-m-d H:i:s',$c_stime); }else{ echo '未转赠'; } ?>"/></td>
+         </tr>
+    <tr>
+     <td style="text-align:right;"></td>
+     <td><input type="submit" class="tdBtn" value="更新保存"/></td>
+    </tr>
+   </table>
+  </form>
+
+ </div>
+</body>
+</html>

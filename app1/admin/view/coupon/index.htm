@@ -1,0 +1,87 @@
+{include file="common/head" /}
+<body>
+<div class="wrap">
+    <div class="page-title">
+        <span class="block fl"><i class="order"></i><em>代金券管理</em></span>
+    </div>
+    <div class="operate">
+        <form>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="初创人姓名..."/>
+            <input type="text" class="textBox length-long" style="width:130px" placeholder="所有者姓名..."/>
+            <select class="inline-select">
+                <option>代金券类型</option>
+                <option>租客代金券</option>
+                <option>非租客代金券</option>
+            </select>
+            <select class="inline-select">
+                <option>是否转赠</option>
+                <option>是</option>
+                <option>否</option>
+            </select>
+            <input type="button" value="查询" class="tdBtn"/>
+        </form>
+    </div>
+    <table class="list-style">
+        <tr>
+            <th class="center">编号</th>
+            <th class="center">拥有者</th>
+            <th class="center">初建者</th>
+            <th class="center">类型</th>
+            <th class="center">创建时间</th>
+            <th class="center">操作</th>
+        </tr>
+        <?php if(!empty($list)){ ?>
+        <?php foreach($list as $k => $v){ ?>
+            <tr>
+                <td class="center">
+                    <span class="block"><?php echo $k; ?></span>
+                </td>
+                <td class="center">
+                    <span class="block"><?php echo $v['u_sname']; ?></span>
+                </td>
+                <td class="center">
+                    <span class="block"><?php echo $v['u_name']; ?></span>
+                </td>
+                <td class="center">
+                    <span class="block"><?php echo coupon_level($v['c_level']); ?></span>
+                </td>
+                <td class="center" >
+                    <span class="block"><?php echo date('Y-m-d H:i:s',$v['c_ctime']); ?></span>
+                </td>
+                <td class="center" width="260">
+                    <a href="/admin/coupon/update?id=<?php echo $v['c_id']; ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
+                    <a class="inline-block"  title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
+                </td>
+            </tr>
+        <?php }} ?>
+    </table>
+
+</div>
+<style>
+    .pagination{
+        width: 300px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+    .pagination li{
+        display: inline;
+        margin: 0 5px;
+        font-size: 16px;
+    }
+</style>
+    <div style="overflow:hidden;">
+        <div class="turnPage center fr">
+            {$pagelist}
+        </div>
+    </div>
+</body>
+<script>
+//    function del(obj){
+//        if(confirm('确定删除？')){
+//            $.post('/admin/admin/del',{id:obj},function(result){
+//                location.replace(location);
+//            })
+//        }
+//    }
+</script>
+</html>

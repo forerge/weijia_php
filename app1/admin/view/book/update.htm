@@ -1,0 +1,106 @@
+﻿{include file="common/head" /}
+<body>
+<div class="wrap">
+ <div class="page-title">
+  <span class="modular fl"><i class="edit_user"></i><em>合同详情</em></span>
+ </div>
+ <form action="/admin/book/update" method="post"  enctype="multipart/form-data">
+  <input type="hidden" class="textBox length-middle" name="b_id" value="<?php echo $b_id; ?>" />
+  <table class="list-style">
+   <tr>
+    <td style="width:15%;text-align:right;">合同编号：</td>
+    <td>
+     <?php if(!empty($b_num)){ ?>
+     <span><?php echo $b_num; ?></span>
+     <?php }else{ ?>
+     <input type="text"class="textBox length-middle" name="b_num" value="" />
+     <?php } ?>
+    </td>
+   </tr>
+   <tr>
+    <td style="width:15%;text-align:right;">甲方名称：</td>
+    <td>
+     <a href="/admin/user/update?id=<?php echo $u_id; ?>"><?php echo $u_name; ?></a>
+    </td>
+   </tr>
+   <tr>
+    <td style="width:15%;text-align:right;">房源编号：</td>
+    <td>
+     <a href="/admin/house/update?id=<?php echo $uh_id; ?>" ><?php echo $uh_id; ?></a>
+    </td>
+   </tr>
+   <tr>
+    <td style="width:15%;text-align:right;">签约时长：</td>
+    <td><input type="text" disabled class="textBox length-middle"value="<?php echo $b_time; ?>" /></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">合同类型：</td>
+    <td><input type="text" disabled class="textBox length-middle"value="<?php echo book_level($b_level); ?>" />
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">归档状态：</td>
+    <td>
+     <select name="b_status" class="textBox">
+      <option value="<?php echo $b_status; ?>" ><?php echo book_status($b_status); ?></option>
+      <option value="1" >未归档</option>
+      <option value="2" >已归档</option>
+     </select>
+    </td>
+   </tr>
+
+   <tr>
+    <td style="text-align:right;">证件照片：</td>
+    <td >
+     <span><input type="file" name="b_card"  class="textBox " id="up_img" /></span>
+                    <span id="imgdiv">
+                        <?php if(!empty($b_card)){ ?>
+                     <img src="{$Think.PROJECT_PATH}/public/uploads/{$b_card}" id="imgShow" width="100" height="100" />
+                     <?php }else{ ?>
+                     <img src="" id="imgShow" width="100" height="100" />
+                     <?php } ?>
+                    </span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">甲方持证照片：</td>
+    <td >
+     <span><input type="file" name="b_people1"  class="textBox " id="up_img1" /></span>
+                    <span id="imgdiv1">
+                        <?php if(!empty($b_people1)){ ?>
+                     <img src="{$Think.PROJECT_PATH}/public/uploads/{$b_people1}" id="imgShow1" width="100" height="100" />
+                     <?php }else{ ?>
+                     <img src="" id="imgShow1" width="100" height="100" />
+                     <?php } ?>
+                    </span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">乙方持证照片：</td>
+    <td >
+     <span><input type="file" name="b_people2"  class="textBox " id="up_img2" /></span>
+                    <span id="imgdiv2">
+                        <?php if(!empty($b_people2)){ ?>
+                     <img src="{$Think.PROJECT_PATH}/public/uploads/{$b_people2}" id="imgShow2" width="100" height="100" />
+                     <?php }else{ ?>
+                     <img src="" id="imgShow2" width="100" height="100" />
+                     <?php } ?>
+                    </span>
+    </td>
+   </tr>
+   <script>
+    window.onload = function () {
+     new uploadPreview({ UpBtn: "up_img", DivShow: "imgdiv", ImgShow: "imgShow" });
+     new uploadPreview({ UpBtn: "up_img1", DivShow: "imgdiv1", ImgShow: "imgShow1" });
+     new uploadPreview({ UpBtn: "up_img2", DivShow: "imgdiv2", ImgShow: "imgShow2" });
+    }
+   </script>
+   <tr>
+    <td style="text-align:right;"></td>
+    <td><input type="submit" class="tdBtn" value="更新保存"/></td>
+   </tr>
+  </table>
+ </form>
+</div>
+</body>
+</html>

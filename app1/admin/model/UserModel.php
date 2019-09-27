@@ -56,31 +56,21 @@ class UserModel extends Model{
     }
 
     public static function page_data($data){
-        $map = array_filter($data);
-        $push_data = $map;
+        $total = Db::table('user')->count();
+
         $many = 6;
 
-//        if(!empty($map)){
-            $total = Db::table('user')->where($map)->count();
-            $page = new Page($total,$many);
-//        var_dump($page);
-        $data_list = Db::table('user')->where($map)->limit($page->offset,$many)->select();
-//        }else{
-//
-//        }
+        $page = new Page($total,$many);
 
-
-//        $page = new Page($total,$many);
-//
-//        $list = Db::table('user')->limit($page->offset,$many);
-//        if(!empty($data)){
-//            $map = array_filter($data);
-//            $list->where($map);
-//        }
-//        $data_list = $list->select();
+        $list = Db::table('user')->limit($page->offset,$many);
+        if(!empty($data)){
+            $map = array_filter($data);
+            $list->where($map);
+        }
+        $data_list = $list->select();
 
         $pagelist = $page->fpage([3,4,5,6,7,8]);
-        return ['list'=>$data_list,'pagelist'=>$pagelist,'data'=>$push_data];
+        return ['list'=>$data_list,'pagelist'=>$pagelist];
     }
 
 }

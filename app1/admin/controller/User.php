@@ -8,13 +8,10 @@ use think\Request;
 
 class User extends Controller{
    public function index(){
-       $request = Request::instance();
-       $params = $request->param();
-//       var_dump($params);
-       $result = UserModel::page_data($params);
+       $result = UserModel::page_data($_POST);
        $this->assign('list',$result['list']);
        $this->assign('pagelist',$result['pagelist']);
-       return view('index',['data'=>$result['data']]);
+       return view();
    }
 
     public function add(){
