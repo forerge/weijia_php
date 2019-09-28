@@ -1,5 +1,7 @@
 <?php
 namespace  app\admin\controller;
+use app\admin\model\CommonModel;
+use app\admin\model\CouponModel;
 use think\Controller;
 use app\admin\model\HouseModel;
 use think\Db;
@@ -133,6 +135,15 @@ class House extends Controller{
         return json_encode($data_town,JSON_UNESCAPED_UNICODE);
     }
 
+    public function del(){
+        $id = Request::instance()->param('id');
+        $id = is_int($id) ? $id : intval($id);
+       if(Db::table('house')->where('h_id',$id)->delete()){
+           $this->success('删除成功','/admin/house/index','',1);
+       }else{
+           $this->redirect('/admin/house/index');
+       }
+    }
 
 
 }

@@ -6,6 +6,11 @@ use  think\Db;
 
 class CommonModel extends Model{
 
+    public static function del($id,$table){
+
+
+
+    }
 }
 
 
