@@ -9,6 +9,11 @@
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+function json_format($data,$status=0,$msg='返回成功'){
+    $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+    return [$list,$status,$msg];
+}
+
 // 应用公共文件
 function yesno($a){
     $arr = [-1=>'否',0=>'不限',1=>'是'];
@@ -78,6 +83,14 @@ function house_elevator($a){
 function house_weijia($a){
     $arr = ['不限','唯家房源','社会房源'];
     return $arr[$a];
+}
+function house_tuijian($a){
+    $arr = ['','不推荐','参与推荐'];
+    return $arr[$a];
+}
+function house_pid($a){
+    $arr = ['一般房源','全权委托','委托带客看房'];
+    return $arr[$arr];
 }
 
 
