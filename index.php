@@ -12,6 +12,7 @@
 
 //定义项目目录，域名下为空，如果项目名为mywj,则：define('FORJECT_PATH', '/mywj');
 define('PROJECT_PATH', '');
+define('SERVER_WEIJIA','http://192.168.2.212:80/www_weijia/public/uploads/');
 
 // [ 应用入口文件 ]
 // 定义应用目录

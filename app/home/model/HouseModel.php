@@ -48,8 +48,24 @@ class HouseModel extends Model{
     public function getHUploadsAttr($a){
         $str = str_replace("\\",'/',$a);
         $arr = str_replace("//",'/',$str);
-        return $arr;
+        $data = json_decode($arr,true);
+        foreach($data as &$val){
+            $val = SERVER_WEIJIA.$val;
+        }
+        return $data;
     }
+    public function getHImgAttr($a){
+        $str = str_replace("\\",'/',$a);
+        $arr = str_replace("//",'/',$str);
+        $data = SERVER_WEIJIA.$arr;
+        return $data;
+    }
+
+
+
+
+
+
 }
 
 
