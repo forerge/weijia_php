@@ -142,3 +142,8 @@ function book_status($a){
     $arr = ['不限','审核中','审核成功','已归档'];
     return $arr[$a];
 }
+
+function img_level($a){
+    $arr = [0=>'不限',1=>'展示',-1=>'不展示'];
+    return $arr[$a];
+}

@@ -1,0 +1,53 @@
+﻿{include file="common/head" /}
+<body>
+<div class="wrap">
+ <div class="page-title">
+  <span class="modular fl"><i class="add_user"></i><em>banner修改</em></span>
+ </div>
+ <form action="/admin/img/update" method="post"  enctype="multipart/form-data">
+  <input type="hidden" name="i_id" class="textBox length-middle" value="<?php echo $i_id; ?>" />
+  <input type="hidden" name="i_img" class="textBox length-middle" value="<?php echo $i_img; ?>" />
+  <table class="list-style">
+   <tr>
+    <td style="text-align:right;">banner图：</td>
+    <td >
+     <span><input type="file" name="i_img"  class="textBox " id="up_img2" /></span>
+                    <span id="imgdiv2">
+                        <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $i_img ;?>" id="imgShow2" width="100" height="100" />
+                    </span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">排序：</td>
+    <td><input type="text" name="i_sort" class="textBox length-middle" value="<?php echo $i_sort; ?>" /></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">展示状态：</td>
+    <td>
+     <select name="i_level" class="inline-select">
+      <option value="<?php echo $i_level ?>" ><?php echo img_level($i_level); ?></option>
+      <option value="1" >展示</option>
+      <option value="-1" >不展示</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;"></td>
+    <td><input type="submit" value="修改" class="tdBtn"/></td>
+   </tr>
+   <script>
+    window.onload = function () {
+     new uploadPreview({ UpBtn: "up_img2", DivShow: "imgdiv2", ImgShow: "imgShow2" });
+    }
+   </script>
+  </table>
+ </form>
+</div>
+</body>
+<script>
+ $('#cu_id').on('change',function(){
+  var name = $("#cu_id").find("option:selected").text();
+  $('#c_name').val(name);
+ })
+</script>
+</html>
