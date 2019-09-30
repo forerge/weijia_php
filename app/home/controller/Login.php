@@ -5,7 +5,7 @@ use think\Db;
 use think\Request;
 use think\Session;
 
-class Base extends Controller{
+class Login extends Controller{
     public function _initialize(){
         $data_login = Session::get('weijia_kuai');
         if(empty($data_login)){
@@ -32,6 +32,10 @@ class Base extends Controller{
 
     public function out(){
         Session::set('weijia_kuai','');
+    }
+
+    public function goon(){
+        echo 11;
     }
 
 }

@@ -32,8 +32,13 @@ class House extends Controller{
     //快租房---房源详情
     public function kuai_detail(){
         $house = new HouseModel();
-        $id = Request::instance()->param('id');
+        $data = Request::instance()->param();
+        $id = is_int($data['id'])?$data['id']:intval($data['id']);
         $data = $house->where('h_id','=',$id)->find();
+        $name = $data['h_qv'];
+        $same_house = new HouseModel();
+        $same_data = $same_house->where('h_qv','=',$name)->limit(3)->select();
+        $data['same'] = $same_data;
         $list = json_encode($data,JSON_UNESCAPED_UNICODE);
         return $list;
     }
