@@ -29,8 +29,13 @@ class House extends Controller{
 
     //快租房----房源列表
     public function kuai_list(){
+        $state = Request::instance()->param();
+
         $house = new HouseModel();
         $map['h_level'] = 1;
+        if(!empty($state)){
+            $map['h_state'] = $state['state'];
+        }
         $map['h_status'] = 1;
         $data = $house->where($map)->select();
         $list = json_encode($data,JSON_UNESCAPED_UNICODE);
