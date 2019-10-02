@@ -12,8 +12,11 @@ class Img extends Controller{
         return $this->fetch();
     }
 
-    public function edit(){
-        return $this->fetch();
+    public function del(){
+        $params = Request::instance()->param();
+        $id = is_int($params['id'])?$params['id']:intval($params['id']);
+        Db::table('img')->delete($id);
+        $this->redirect('/admin/img/index');
     }
 
     public function update(){

@@ -6,7 +6,7 @@ use app\home\controller\Login;
 
 class Base extends Controller{
     public function _initialize(){
-        $user_login = Session::get('weijia_kuai');
+        $user_login = Session::get('weijia_pro');
         if(empty($user_login)){
             echo 444;exit;
         }

@@ -1,6 +1,7 @@
 <?php
 namespace  app\home\controller;
-use app\admin\model\MeetModel;
+use app\home\model\ImgModel;
+use app\home\model\MeetModel;
 use app\home\model\HouseModel;
 use think\Controller;
 use think\Db;
@@ -14,7 +15,14 @@ class House extends Controller{
        $map['h_level'] = 1;
        $map['h_tuijian'] = 2;
        $map['h_status'] = 1;
-       $data = $house->where($map)->limit(3)->select();
+//       $data = $house->where($map)->limit(3)->select();
+       $data['house'] = $house->where($map)->limit(3)->select();
+//       $images
+       $img = new ImgModel();
+       $data['banner'] = $img->where('i_level','=',1)->order('i_sort')->select();
+//       var_dump($data['banner']);die;
+//       $images = ImgModel::images();
+//       var_dump($images);die;
        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
        return $list;
    }

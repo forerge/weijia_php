@@ -1,9 +1,11 @@
 <?php
 namespace  app\home\controller;
 use app\home\controller\Base;
+
 use think\Controller;
 use think\Db;
 use think\Request;
+use think\Session;
 
 class User extends Controller{
    public function kuai_apply(){
@@ -20,6 +22,20 @@ class User extends Controller{
            echo 0;
        }
    }
+
+    public function kuai_register(){
+
+
+    }
+
+    public function test(){
+        var_dump(Session::get('weijia_pro'));
+    }
+
+
+
+
+
 }
 
 

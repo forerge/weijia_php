@@ -1,11 +1,11 @@
 <?php
 namespace  app\home\controller;
-use app\home\controller\Base;
+use app\admin\model\MeetModel;
 use think\Controller;
 use think\Db;
 use think\Request;
 
-class Meet extends Base{
+class Meet extends controller{
     //快租房---普通租客预约查询
    public function kuai_user(){
        $params = Request::instance()->param();
@@ -16,6 +16,23 @@ class Meet extends Base{
        $data = json_encode($list,JSON_UNESCAPED_UNICODE);
        return $data;
    }
+
+    public function add(){
+        $params = Request::instance()->param();
+        $meet = new MeetModel();
+        $map['mh_id'] = $params['h_id'];
+        $map['mu_id'] = $params['u_id'];
+        $map['m_time'] = $params['time'] ;
+        $map['m_ctime'] = time();
+        $map['m_content'] = $params['content'];
+        $list = $meet->save($map);
+        if($list){
+            echo 1;
+        }else{
+            echo 0;
+        }
+
+    }
 
 }
 
