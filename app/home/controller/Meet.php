@@ -1,6 +1,6 @@
 <?php
 namespace  app\home\controller;
-use app\admin\model\MeetModel;
+use app\home\model\MeetModel;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -37,8 +37,6 @@ class Meet extends controller{
 
     public function kuai_list_one(){
         $params = Request::instance()->param();
-//        var_dump($params);
-//        var_dump($params['role']);die;
         $test = $params['role'];
         if($test == 1){
             $keys = 'mu_id';
@@ -46,10 +44,34 @@ class Meet extends controller{
             $keys = 'mhu_id';
         }
         $meet = new MeetModel();
-        $map['m_status'] = 1;
-        $map[$keys] = $params['id'];
-//        $list = $meet->where($map)->join('house h',)->select();
-//        var_dump($list);die;
+        $list = $meet->join('house','house.h_id = meet.mh_id')->where($keys,'=',$params['id'])->select();
+        $data = [];
+        if(count($list)>0){
+            foreach($list as $key => &$val){
+//                $data[$key]['m_id'] = $val['m_id'];
+//                $data[$key]['mu_id'] = $val['mu_id'];
+//                $data[$key]['mh_id'] = $val['mh_id'];
+//                $data[$key]['m_ctime'] = $val['m_ctime'];
+//                $data[$key]['m_level'] = $val['m_level'];
+//                $data[$key]['m_etime'] = $val['m_etime'];
+//                $data[$key]['m_because'] = $val['m_because'];
+//                $data[$key]['m_status'] = $val['m_status'];
+//                $data[$key]['m_content'] = $val['m_content'];
+//                $data[$key]['m_time'] = $val['m_time'];
+//                $data[$key]['mhu_id'] = $val['mhu_id'];
+//                $data[$key]['hu_name'] = $val['hu_name'];
+                $test = json_decode($val['h_uploads'],true);
+                $test_data=[];
+                foreach($test as $k => $v){
+                    $str = str_replace("\\",'/',$v);
+                    $arr = str_replace("//",'/',$str);
+                    $test_data[$k] = SERVER_WEIJIA.$arr;
+                }
+                $val['h_uploads'] = $test_data;
+            }
+        }
+        $list_data = json_encode($list,JSON_UNESCAPED_UNICODE);
+        return $list_data;
 
     }
 
