@@ -147,3 +147,16 @@ function img_level($a){
     $arr = [0=>'不限',1=>'展示',-1=>'不展示'];
     return $arr[$a];
 }
+
+function order_leixing($a){
+    $arr = [0=>'不限',1=>'租房',2=>'保洁',3=>'维修',4=>'交租',5=>'水费',6=>'电费',7=>'燃气费'];
+    return $arr[$a];
+}
+function order_state($a){
+    $arr = [0=>'不限',1=>'微信',2=>'支付宝',3=>'其他'];
+    return $arr[$a];
+}
+function order_status($a){
+    $arr = [0=>'不限',1=>'等待确认',2=>'已接收',3=>'完成',-1=>'无效'];
+    return $arr[$a];
+}

@@ -59,6 +59,7 @@ class ShenqingModel extends Model{
             ->where('s_level','=',2)
             ->where('s_status','=',1)
             ->select();
+//        $list['s_img'] = json_decode($list['s_img'],true);
         $total = count($list);
         $many = 6;
         $page = new Page($total,$many);

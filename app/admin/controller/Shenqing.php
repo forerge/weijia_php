@@ -33,7 +33,7 @@ class Shenqing extends Controller{
    }
 
     public function house(){
-        $result = ShenqingModel::page_list_user();
+        $result = ShenqingModel::page_list_house();
         $this->assign('list',$result['list']);
         $this->assign('pagelist',$result['pagelist']);
         return $this->fetch('index');

@@ -1,0 +1,78 @@
+﻿{include file="common/head" /}
+<body>
+ <div class="wrap">
+  <div class="page-title">
+     <span class="modular fl"><i class="edit_user"></i><em>支付详情</em></span>
+  </div>
+  <form action="update" method="post">
+      <input type="hidden" class="textBox length-middle" name="o_id" value="<?php echo $o_id; ?>"/>
+     <table class="list-style">
+    <tr>
+     <td style="width:15%;text-align:right;">甲方：</td>
+     <td><a href="/admin/user/update?id=<?php echo $ou_id; ?>"><?php echo $u_name; ?></a> </td>
+    </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">收款账号：</td>
+             <td><input type="text" class="textBox length-middle" disabled name="o_number" value="<?php echo $u_name; ?>"/></td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">房源发布者：</td>
+             <td><a href="/admin/user/update?id=<?php echo $ohu_id; ?>"><?php echo $ohu_id; ?></a></td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">房源编号：</td>
+             <td><a href="/admin/house/update?id=<?php echo $oh_id; ?>"><?php echo $oh_id; ?></a></td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">订单类型：</td>
+             <td><input type="text" class="textBox length-middle" disabled value="<?php echo order_leixing($o_leixing); ?>"/></td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">支付类型：</td>
+             <td><input type="text" class="textBox length-middle" disabled value="<?php echo order_state($o_state); ?>"/></td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">订单状态：</td>
+             <td><input type="text" class="textBox length-middle" disabled  value="<?php echo order_state($o_status); ?>"/></td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">下单时间：</td>
+             <td><input type="text" class="textBox length-middle" disabled value="<?php echo date('Y-m-d H:i:s',$o_ctime); ?>"/></td>
+         </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">支付金额：</td>
+             <td><input type="text" class="textBox length-middle" disabled value="<?php echo $o_money; ?>"/>元</td>
+         </tr>
+         <?php if($o_leixing == 1){ ?>
+             <tr>
+                 <td style="width:15%;text-align:right;">租房时长：</td>
+                 <td><input type="text" class="textBox length-middle" disabled value="<?php echo $o_long; ?>"/>个月</td>
+             </tr>
+             <tr>
+                 <td style="width:15%;text-align:right;">押金：</td>
+                 <td><input type="text" class="textBox length-middle" disabled value="<?php echo $o_ymoney; ?>"/>元</td>
+             </tr>
+             <tr>
+                 <td style="width:15%;text-align:right;">租金：</td>
+                 <td><input type="text" class="textBox length-middle" disabled value="<?php echo $o_zmoney; ?>"/>元</td>
+             </tr>
+         <?php }else{ ?>
+             <tr>
+                 <td style="width:15%;text-align:right;"结束时间>：</td>
+                 <td><input type="text" class="textBox length-middle" disabled value="<?php echo date('Y-m-d H:i:s',$o_etime); ?>"/></td>
+             </tr>
+         <?php } ?>
+    <tr>
+         <td style="text-align:right;">图片：</td>
+     <td>
+         <?php foreach($o_img as $v){ ?>
+         <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $v; ?>" alt="">
+         <?php } ?>
+     </td>
+    </tr>
+   </table>
+  </form>
+
+ </div>
+</body>
+</html>

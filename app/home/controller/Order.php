@@ -16,6 +16,12 @@ class Order extends controller{
        $map['o_money'] = is_int($params['money'])?$params['money']:intval($params['money']);
        $map['o_ymoney'] = is_int($params['ymoney'])?$params['ymoney']:intval($params['ymoney']);
        $map['o_zmoney'] = is_int($params['zmoney'])?$params['zmoney']:intval($params['zmoney']);
+       $map['o_long'] = is_int($params['long'])?$params['long']:intval($params['long']);
+       $test_data = $params['img']['imgUploadView1'];
+       foreach($test_data as &$v){
+           $v = str_replace('public/uploads/','',$v);
+       }
+       $map['o_img'] = json_encode($test_data,true) ;
 //       var_dump($map);die;
        $order = new OrderModel();
        if($order->save($map)){
