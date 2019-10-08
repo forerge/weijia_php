@@ -23,8 +23,9 @@ class User extends Controller{
        }
    }
 
-    public function kuai_register(){
-
+    public function kuai_detail(){
+        $id = Request::instance()->param('id');
+        var_dump($id);die;
 
     }
 

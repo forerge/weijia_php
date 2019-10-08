@@ -13,14 +13,14 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    // 'hostname'        => '210.16.180.134',
-    'hostname'        => '',
+//     'hostname'        => '210.16.180.134',
+    'hostname'        => 'localhost',
     // 数据库名
     'database'        => 'weijia',
     // 用户名
     'username'        => 'root',
     // 密码
-    // 'password'        => 'dzy1326590*8',
+//     'password'        => 'dzy1326590*8',
     'password'        => '',
     // 端口
     'hostport'        => '3306',

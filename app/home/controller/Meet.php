@@ -44,7 +44,7 @@ class Meet extends controller{
             $keys = 'mhu_id';
         }
         $meet = new MeetModel();
-        $list = $meet->join('house','house.h_id = meet.mh_id')->where($keys,'=',$params['id'])->select();
+        $list = $meet->join('house','house.h_id = meet.mh_id')->where($keys,'=',$params['id'])->where('meet.mo_id','=',0)->select();
         $data = [];
         if(count($list)>0){
             foreach($list as $key => &$val){

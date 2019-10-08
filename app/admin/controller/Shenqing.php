@@ -4,6 +4,7 @@ use think\Controller;
 use app\admin\model\ShenqingModel;
 use app\admin\tools\Page;
 use think\Db;
+use think\Request;
 
 class Shenqing extends Controller{
     public function index(){
@@ -21,8 +22,10 @@ class Shenqing extends Controller{
         return $this->fetch();
     }
 
-    public function edit(){
-        return $this->fetch();
+    public function del(){
+        $id = Request::instance()->param('id');
+        Db::table('shengqing')->where('s_id','=',$id)->delete();
+        $this->redirect('/admin/shengqing/index');
     }
 
    public function user(){

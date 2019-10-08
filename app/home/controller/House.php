@@ -68,6 +68,45 @@ class House extends Controller{
         echo 1;
     }
 
+    public function kuai_add(){
+        $params = Request::instance()->param();
+        $house = new HouseModel();
+        $house->h_qv = $params['one']['qv'];
+        $house->h_shi = $params['one']['shi'];
+        $house->h_state = $params['one']['state'];
+        $house->hu_id = $params['one']['uid'];
+        $house->h_status = $params['one']['status'];
+        $house->h_weijia = $params['one']['weijia'];
+        $house->h_listen = $params['one']['listen'];
+        $house->hu_name = $params['one']['name'];
+        $house->h_ting = $params['one']['ting'];
+        $house->h_wei = $params['one']['wei'];
+        $house->h_addr = $params['one']['addr'];
+        $house->h_space = $params['one']['space'];
+        $house->h_xiang = $params['one']['xiang'];
+        $house->h_money = $params['one']['money'];
+        $house->h_floor = $params['one']['floor'];
+        $house->h_elevator = $params['one']['elevator'];
+        $house->h_rule = $params['one']['rule'];
+        $house->h_inmoney = json_encode($params['one']['in_money'],true);
+        $house->h_many = $params['two']['renshu'];
+        $house->h_content = $params['two']['buchong'];
+        $result = HouseModel::many_json($params['two']['fangwupeizhi'],$params['two']['chuzuyaoqiu']);
+        $images = HouseModel::images($params['one']['uploads'],$params['two']['img']);
+        $house->h_ask = $result['h_ask'];
+        $house->h_config = $result['h_config'];
+        $house->h_uploads = $images['h_uploads'];
+        $house->h_img = $images['h_img'];
+        if($house->save()){
+            echo 1;
+        }else{
+            echo 0;
+        }
+
+    }
+
+
+
 }
 
 

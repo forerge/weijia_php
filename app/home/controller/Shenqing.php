@@ -30,6 +30,11 @@ class Shenqing extends Controller{
        }
    }
 
+    public function hetong(){
+        $hetong = Db::table('record')->where('r_id','=',2)->field('r_hetong')->find();
+        $list = json_encode($hetong,JSON_UNESCAPED_UNICODE);
+    }
+
 
 
 

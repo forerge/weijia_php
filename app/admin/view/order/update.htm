@@ -65,9 +65,10 @@
     <tr>
          <td style="text-align:right;">图片：</td>
      <td>
+         <?php if(!empty($o_img)){ ?>
          <?php foreach($o_img as $v){ ?>
          <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $v; ?>" alt="">
-         <?php } ?>
+         <?php }} ?>
      </td>
     </tr>
    </table>
