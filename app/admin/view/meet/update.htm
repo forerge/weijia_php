@@ -19,8 +19,12 @@
     </td>
    </tr>
    <tr>
-    <td style="width:15%;text-align:right;">预约时间：</td>
+    <td style="width:15%;text-align:right;">发起时间：</td>
     <td><input type="text" class="textBox length-middle" name="m_ctime" value="<?php echo date('Y-m-d H:i:s',$m_ctime); ?>" /></td>
+   </tr>
+   <tr>
+    <td style="width:15%;text-align:right;">约定时间：</td>
+    <td><input type="text" class="textBox length-middle" name="m_time" value="<?php echo date('Y-m-d H:i:s',$m_time); ?>" /></td>
    </tr>
    <?php if($m_level == -1){ ?>
    <tr>

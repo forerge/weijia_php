@@ -58,6 +58,22 @@ class House extends Controller{
         return $list;
     }
 
+    public function kuai_detail_zufang(){
+        $house = new HouseModel();
+        $meet = new MeetModel();
+        $data = Request::instance()->param();
+        $hid = is_int($data['hid'])?$data['hid']:intval($data['hid']);
+        $mid = is_int($data['mid'])?$data['mid']:intval($data['mid']);
+        $data['house'] = $house->where('h_id','=',$hid)->find();
+        $data['meet'] = $meet->where('m_id','=',$mid)->find();
+        $name = $data['house']['h_qv'];
+        $same_house = new HouseModel();
+        $same_data = $same_house->where('h_qv','=',$name)->where('h_shenhe','=',1)->limit(3)->select();
+        $data['same'] = $same_data;
+        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return $list;
+    }
+
     public function kuai_meet(){
         $params = Request::instance()->param();
         $params['uid'] = 30 ;
@@ -92,17 +108,19 @@ class House extends Controller{
         $house->h_addr = $params['one']['addr'];
         $house->h_space = $params['one']['space'];
         $house->h_xiang = $params['one']['xiang'];
+        $house->hu_phone = $params['one']['phone'];
         $house->h_money = $params['one']['money'];
         $house->h_floor = $params['one']['floor']>0?$params['one']['floor']:-1;
         $house->h_car = $params['one']['car']>0?$params['one']['car']:-1;
         $house->h_elevator = $params['one']['elevator']>0?$params['one']['elevator']:-1;
         $house->h_rule = $params['one']['rule'];
-        $house->h_inmoney = json_encode($params['one']['in_money'],true);
+
         $house->h_many = $params['two']['renshu'];
         $house->h_content = $params['two']['buchong'];
-        $result = HouseModel::many_json($params['two']['fangwupeizhi'],$params['two']['chuzuyaoqiu'],$params['two']['fangwuliangdian']);
+        $result = HouseModel::many_json($params['two']['fangwupeizhi'],$params['two']['chuzuyaoqiu'],$params['two']['fangwuliangdian'],$params['one']['in_money']);
         $images = HouseModel::images($params['one']['uploads'],$params['two']['img']);
         $house->h_ask = $result['h_ask'];
+        $house->h_inmoney = $result['in_money'];
         $house->h_liangdian = $result['h_liangdian'];
         $house->h_config = $result['h_config'];
         $house->h_uploads = $images['h_uploads'];

@@ -60,9 +60,29 @@ class HouseModel extends Model{
         $data = SERVER_WEIJIA.$arr;
         return $data;
     }
+    public function getHConfigAttr($a){
+        $str = json_decode($a,true);
+        $arr = array_flip($str);
+        return $arr;
+    }
+    public function getHAskAttr($a){
+        $str = json_decode($a,true);
+        $arr = array_flip($str);
+        return $arr;
+    }
+    public function getHInmoneyAttr($a){
+        $str = json_decode($a,true);
+        $arr = array_flip($str);
+        return $arr;
+    }
+    public function getHLiangdianAttr($a){
+        $str = json_decode($a,true);
+        $arr = array_flip($str);
+        return $arr;
+    }
 
-    public static function many_json($config,$ask,$liangdian){
-        $h_config = [];
+    public static function many_json($config,$ask,$liangdian,$inmoney){
+        $h_config = [0=>'a'];
         if(in_array('宽带',$config)){array_push($h_config,'kuandai');}
         if(in_array('床',$config)){array_push($h_config,'chuang');}
         if(in_array('衣柜',$config)){array_push($h_config,'yigui');}
@@ -79,7 +99,8 @@ class HouseModel extends Model{
         if(in_array('独立卫生间',$config)){array_push($h_config,'duliweishengjian') ;}
         if(in_array('可做饭',$config)){array_push($h_config,'kezuofan');}
 
-        $h_ask = [];
+
+        $h_ask = [0=>'a'];
         if(in_array('只限女生',$ask)){array_push($h_ask,'zhixiannvsheng');}
         if(in_array('一家人',$ask)){array_push($h_ask,'yijiaren');}
         if(in_array('禁止养宠物',$ask)){array_push($h_ask,'jinzhiyangchongwu') ;}
@@ -89,16 +110,26 @@ class HouseModel extends Model{
         if(in_array('作息正常',$ask)){array_push($h_ask,'zuoxizhengchang') ;}
         if(in_array('禁烟',$ask)){array_push($h_ask,'jinyan');}
 
-        $h_liangdian = [];
+        $h_liangdian = [0=>'a'];
         if(in_array('南北通透',$liangdian)){array_push($h_liangdian,'nanbeitongtou');}
         if(in_array('首次出租',$liangdian)){array_push($h_liangdian,'shoucichuzu');}
         if(in_array('有阳台',$liangdian)){array_push($h_liangdian,'youyangtai');}
+
+
+        $h_inmoney = [0=>'a'];
+        if(in_array('水费',$inmoney)){array_push($h_inmoney,'shuifei');}
+        if(in_array('电费',$inmoney)){array_push($h_inmoney,'dianfei');}
+        if(in_array('燃气费',$inmoney)){array_push($h_inmoney,'ranqifei');}
+        if(in_array('宽带费',$inmoney)){array_push($h_inmoney,'kuandaifei');}
+        if(in_array('物业费',$inmoney)){array_push($h_inmoney,'wuyefei');}
+        if(in_array('有线电视费',$inmoney)){array_push($h_inmoney,'youxiandianshifei');}
+        if(in_array('停车费',$inmoney)){array_push($h_inmoney,'tingche');}
 
         $h_config = json_encode($h_config,JSON_UNESCAPED_UNICODE);
         $h_ask = json_encode($h_ask,JSON_UNESCAPED_UNICODE);
         $h_liangdian = json_encode($h_liangdian,JSON_UNESCAPED_UNICODE);
 
-        return ['h_config'=>$h_config,'h_ask'=>$h_ask,'h_liangdian'=>$h_liangdian];
+        return ['h_config'=>$h_config,'h_ask'=>$h_ask,'h_liangdian'=>$h_liangdian,'h_inmoney'=>$h_inmoney];
     }
 
     public static function images($uploads,$img){

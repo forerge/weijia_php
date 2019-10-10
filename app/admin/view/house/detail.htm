@@ -156,7 +156,8 @@
      <input class="json-many" disabled  type="checkbox"  <?php if(in_array('chouyanji',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>抽烟机、
      <input class="json-many" disabled  type="checkbox"  <?php if(in_array('diancilu',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>电磁炉、
      <input class="json-many" disabled  type="checkbox"  <?php if(in_array('duliweishengjian',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?> />独立卫生间、
-     <input class="json-many" disabled type="checkbox"  <?php if(in_array('kezuofan',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>可做饭
+     <input class="json-many" disabled type="checkbox"  <?php if(in_array('kezuofan',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>可做饭、
+     <input class="json-many" disabled type="checkbox"  <?php if(in_array('weibolu',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?> />微波炉
     </td>
    </tr>
    <tr>
@@ -336,7 +337,7 @@
     <td >
      <?php if(!empty($h_uploads)){ ?>
      <?php foreach($h_uploads as $k => $v){ ?>
-      <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $h_uploads[$k] ;?>" max-width="200" max-height="200" />
+      <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $v ;?>" max-width="200" max-height="200" />
      <?php } ?>
      <?php } ?>
     </td>
@@ -346,7 +347,7 @@
     <td>
      <?php if(!empty($h_img)){ ?>
      <?php foreach($h_img as $k => $v){ ?>
-     <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $h_uploads[$k] ;?>" max-width="200" max-height="200" />
+     <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $v ;?>" max-width="200" max-height="200" />
      <?php } ?>
      <?php } ?>
     </td>

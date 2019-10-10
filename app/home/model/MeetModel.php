@@ -16,6 +16,7 @@ class MeetModel extends Model{
         return $this->hasMany('house','h_id','mh_id');
     }
 
+
 }
 
 
