@@ -81,8 +81,9 @@
                 <span class="block"><?php echo $v['h_province'].'、'.$v['h_city'].'、'.$v['h_area'].'、'.$v['h_town'].'、'.$v['h_qv'].'、'.$v['h_addr']; ?></span>
             </td>
             <td class="center" width="260">
-                <a href="/admin/house/update?id=<?php echo $v['h_id']; ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>
-                <a href="/admin/house/del?id=<?php echo $v['h_id']; ?>" class="inline-block" title="删除"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_trash.gif"/></a>
+                <a href="/admin/house/update?id=<?php echo $v['h_id']; ?>" class="inline-block" title="修改">修改</a>
+                <a href="/admin/house/detail?id=<?php echo $v['h_id']; ?>" class="inline-block" title="查看">查看</a>
+                <a href="/admin/house/del?id=<?php echo $v['h_id']; ?>" class="inline-block" title="删除">删除</a>
             </td>
         </tr>
         <?php }} ?>

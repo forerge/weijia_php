@@ -1,0 +1,363 @@
+﻿{include file="common/head" /}
+<body>
+<div class="wrap">
+ <div class="page-title">
+  <span class="modular fl"><i class="add"></i><em>房源详情</em></span>
+ </div>
+ <form action="/admin/house/detail" method="post" enctype="multipart/form-data">
+  <input value="<?php echo $h_id; ?>"  type="hidden" name="h_id" id="h_id" />
+  <table class="list-style">
+   <tr>
+    <td style="text-align:right;">特殊情况：</td>
+    <td>
+     <?php if($h_pid > 0){ ?>
+       <a href="/admin/house/update?id=<?php echo $h_pid; ?>"><?php echo $h_pid; ?></a>
+     <?php }else{ ?>
+       <span>
+        <?php
+        if($h_pid == 0){
+         echo '';
+         }else if($h_pid == -1){
+         echo '全权委托房';
+         }else if($h_pid == -2){
+         echo '委托带看房';
+         }
+        ?>
+       </span>
+     <?php } ?>
+     <span>（1、全权委托，2、委托带客看房，3、从现有房源分离出来的新房源）</span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">浏览记录：</td>
+    <td>
+     <span><?php echo json_decode($h_jilu); ?></span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">成交价：</td>
+    <td>
+     <span><?php echo json_decode($h_money1); ?></span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">是否审核：</td>
+    <td>
+     <?php if(intval($h_shenhe)<0){ ?>
+     <select   name="h_shenhe" class="textBox">
+      <?php }else{ ?>
+      <select  disabled name="h_shenhe" class="textBox">
+      <?php } ?>
+      <option value="<?php echo $h_shenhe; ?>">--<?php echo house_shenhe($h_shenhe); ?>--</option>
+      <option value="1">--已审核--</option>
+      <option value="-1">--未审核--</option>
+     </select>
+    </td>
+   <tr>
+    <td style="text-align:right;">是否参与推荐：</td>
+    <td>
+     <select disabled  class="textBox">
+      <option value="<?php echo $h_tuijian; ?>">--<?php echo house_tuijian($h_tuijian); ?>--</option>
+      <option value="1">--不参与--</option>
+      <option value="2">--参与推荐--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;width:15%;">地址：</td>
+    <td>
+     <select disabled  class="textBox" id="province">
+      <option value="<?php echo $h_province; ?>"><?php echo $h_province; ?></option>
+      <?php foreach($provinces as $v){ ?>
+      <option data-id="<?php echo $v['provice_id'] ?>" value="<?php echo $v['provice_name'] ?>"><?php echo $v['provice_name'] ?></option>
+      <?php } ?>
+     </select>
+     <select disabled  class="textBox" id="city">
+      <option value="<?php echo $h_city; ?>"><?php echo $h_city; ?></option>
+     </select>
+     <select disabled  class="textBox" id="county">
+      <option value="<?php echo $h_area; ?>"><?php echo $h_area; ?></option>
+     </select>
+     <select disabled  class="textBox" id="town">
+      <option value="<?php echo $h_town; ?>"><?php echo $h_town; ?></option>
+     </select>
+     <script>
+      $('#province').on('change',function(){
+       var id = $(this).find('option:selected').attr('data-id');
+       $.post('/admin/house/province',{id:id},function(list){
+        var list = JSON.parse(list,true);
+        var html = '';
+        $.each(list,function(k,v){
+         html += "<option data-id='"+v['city_id']+"' value='"+v['city_name']+"'>"+v['city_name']+"</option>";
+        })
+        $("#city").empty().append(html);
+        select_city();
+       })
+      })
+      function select_city(){
+       var id_city = $('#city').find('option:selected').attr('data-id');
+       $.post('/admin/house/city',{id:id_city},function(list1){
+        var list1 = JSON.parse(list1);
+        var html1 = '';
+        $.each(list1,function(k1,v1){
+         html1 += "<option data-id='"+v1['county_id']+"' value='"+v1['county_name']+"'>"+v1['county_name']+"</option>"
+        })
+        $("#county").empty().append(html1);
+        select_county();
+       })
+      }
+      function select_county(){
+       var id_qv = $('#county').find('option:selected').attr('data-id');
+       $.post('/admin/house/county',{id:id_qv},function(list2){
+        var list2 = JSON.parse(list2);
+        var html2 = '';
+        $.each(list2,function(k2,v2){
+         html2 += "<option data-id='"+v2['town_id']+"' value='"+v2['town_name']+"'>"+v2['town_name']+"</option>";
+        })
+        $('#town').empty().append(html2);
+       })
+      }
+      $('#city').on('change',function(){
+       select_city();
+      })
+      $('#qv').on('change',function(){
+       select_county();
+      })
+     </script>
+     <input disabled value="<?php echo $h_qv; ?>"  type="text" style="width:130px"  class="textBox length-short"/>：小区，
+     详细地址：<input disabled value="<?php echo $h_addr; ?>"  type="text" name="h_addr" class="textBox length-long"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;width:15%;">房屋情况：</td>
+    <td>
+     <input disabled value="<?php echo $h_shi; ?>"  type="text"  class="textBox length-short"/>：室、
+     <input disabled value="<?php echo $h_wei; ?>"  type="text"  class="textBox length-short"/>：卫、
+     <input disabled value="<?php echo $h_ting; ?>"  type="text"  class="textBox length-short"/>：厅、
+     <input disabled value="<?php echo $h_floor; ?>"  type="text"  class="textBox length-short"/>：楼(层)，
+     朝向：<input value="<?php echo $h_xiang; ?>"  type="text"  class="textBox length-short"/>
+    </td>
+   </tr>
+
+   <tr>
+    <td style="text-align:right;">房屋配置：</td>
+    <td>
+     <input class="json-many" disabled type="checkbox"  <?php if(in_array('kuandai',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?> />宽带、
+     <input class="json-many" disabled  type="checkbox" <?php if(in_array('chuang',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?> />床、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('yigui',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>衣柜、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('shafa',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>沙发、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('zhuoyi',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>桌椅、
+     <input class="json-many" disabled   type="checkbox"  <?php if(in_array('dianshi',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?> />电视、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('kongtiao',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>空调、
+     <input class="json-many"  disabled  type="checkbox"  <?php if(in_array('xiyiji',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>洗衣机、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('bingxiang',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>冰箱、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('reshuiqi',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>热水器、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('ranqizao',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>燃气灶、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('chouyanji',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>抽烟机、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('diancilu',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>电磁炉、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('duliweishengjian',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?> />独立卫生间、
+     <input class="json-many" disabled type="checkbox"  <?php if(in_array('kezuofan',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>可做饭
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">出租要求：</td>
+    <td>
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('zhixiannvsheng',$h_ask)){echo "checked value='1'";}else{echo ''; } ?> />只限女生、
+     <input class="json-many" disabled  type="checkbox" <?php if(in_array('yijiaren',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />一家人、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('jinzhiyangchongwu',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />禁止养宠物、
+     <input class="json-many" disabled  type="checkbox" <?php if(in_array('bannianqizu',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />半年起租、
+     <input class="json-many" disabled type="checkbox"  <?php if(in_array('yinianqizu',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />一年起租、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('zuhuwending',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />租户稳定、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('zuoxizhengchang',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> "/>作息正常、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('jinyan',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> "/>禁烟
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">租金包含费用：</td>
+    <td>
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('shuifei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >水费、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('dianfei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?> >电费、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('ranqifei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>" >燃气费、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('kuandaifei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >宽带费、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('wuyefei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >物业费、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('youxiandianshifei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >有限电视费、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('tingche',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >停车费
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房屋亮点：</td>
+    <td>
+     <input class="json-many" disabled  type="checkbox" <?php if(in_array('shoucichuzu',$h_liangdian)){echo "checked value='1'";}else{echo ''; } ?>  >首次出租、
+     <input class="json-many" disabled  type="checkbox"  <?php if(in_array('nanbeitongtou',$h_liangdian)){echo "checked value='1'";}else{echo ''; } ?> >南北通透、
+     <input class="json-many" disabled   type="checkbox"  <?php if(in_array('youyangtai',$h_liangdian)){echo "checked value='1'";}else{echo ''; } ?>" >有阳台
+    </td>
+   </tr>
+   <tr>
+   <tr>
+    <td style="text-align:right;">最近地铁：</td>
+    <td>
+     <input disabled name="h_metro_no" type="text" value="<?php echo $h_metro_no; ?>" class="textBox length-short" placeholder="仅限一条线路" style="width:100px" />
+     <span>号线</span>&nbsp&nbsp&nbsp&nbsp
+     距离：<input disabled name="h_metro_length" value="<?php echo $h_metro_length; ?>" type="text" class="textBox length-short"/>米
+    </td>
+   </tr>
+   <script>
+    $('.json-many').on('click',function(){
+     var data = $(this).val();
+     if(data == 1){
+      var dome = '';
+     }else{
+      var dome = 1;
+     }
+     $(this).val(dome);
+    })
+   </script>
+   <tr>
+    <td style="text-align:right;">是否整租：</td>
+    <td>
+     <select  disabled class="textBox">
+      <option value="<?php echo $h_state; ?>">--<?php echo house_state($h_state); ?>--</option>
+      <option value="1">--整租--</option>
+      <option value="2">--合租--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">出租状态：</td>
+    <td>
+     <select  disabled class="textBox">
+      <option value="<?php echo $h_level; ?>">--<?php echo house_level($h_level); ?>--</option>
+      <option value="1">--出租中--</option>
+      <option value="2">--下架--</option>
+      <option value="-1">--已租出--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房源展示平台：</td>
+    <td>
+     <select  disabled class="textBox">
+      <option value="<?php echo $h_status; ?>">--<?php echo house_status($h_status); ?>--</option>
+      <option value="1">--快租房--</option>
+      <option value="2">--青年公寓--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">有无电梯：</td>
+    <td>
+     <select  disabled class="textBox">
+      <option value="<?php echo $h_elevator; ?>">--<?php echo house_elevator($h_elevator); ?>--</option>
+      <option value="1">--有--</option>
+      <option value="-1">--无--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">有无停车位：</td>
+    <td>
+     <select disabled  class="textBox">
+      <option value="<?php echo $h_elevator; ?>">--<?php echo house_elevator($h_car); ?>--</option>
+      <option value="1">--有--</option>
+      <option value="-1">--无--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">租金：</td>
+    <td>
+     <input  disabled type="text" value="<?php echo $h_money; ?>" class="textBox length-short"/>
+     <span>元</span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">面积：</td>
+    <td>
+     <input disabled type="text" value="<?php echo $h_space ?>" class="textBox length-short"/>
+     <span>m³</span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房产证号：</td>
+    <td>
+     <input  disabled type="text" value="<?php echo $h_hnum ?>"  class="textBox length-long"/>
+     <span></span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">业主姓名：</td>
+    <td>
+     <input  disabled type="text" value="<?php echo $h_hname ?>"  class="textBox length-short"/>
+     <span></span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">入住时间：</td>
+    <td>
+     <input  style="width:130px" disabled   value="<?php echo $h_in ?>"  type="text" class="textBox length-short"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">宜住人数：</td>
+    <td>
+     <input  disabled type="text" value="<?php echo $h_many ?>"  class="textBox length-short"/>
+     <span>人</span>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">门锁密码：</td>
+    <td>
+     <input type="text" disabled  value="<?php echo $h_lock ?>"  class="textBox length-long"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">接听电话时间：</td>
+    <td>
+     <input type="text" disabled  value="<?php echo $h_listen ?>"  class="textBox length-long"/>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">付款方式：</td>
+    <td>
+     <select  disabled class="inline-select">
+      <option value="<?php echo $h_rule; ?>">--<?php echo house_rule($h_rule); ?>--</option>
+      <option value="1" >压一付一</option>
+      <option value="2" >压一付三</option>
+      <option value="3" >半年付</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房源描述：</td>
+    <td><textarea  disabled class="textarea"><?php echo $h_content ?></textarea></td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房源照片：</td>
+    <td >
+     <?php if(!empty($h_uploads)){ ?>
+     <?php foreach($h_uploads as $k => $v){ ?>
+      <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $h_uploads[$k] ;?>" max-width="200" max-height="200" />
+     <?php } ?>
+     <?php } ?>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">证件照片：</td>
+    <td>
+     <?php if(!empty($h_img)){ ?>
+     <?php foreach($h_img as $k => $v){ ?>
+     <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $h_uploads[$k] ;?>" max-width="200" max-height="200" />
+     <?php } ?>
+     <?php } ?>
+    </td>
+   </tr>
+   <?php if(intval($h_shenhe)<0){ ?>
+   <tr>
+    <td style="text-align:right;"></td>
+    <td><input type="submit" value="修改" class="tdBtn"/></td>
+   </tr>
+   <?php } ?>
+  </table>
+</div>
+</body>
+</html>

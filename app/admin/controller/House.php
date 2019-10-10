@@ -30,10 +30,18 @@ class House extends Controller{
             }else{
                 $data['hu_name'] = '唯家';
             }
-            $data['h_config'] = json_encode($data['h_config'],true);
-            $data['h_ask'] = json_encode($data['h_ask'],true);
-            $data['h_inmoney'] = json_encode($data['h_inmoney'],true);
+
+            $test_config = !empty($data['h_config'])?array_keys($data['h_config']):[];
+            $test_ask =!empty($data['h_ask'])?array_keys($data['h_ask']):[];
+            $test_inmoney = !empty($data['h_inmoney'])?array_keys($data['h_inmoney']):[];
+            $test_liangdian = !empty($data['h_liangdian'])?array_keys($data['h_liangdian']):[];
+            $data['h_config'] = json_encode($test_config,true);
+            $data['h_ask'] = json_encode($test_ask,true);
+            $data['h_inmoney'] = json_encode($test_inmoney,true);
+            $data['h_liangdian'] = json_encode($test_liangdian,true);
+
             $data['h_ctime'] = time();
+            $data['h_shenhe'] = 1;
             $house = new HouseModel();
             if($house->save($data)){
                 $this->redirect('/admin/house/index');
@@ -50,15 +58,22 @@ class House extends Controller{
     public function update(){
         if($_POST){
             $list = $_POST;
-//            var_dump($list);die;
+
             $id = $list['h_id'];
             $data = Db::table('house')->where('h_id','=',$id)->find();
             $images = json_decode($data['h_uploads'],true);
             unset($list['h_id']);
             $result = HouseModel::upload_add($images);
-            $list['h_config'] = json_encode($list['h_config'],true);
-            $list['h_ask'] = json_encode($list['h_ask'],true);
-            $list['h_inmoney'] = json_encode($list['h_inmoney'],true);
+
+            $test_config = !empty($list['h_config'])?array_keys($list['h_config']):[];
+            $test_ask =!empty($list['h_ask'])?array_keys($list['h_ask']):[];
+            $test_inmoney = !empty($list['h_inmoney'])?array_keys($list['h_inmoney']):[];
+            $test_liangdian = !empty($list['h_liangdian'])?array_keys($list['h_liangdian']):[];
+            $list['h_config'] = json_encode($test_config,true);
+            $list['h_ask'] = json_encode($test_ask,true);
+            $list['h_inmoney'] = json_encode($test_inmoney,true);
+            $list['h_liangdian'] = json_encode($test_liangdian,true);
+
             if(!empty($images)){
                 if(!empty($result[1])){
                     $list['h_uploads'] = json_encode($result[1],true);
@@ -84,22 +99,31 @@ class House extends Controller{
                 $list['h_inmoney'] = '';
             }
 
-            if(!empty($list['h_inmoney'])){
+            if(!empty($list['h_config'])){
                 $list['h_config'] = json_decode($list['h_config'],true);
             }else{
                 $list['h_config'] = '';
             }
-            if(!empty($list['h_inmoney'])){
+            if(!empty($list['h_ask'])){
                 $list['h_ask'] = json_decode($list['h_ask'],true);
             }else{
                 $list['h_ask'] = '';
             }
-            if(!empty($list['h_inmoney'])){
+            if(!empty($list['h_uploads'])){
                 $list['h_uploads'] = json_decode($list['h_uploads'],true);
             }else{
                 $list['h_uploads'] ='';
             }
-
+            if(!empty($list['h_liangdian'])){
+                $list['h_liangdian'] = json_decode($list['h_liangdian'],true);
+            }else{
+                $list['h_liangdian'] ='';
+            }
+            if(!empty($list['h_img'])){
+                $list['h_img'] = json_decode($list['h_img'],true);
+            }else{
+                $list['h_img'] ='';
+            }
 
 
             $provinces = Db::table('j_position_provice')->select();
@@ -144,6 +168,59 @@ class House extends Controller{
        }else{
            $this->redirect('/admin/house/index');
        }
+    }
+
+    public function shenhe(){
+        $map['h_shenhe'] = -1;
+        $list = Db::table('house')->where($map)->select();
+        $this->assign('list',$list);
+        return $this->fetch();
+    }
+
+    public function detail(){
+        if($_POST) {
+            $params = Request::instance()->param();
+            Db::table('house')->where('h_id','=',intval($params['h_id']))->update(['h_shenhe'=>intval($params['h_shenhe'])]);
+            $this->redirect('/admin/house/shenhe');
+        }else{
+            $id = $_GET['id'];
+            $list = Db::table('house')->where('h_id', '=', $id)->find();
+            if (!empty($list['h_inmoney'])) {
+                $list['h_inmoney'] = json_decode($list['h_inmoney'], true);
+            } else {
+                $list['h_inmoney'] = '';
+            }
+
+            if (!empty($list['h_config'])) {
+                $list['h_config'] = json_decode($list['h_config'], true);
+            } else {
+                $list['h_config'] = '';
+            }
+            if (!empty($list['h_ask'])) {
+                $list['h_ask'] = json_decode($list['h_ask'], true);
+            } else {
+                $list['h_ask'] = '';
+            }
+            if (!empty($list['h_uploads'])) {
+                $list['h_uploads'] = json_decode($list['h_uploads'], true);
+            } else {
+                $list['h_uploads'] = '';
+            }
+            if(!empty($list['h_liangdian'])){
+                $list['h_liangdian'] = json_decode($list['h_liangdian'],true);
+            }else{
+                $list['h_liangdian'] ='';
+            }
+            if (!empty($list['h_img'])) {
+                $list['h_img'] = json_decode($list['h_img'], true);
+            } else {
+                $list['h_img'] = '';
+            }
+            $provinces = Db::table('j_position_provice')->select();
+            $this->assign('provinces', $provinces);
+            $this->assign($list);
+            return $this->fetch();
+        }
     }
 
 

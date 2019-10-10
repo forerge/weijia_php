@@ -77,7 +77,7 @@ function house_state($a){
 }
 function house_elevator($a){
     $num = is_int($a)?$a:intval($a);
-    $arr = ['不限','有','无'];
+    $arr = [-1=>'无',0=>'不限',1=>'有'];
     return $arr[$num];
 }
 function house_weijia($a){
@@ -91,6 +91,11 @@ function house_tuijian($a){
 function house_pid($a){
     $arr = ['一般房源','全权委托','委托带客看房'];
     return $arr[$arr];
+}
+function house_shenhe($a){
+    $num = is_int($a)?$a:intval($a);
+    $arr = [-1=>'未审核',0=>'不限',1=>'已审核'];
+    return $arr[$num];
 }
 
 

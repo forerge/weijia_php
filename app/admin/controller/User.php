@@ -54,6 +54,7 @@ class User extends Controller{
         }else{
             $id = $_GET['id'];
             $user = Db::table('user')->where('u_id','=',$id)->find();
+            $user['u_img'] = json_decode($user['u_img'],true);
             $this->assign($user);
         }
         return $this->fetch();

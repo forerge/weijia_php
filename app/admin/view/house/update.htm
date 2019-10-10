@@ -41,6 +41,16 @@
     </td>
    </tr>
    <tr>
+    <td style="text-align:right;">是否审核：</td>
+    <td>
+     <select name="h_shenhe" class="textBox">
+      <option value="<?php echo $h_shenhe; ?>">--<?php echo house_shenhe($h_shenhe); ?>--</option>
+      <option value="1">--已审核--</option>
+      <option value="-1">--未审核--</option>
+     </select>
+    </td>
+   <tr>
+   <tr>
     <td style="text-align:right;">是否参与推荐：</td>
     <td>
      <select name="h_tuijian" class="textBox">
@@ -125,53 +135,65 @@
      朝向：<input value="<?php echo $h_xiang; ?>"  type="text" name="h_xiang" class="textBox length-short"/>
     </td>
    </tr>
-
    <tr>
     <td style="text-align:right;">房屋配置：</td>
     <td>
-     <input class="json-many" type="checkbox" name="h_config[kuandai]" <?php if(isset($h_config['kuandai']) && $h_config['kuandai'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?> />宽带、
-     <input class="json-many"  type="checkbox" name="h_config[chuang]" <?php if(isset($h_config['chuang']) && $h_config['chuang'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?> />床、
-     <input class="json-many"  type="checkbox" name="h_config[yigui]" <?php if(isset($h_config['yigui']) && $h_config['yigui'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>衣柜、
-     <input class="json-many"  type="checkbox" name="h_config[shafa]" <?php if(isset($h_config['shafa']) && $h_config['shafa'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>沙发、
-     <input class="json-many"  type="checkbox" name="h_config[zhuoyi]" <?php if(isset($h_config['zhuoyi']) && $h_config['zhuoyi'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>桌椅、
-     <input class="json-many"  type="checkbox" name="h_config[dianshi]" <?php if(isset($h_config['dianshi']) && $h_config['dianshi'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?> />电视、
-     <input class="json-many"  type="checkbox" name="h_config[kongtiao]" <?php if(isset($h_config['kongtiao']) && $h_config['kongtiao'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>空调、
-     <input class="json-many"  type="checkbox" name="h_config[xiyiji]" <?php if(isset($h_config['xiyiji']) && $h_config['xiyiji'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>洗衣机、
-     <input class="json-many"  type="checkbox" name="h_config[bingxiang]" <?php if(isset($h_config['bingxiang']) && $h_config['bingxiang'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>冰箱、
-     <input class="json-many"  type="checkbox" name="h_config[reshuiqi]" <?php if(isset($h_config['reshuiqi']) && $h_config['reshuiqi'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>热水器、
-     <input class="json-many"  type="checkbox" name="h_config[ranqizao]" <?php if(isset($h_config['ranqizao']) && $h_config['ranqizao'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>燃气灶、
-     <input class="json-many"  type="checkbox" name="h_config[chouyanji]" <?php if(isset($h_config['chouyanji']) && $h_config['chouyanji'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>抽烟机、
-     <input class="json-many"  type="checkbox" name="h_config[diancilou]" <?php if(isset($h_config['diancilou']) && $h_config['diancilou'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>电磁炉、
-     <input class="json-many"  type="checkbox" name="h_config[duliweishengjian]" <?php if(isset($h_config['duliweishengjian']) && $h_config['duliweishengjian'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?> />独立卫生间、
-     <input class="json-many"  type="checkbox" name="h_config[yangtai]" <?php if(isset($h_config['yangtai']) && $h_config['yangtai'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>阳台、
-     <input class="json-many" type="checkbox" name="h_config[kezuofan]" <?php if(isset($h_config['kezuofan']) && $h_config['kezuofan'] ==1){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>可做饭
+     <input class="json-many" type="checkbox" name="h_config[kuandai]" <?php if(in_array('kuandai',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?> />宽带、
+     <input class="json-many"  type="checkbox" name="h_config[chuang]" <?php if(in_array('chuang',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?> />床、
+     <input class="json-many"  type="checkbox" name="h_config[yigui]" <?php if(in_array('yigui',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>衣柜、
+     <input class="json-many"  type="checkbox" name="h_config[shafa]" <?php if(in_array('shafa',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>沙发、
+     <input class="json-many"  type="checkbox" name="h_config[zhuoyi]" <?php if(in_array('zhuoyi',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>桌椅、
+     <input class="json-many"  type="checkbox" name="h_config[dianshi]" <?php if(in_array('dianshi',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?> />电视、
+     <input class="json-many"  type="checkbox" name="h_config[kongtiao]" <?php if(in_array('kongtiao',$h_config) ){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>空调、
+     <input class="json-many"  type="checkbox" name="h_config[xiyiji]" <?php if(in_array('xiyiji',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>洗衣机、
+     <input class="json-many"  type="checkbox" name="h_config[bingxiang]" <?php if(in_array('bingxiang',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>冰箱、
+     <input class="json-many"  type="checkbox" name="h_config[reshuiqi]" <?php if(in_array('reshuiqi',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>热水器、
+     <input class="json-many"  type="checkbox" name="h_config[ranqizao]" <?php if(in_array('ranqizao',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>燃气灶、
+     <input class="json-many"  type="checkbox" name="h_config[chouyanji]" <?php if(in_array('chouyanji',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>抽烟机、
+     <input class="json-many"  type="checkbox" name="h_config[diancilou]" <?php if(in_array('diancilu',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>电磁炉、
+     <input class="json-many"  type="checkbox" name="h_config[duliweishengjian]" <?php if(in_array('duliweishengjian',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?> />独立卫生间、
+     <input class="json-many" type="checkbox" name="h_config[kezuofan]" <?php if(in_array('kezuofan',$h_config)){echo "checked value='1' ";}else{ echo "value=''"; } ?>/>可做饭
     </td>
    </tr>
    <tr>
     <td style="text-align:right;">出租要求：</td>
     <td>
-     <input class="json-many"  type="checkbox" name="h_ask[zhixiannvsheng]" <?php if(isset($h_ask['zhixiannvsheng']) && $h_ask['zhixiannvsheng'] ==1){echo "checked value='1'";}else{echo ''; } ?> />只限女生、
-     <input class="json-many"  type="checkbox" name="h_ask[yijiaren]" <?php if(isset($h_ask['yijiaren']) && $h_ask['yijiaren'] ==1){echo "checked value='1'";}else{echo ''; }  ?> />一家人、
-     <input class="json-many"  type="checkbox" name="h_ask[jinzhiyangchongwu]" <?php if(isset($h_ask['jinzhiyangchongwu']) && $h_ask['jinzhiyangchongwu'] ==1){echo "checked value='1'";}else{echo ''; }  ?> />禁止养宠物、
-     <input class="json-many"  type="checkbox" name="h_ask[bannianqizu]" <?php if(isset($h_ask['bannianqizu']) && $h_ask['bannianqizu'] ==1){echo "checked value='1'";}else{echo ''; }  ?> />半年起租、
-     <input class="json-many" type="checkbox" name="h_ask[yinianqizu]" <?php if(isset($h_ask['yinianqizu']) && $h_ask['yinianqizu'] ==1){echo "checked value='1'";}else{echo ''; }  ?> />一年起租、
-     <input class="json-many"  type="checkbox" name="h_ask[zuhuwending]" <?php if(isset($h_ask['zuhuwending']) && $h_ask['zuhuwending'] ==1){echo "checked value='1'";}else{echo ''; }  ?> />租户稳定、
-     <input class="json-many"  type="checkbox" name="h_ask[zuoxizhengchang]" <?php if(isset($h_ask['zuoxizhengchang']) && $h_ask['zuoxizhengchang'] ==1){echo "checked value='1'";}else{echo ''; }  ?> "/>作息正常、
-     <input class="json-many"  type="checkbox" name="h_ask[jinyan]" <?php if(isset($h_ask['jinyan']) && $h_ask['jinyan'] ==1){echo "checked value='1'";}else{echo ''; }  ?> "/>禁烟
-     <input class="json-many"  type="checkbox" name="h_ask[no]" <?php if(isset($h_ask['no']) && $h_ask['no'] ==1){echo "checked value='1'";}else{echo ''; }  ?> "/>无
+     <input class="json-many"  type="checkbox" name="h_ask[zhixiannvsheng]" <?php if(in_array('zhixiannvsheng',$h_ask)){echo "checked value='1'";}else{echo ''; } ?> />只限女生、
+     <input class="json-many"  type="checkbox" name="h_ask[yijiaren]" <?php if(in_array('yijiaren',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />一家人、
+     <input class="json-many"  type="checkbox" name="h_ask[jinzhiyangchongwu]" <?php if(in_array('jinzhiyangchongwu',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />禁止养宠物、
+     <input class="json-many"  type="checkbox" name="h_ask[bannianqizu]" <?php if(in_array('bannianqizu',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />半年起租、
+     <input class="json-many" type="checkbox" name="h_ask[yinianqizu]" <?php if(in_array('yinianqizu',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />一年起租、
+     <input class="json-many"  type="checkbox" name="h_ask[zuhuwending]" <?php if(in_array('zuhuwending',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> />租户稳定、
+     <input class="json-many"  type="checkbox" name="h_ask[zuoxizhengchang]" <?php if(in_array('zuoxizhengchang',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> "/>作息正常、
+     <input class="json-many"  type="checkbox" name="h_ask[jinyan]" <?php if(in_array('jinyan',$h_ask)){echo "checked value='1'";}else{echo ''; }  ?> "/>禁烟
     </td>
    </tr>
    <tr>
     <td style="text-align:right;">租金包含费用：</td>
     <td>
-     <input class="json-many"  type="checkbox" name="h_inmoney[shuifei]" <?php if(isset($h_inmoney['shuifei']) && $h_inmoney['shuifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >水费、
-     <input class="json-many"  type="checkbox" name="h_inmoney[dianfei]" <?php if(isset($h_inmoney['dianfei']) && $h_inmoney['dianfei'] ==1){echo "checked value='1'";}else{echo ''; } ?> >电费、
-     <input class="json-many"  type="checkbox" name="h_inmoney[ranqifei]" <?php if(isset($h_inmoney['ranqifei']) && $h_inmoney['ranqifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>" >燃气费、
-     <input class="json-many"  type="checkbox" name="h_inmoney[kuandaifei]" <?php if(isset($h_inmoney['kuandaifei']) && $h_inmoney['kuandaifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >宽带费、
-     <input class="json-many"  type="checkbox" name="h_inmoney[wuyefei]" <?php if(isset($h_inmoney['wuyefei']) && $h_inmoney['wuyefei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >物业费、
-     <input class="json-many"  type="checkbox" name="h_inmoney[youxiandianshifei]" <?php if(isset($h_inmoney['youxiandianshifei']) && $h_inmoney['youxiandianshifei'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >有限电视费、
-     <input class="json-many"  type="checkbox" name="h_inmoney[tingche]" <?php if(isset($h_inmoney['tingche']) && $h_inmoney['tingche'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >停车
-     <input class="json-many"  type="checkbox" name="h_inmoney[no]" <?php if(isset($h_inmoney['no']) && $h_inmoney['no'] ==1){echo "checked value='1'";}else{echo ''; } ?>  >无
+     <input class="json-many"  type="checkbox" name="h_inmoney[shuifei]" <?php if(in_array('shuifei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >水费、
+     <input class="json-many"  type="checkbox" name="h_inmoney[dianfei]" <?php if(in_array('dianfei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?> >电费、
+     <input class="json-many"  type="checkbox" name="h_inmoney[ranqifei]" <?php if(in_array('ranqifei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>" >燃气费、
+     <input class="json-many"  type="checkbox" name="h_inmoney[kuandaifei]" <?php if(in_array('kuandaifei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >宽带费、
+     <input class="json-many"  type="checkbox" name="h_inmoney[wuyefei]" <?php if(in_array('wuyefei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >物业费、
+     <input class="json-many"  type="checkbox" name="h_inmoney[youxiandianshifei]" <?php if(in_array('youxiandianshifei',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >有限电视费、
+     <input class="json-many"  type="checkbox" name="h_inmoney[tingche]" <?php if(in_array('tingche',$h_inmoney)){echo "checked value='1'";}else{echo ''; } ?>  >停车费
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">房屋亮点：</td>
+    <td>
+     <input class="json-many"  type="checkbox" name="h_liangdian[shoucichuzu]" <?php if(in_array('shoucichuzu',$h_liangdian)){echo "checked value='1'";}else{echo ''; } ?>  >首次出租、
+     <input class="json-many"  type="checkbox" name="h_liangdian[nanbeitongtou]" <?php if(in_array('nanbeitongtou',$h_liangdian)){echo "checked value='1'";}else{echo ''; } ?> >南北通透、
+     <input class="json-many"  type="checkbox" name="h_liangdian[youyangtai]" <?php if(in_array('youyangtai',$h_liangdian)){echo "checked value='1'";}else{echo ''; } ?>" >有阳台
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">最近地铁：</td>
+    <td>
+     <input name="h_metro_no" type="text" value="<?php echo $h_metro_no; ?>" class="textBox length-short" placeholder="仅限一条线路" style="width:100px" />
+     <span>号线</span>&nbsp&nbsp&nbsp&nbsp
+     距离：<input name="h_metro_length" value="<?php echo $h_metro_length; ?>" type="text" class="textBox length-short"/>米
     </td>
    </tr>
    <script>
@@ -221,6 +243,16 @@
     <td>
      <select name="h_elevator" class="textBox">
       <option value="<?php echo $h_elevator; ?>">--<?php echo house_elevator($h_elevator); ?>--</option>
+      <option value="1">--有--</option>
+      <option value="-1">--无--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
+    <td style="text-align:right;">有无停车位：</td>
+    <td>
+     <select name="h_car" class="textBox">
+      <option value="<?php echo $h_elevator; ?>">--<?php echo house_elevator($h_car); ?>--</option>
       <option value="1">--有--</option>
       <option value="-1">--无--</option>
      </select>

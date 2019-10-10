@@ -2,6 +2,7 @@
 namespace  app\home\controller;
 use app\home\controller\Base;
 
+use app\home\model\ShenqingModel;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -22,6 +23,16 @@ class User extends Controller{
            echo 0;
        }
    }
+
+    public function kuai_renzheng(){
+        $id = Request::instance()->param('uid');
+        $map['su_id'] = $id;
+        $map['s_state'] = 1;
+        $shenqing = new ShenqingModel();
+        $data = $shenqing->where($map)->select();
+        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return $list;
+    }
 
     public function kuai_detail(){
         $id = Request::instance()->param('id');

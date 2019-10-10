@@ -46,8 +46,9 @@ class Shenqing extends Controller{
         $id = $_GET['id'];
         $list = Db::table('shenqing s')
             ->join('user u','u.u_id = s.su_id')
-            ->field('s.*,u.u_id,u.u_name')
+            ->field('s.*,u.u_id,u.u_name,u.u_phone')
             ->where('s_id','=',$id)->find();
+        $list['imgs'] = json_decode($list['s_img'],true);
         $this->assign($list);
         return $this->fetch();
     }
@@ -73,12 +74,19 @@ class Shenqing extends Controller{
     }
 
     public function apply(){
-        $list = $_POST;
+        $list = Request::instance()->param();
+        $shenqing = Db::table('shenqing')->where('s_id','=',$list['s_id'])->find();
         if($list['status'] == 1){
             $map['u_tname'] = $list['name'];
-            $map['u_num'] = $list['num'];
-            $map['u_img'] = $list['img'];
+//            $map['u_num'] = $list['num'];
+            $map['u_img'] = $shenqing['s_img'];
             $map['u_money'] = $list['money'];
+            if($list['s_ma']){
+                $map['u_mato'] = intval($list['s_ma']);
+                $test_ma = is_string($list['u_id'])?$list['u_id']:strval($list['u_id']) ;
+                $map['u_ma'] = intval(str_pad($test_ma,'7','0'));
+            }
+
             if($list['level'] == 1){
                 $map['u_three'] = 1;
             }else if($list['level'] == 2){

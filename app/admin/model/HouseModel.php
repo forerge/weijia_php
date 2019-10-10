@@ -8,35 +8,38 @@ use  think\Db;
 class HouseModel extends Model{
     protected $table = 'house';
 
-    public static function upload_add($data=''){
+    public static function upload_add($data='')
+    {
         $files = request()->file('h_uploads');
         $list = [];
-        foreach($files as $file){
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'. DS . 'house');
-            if($info){
-                $list[] = 'house\\'.$info->getSaveName();
-            }
-        }
-        if(!empty($data)){
-            foreach($_FILES['h_uploads']['name'] as $k => $v){
-                if(!empty($v)){
-                    static $new = 0;
-                    if(isset($data[$k])){
-                        if(file_exists(ROOT_PATH . 'public' . DS . 'uploads'.DS.$data[$k])){
-                            unlink(ROOT_PATH . 'public' . DS . 'uploads'.DS.$data[$k]);
-                        }
-                        $data[$k] = $list[$new];
-                    }
-                    if(!isset($data[$k])){
-                        $data[$k] = $list[$new];
-                    }
-                    $new+=1;
+        if (!empty($files)){
+            foreach ($files as $file) {
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . 'house');
+                if ($info) {
+                    $list[] = 'house\\' . $info->getSaveName();
                 }
             }
-            return [$list,$data];
-        }else{
-            return $list;
+            if (!empty($data)) {
+                foreach ($_FILES['h_uploads']['name'] as $k => $v) {
+                    if (!empty($v)) {
+                        static $new = 0;
+                        if (isset($data[$k])) {
+                            if (file_exists(ROOT_PATH . 'public' . DS . 'uploads' . DS . $data[$k])) {
+                                unlink(ROOT_PATH . 'public' . DS . 'uploads' . DS . $data[$k]);
+                            }
+                            $data[$k] = $list[$new];
+                        }
+                        if (!isset($data[$k])) {
+                            $data[$k] = $list[$new];
+                        }
+                        $new += 1;
+                    }
+                }
+                return [$list, $data];
+            }
         }
+            return $list;
+
 
     }
 

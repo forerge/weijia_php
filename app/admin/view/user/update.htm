@@ -25,8 +25,8 @@
          <input class="user_rule" <?php if($u_one ==1 ){echo "checked";} ?> type="checkbox" value="<?php echo $u_one?$u_one:-1; ?>"  name="u_one"/>租客、
          <input class="user_rule" <?php if($u_two ==1 ){echo "checked";} ?> type="checkbox" value="<?php echo $u_two?$u_two:-1; ?>" name="u_two"/>房东、
          <input class="user_rule" <?php if($u_three ==1 ){echo "checked";} ?> type="checkbox" value="<?php echo $u_three?$u_three:-1; ?>" name="u_three"/>职业房东、
-         <input class="user_rule" <?php if($u_four ==1 ){echo "checked";} ?> type="checkbox" value="<?php echo $u_four?$u_four:-1; ?>" name="u_four"/>职业经纪人、
-         <input class="user_rule" <?php if($u_five ==1 ){echo "checked";} ?> type="checkbox" value="<?php echo $u_five?$u_five:-1; ?>" name="u_five"/>服务/维修方
+         <input class="user_rule" <?php if($u_four ==1 ){echo "checked";} ?> type="checkbox" value="<?php echo $u_four?$u_four:-1; ?>" name="u_four"/>职业经纪人
+         <!--<input class="user_rule" <?php if($u_five ==1 ){echo "checked";} ?> type="checkbox" value="<?php echo $u_five?$u_five:-1; ?>" name="u_five"/>服务/维修方-->
      </td>
         <script>
             $('.user_rule').on('click',function(){
@@ -102,15 +102,15 @@
         <table class="list-style">
             <tr>
                 <td style="width:15%;text-align:right;">真实姓名：</td>
-                <td><input type="text" class="textBox length-middle" name="u_tname" value="<?php echo $u_tname; ?>" /></td>
+                <td><input type="text" disabled class="textBox length-middle" name="u_tname" value="<?php echo $u_tname; ?>" /></td>
             </tr>
-            <tr>
-                <td style="width:15%;text-align:right;">身份证号：</td>
-                <td><input type="text" class="textBox length-middle" name="u_num" value="<?php echo $u_num; ?>" /></td>
-            </tr>
+            <!--<tr>-->
+                <!--<td style="width:15%;text-align:right;">身份证号：</td>-->
+                <!--<td><input type="text" class="textBox length-middle" name="u_num" value="<?php echo $u_num; ?>" /></td>-->
+            <!--</tr>-->
             <tr>
                 <td style="width:15%;text-align:right;">商业保证金：</td>
-                <td><input type="text" class="textBox length-middle" name="u_money" value="<?php echo $u_money; ?>" /></td>
+                <td><input type="text" disabled class="textBox length-middle" name="u_money" value="<?php echo $u_money; ?>" /></td>
             </tr>
             <script>
                 window.onload = function () {
@@ -122,41 +122,41 @@
             <tr>
                 <td style="text-align:right;">证件照片：</td>
                 <td >
-                    <span><input type="file" name="u_img"  class="textBox " id="up_img" /></span>
-                    <span id="imgdiv">
+                    <!--<span><input type="file" name="u_img"  class="textBox " id="up_img" /></span>-->
+                    <!--<span id="imgdiv">-->
                         <?php if(!empty($u_img)){ ?>
-                            <img src="{$Think.PROJECT_PATH}/public/uploads/{$u_img}" id="imgShow" width="100" height="100" />
-                        <?php }else{ ?>
-                            <img src="" id="imgShow" width="100" height="100" />
+                            <?php foreach($u_img as $val){ ?>
+                                <img src="{$Think.PROJECT_PATH}/public/uploads/{$val}" id="imgShow" max-width="200" max-height="200" />
+                            <?php } ?>
                         <?php } ?>
-                    </span>
+                    <!--</span>-->
                 </td>
             </tr>
-            <tr>
-                <td style="text-align:right;">身份证正面照：</td>
-                <td>
-                    <input type="file" name="u_num0"  class="textBox " id="up_img1"  />
-                    <span id="imgdiv1">
-                        <?php if(!empty($u_num0)){ ?>
-                            <img src="{$Think.PROJECT_PATH}/public/uploads/{$u_num0}"  id="imgShow1" width="100" height="100" />
-                        <?php }else{ ?>
-                            <img src=""  id="imgShow1" width="100" height="100" />
-                        <?php } ?>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right;">身份证反面照：</td>
-                <td><input type="file" name="u_num1"  class="textBox " id="up_img2"  />
-                    <span id="imgdiv2">
-                        <?php if(!empty($u_num1)){ ?>
-                            <img  src="{$Think.PROJECT_PATH}/public/uploads/{$u_num1}" id="imgShow2" width="100" height="100" />
-                        <?php }else{ ?>
-                            <img  src="" id="imgShow2" width="100" height="100" />
-                        <?php } ?>
-                    </span>
-                </td>
-            </tr>
+            <!--<tr>-->
+                <!--<td style="text-align:right;">身份证正面照：</td>-->
+                <!--<td>-->
+                    <!--<input type="file" name="u_num0"  class="textBox " id="up_img1"  />-->
+                    <!--<span id="imgdiv1">-->
+                        <!--<?php if(!empty($u_num0)){ ?>-->
+                            <!--<img src="{$Think.PROJECT_PATH}/public/uploads/{$u_num0}"  id="imgShow1" width="100" height="100" />-->
+                        <!--<?php }else{ ?>-->
+                            <!--<img src=""  id="imgShow1" width="100" height="100" />-->
+                        <!--<?php } ?>-->
+                    <!--</span>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td style="text-align:right;">身份证反面照：</td>-->
+                <!--<td><input type="file" name="u_num1"  class="textBox " id="up_img2"  />-->
+                    <!--<span id="imgdiv2">-->
+                        <!--<?php if(!empty($u_num1)){ ?>-->
+                            <!--<img  src="{$Think.PROJECT_PATH}/public/uploads/{$u_num1}" id="imgShow2" width="100" height="100" />-->
+                        <!--<?php }else{ ?>-->
+                            <!--<img  src="" id="imgShow2" width="100" height="100" />-->
+                        <!--<?php } ?>-->
+                    <!--</span>-->
+                <!--</td>-->
+            <!--</tr>-->
             <!--<tr>-->
                 <!--<td style="text-align:right;">非租房福利券：</td>-->
                 <!--<td>-->

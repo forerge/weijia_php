@@ -10,6 +10,10 @@
      <td style="width:15%;text-align:right;">申请用户名：</td>
      <td><input type="text" disabled value="<?php echo $u_name; ?>" class="textBox length-middle" /></td>
     </tr>
+         <tr>
+             <td style="width:15%;text-align:right;">手机号：</td>
+             <td><input type="text" disabled value="<?php echo $u_phone; ?>" class="textBox length-middle" /></td>
+         </tr>
     <tr>
      <td style="text-align:right;">申请类型：</td>
      <td><input type="text" disabled class="textBox length-middle" value="<?php echo shenqing_level($s_level); ?>" /></td>
@@ -23,16 +27,16 @@
          <td><input type="text" disabled value="<?php echo date('Y-m-d H:i:s',$s_ctime); ?>" class="textBox length-middle" /></td>
      </tr>
          <tr>
-             <td style="text-align:right;">真是姓名：</td>
+             <td style="text-align:right;">真实姓名：</td>
              <td><input type="text" id="s_name" disabled value="<?php echo $s_name; ?>" class="textBox length-long" /></td>
          </tr>
-         <tr>
-             <td style="text-align:right;">身份证号：</td>
-             <td><input type="text" id="s_num" disabled value="<?php echo $s_num; ?>" class="textBox length-long" /></td>
-         </tr>
+         <!--<tr>-->
+             <!--<td style="text-align:right;">身份证号：</td>-->
+             <!--<td><input type="text" id="s_num" disabled value="<?php echo $s_num; ?>" class="textBox length-long" /></td>-->
+         <!--</tr>-->
          <tr>
              <td style="text-align:right;">押金：</td>
-             <td><input type="text" id="s_money" disabled value="<?php echo $s_money; ?>" class="textBox length-long" /></td>
+             <td><input type="text" id="s_money" <?php if($s_status !=1){echo "disabled"; } ?>  value="<?php echo $s_money; ?>" class="textBox length-long" /></td>
          </tr>
          <tr>
              <td style="text-align:right;">推荐码：</td>
@@ -40,7 +44,13 @@
          </tr>
          <tr>
              <td style="text-align:right;">证件照片：</td>
-             <td><img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $s_img ;?>" alt="" style="width:160px;height:160px"></td>
+             <td>
+                 <?php if(!empty($imgs)){ ?>
+                     <?php foreach($imgs as $k => $v){ ?>
+                         <img src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $v ;?>" max-width="300" max-height="300" />
+                     <?php } ?>
+                 <?php } ?>
+             </td>
          </tr>
          <tr>
              <td style="text-align:right;">拒绝意见：</td>
@@ -62,7 +72,6 @@
              </style>
              <input type="hidden" id="s_id" value="<?php echo $s_id; ?>"/>
              <input type="hidden" id="u_id" value="<?php echo $u_id; ?>"/>
-             <input type="hidden" id="s_img" value="<?php echo $s_img; ?>"/>
              <input type="hidden" id="s_level" value="<?php echo $s_level; ?>"/>
              <td><button type="button" onclick="shen_edit(1)" class="btn btn-success">通过</button><button onclick="shen_edit(0)" type="button" class="btn btn-danger">拒绝</button></td>
          </tr>
@@ -72,22 +81,22 @@
          function shen_edit(obj){
              var refuse = $('#refuse').val();
              var s_id = $('#s_id').val();
+             var s_ma = $('#s_ma').val();
              var u_id = $('#u_id').val();
              var s_name = $('#s_name').val();
-             var s_num = $('#s_num').val();
+//             var s_num = $('#s_num').val();
              var s_money = $('#s_money').val();
-             var s_img = $('#s_img').val();
              var s_level = $('#s_level').val();
              var data;
              data = {
                  name: s_name,
-                 num: s_num,
+//                 num: s_num,
                  money: s_money,
-                 img: s_img,
                  refuse: refuse,
                  level:s_level,
                  s_id: s_id,
                  u_id:u_id,
+                 s_ma:s_ma,
                  status:obj,
              };
              $.post('/admin/shenqing/apply',data,function(list){
