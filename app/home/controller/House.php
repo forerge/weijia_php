@@ -18,12 +18,8 @@ class House extends Controller{
        $map['h_shenhe'] = 1;
 //       $data = $house->where($map)->limit(3)->select();
        $data['house'] = $house_data->where($map)->limit(3)->select();
-//       $images
        $img = new ImgModel();
        $data['banner'] = $img->where('i_level','=',1)->order('i_sort')->select();
-//       var_dump($data['banner']);die;
-//       $images = ImgModel::images();
-//       var_dump($data);die;
        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
        return $list;
    }
@@ -33,18 +29,18 @@ class House extends Controller{
         $state = Request::instance()->param();
 
         $house = new HouseModel();
-//        $map['h_level'] = 1;
-//        $map['h_shenhe'] = 1;
+        $map['h_level'] = 1;
+        $map['h_shenhe'] = 1;
         if(!empty($state)){
             $map['h_state'] = $state['state'];
         }
-//        $map['h_status'] = 1;
+        $map['h_status'] = 1;
         $data = $house
-//            ->where($map)
+            ->where($map)
             ->select();
 
         $list = json_encode($data);
-//        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
         return $list;
     }
 

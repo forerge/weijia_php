@@ -15,11 +15,11 @@ class ImgModel extends Model{
         $data = SERVER_WEIJIA.$arr;
         return $data;
     }
-
-    public static function images(){
-        $list = self::where('i_level','=',1)->select();
-        return $list;
-    }
+//
+//    public static function images(){
+//        $list = self::where('i_level','=',1)->select();
+//        return $list;
+//    }
 
 }
 

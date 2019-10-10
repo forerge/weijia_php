@@ -34,7 +34,7 @@ class HouseModel extends Model{
     }
     public function getHElevatorAttr($a){
         $num = is_int($a)?$a:intval($a);
-        $arr = ['不限','有','无'];
+        $arr = [0=>'不限',1=>'有',-1=>'无'];
         return $arr[$num];
     }
     public function getHWeijiaAttr($a){
