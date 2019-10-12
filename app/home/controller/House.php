@@ -3,6 +3,7 @@ namespace  app\home\controller;
 use app\home\model\ImgModel;
 use app\home\model\MeetModel;
 use app\home\model\HouseModel;
+use app\home\model\ShenqingModel;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -38,8 +39,6 @@ class House extends Controller{
         $data = $house
             ->where($map)
             ->select();
-
-        $list = json_encode($data);
         $list = json_encode($data,JSON_UNESCAPED_UNICODE);
         return $list;
     }
@@ -91,6 +90,10 @@ class House extends Controller{
 //        var_dump($params);die;
         $house = new HouseModel();
         $house->h_qv = $params['one']['qv'];
+//        var_dump($params['one']['pid']);die;
+        if(isset($params['one']['pid'])){
+            $house->h_pid = intval($params['one']['pid']) ;
+        }
         $house->h_shi = $params['one']['shi'];
         $house->h_state = $params['one']['state'];
         $house->hu_id = $params['one']['uid'];
@@ -102,13 +105,15 @@ class House extends Controller{
         $house->h_area = $params['one']['h_area'];
         $house->h_metro_no = $params['one']['metro_no'];
         $house->h_metro_length = $params['one']['metro_length'];
-        $house->hu_name = $params['one']['name'];
+        $house->h_hname = $params['two']['hname'];    //签合同的乙方名称
+        $house->hu_name = $params['one']['name'];    //发布房源者的真实姓名
         $house->h_ting = $params['one']['ting'];
         $house->h_wei = $params['one']['wei'];
         $house->h_addr = $params['one']['addr'];
         $house->h_space = $params['one']['space'];
         $house->h_xiang = $params['one']['xiang'];
         $house->hu_phone = $params['one']['phone'];
+//        $house->hu_phone = $params['one']['tel'];
         $house->h_money = $params['one']['money'];
         $house->h_floor = $params['one']['floor']>0?$params['one']['floor']:-1;
         $house->h_car = $params['one']['car']>0?$params['one']['car']:-1;
@@ -120,18 +125,38 @@ class House extends Controller{
         $result = HouseModel::many_json($params['two']['fangwupeizhi'],$params['two']['chuzuyaoqiu'],$params['two']['fangwuliangdian'],$params['one']['in_money']);
         $images = HouseModel::images($params['one']['uploads'],$params['two']['img']);
         $house->h_ask = $result['h_ask'];
-        $house->h_inmoney = $result['in_money'];
+        $house->h_inmoney = $result['h_inmoney'];
         $house->h_liangdian = $result['h_liangdian'];
         $house->h_config = $result['h_config'];
         $house->h_uploads = $images['h_uploads'];
         $house->h_img = $images['h_img'];
-//        var_dump($house);die;
-        if($house->save()){
-            echo 1;
-        }else{
-            echo 0;
-        }
+        $house->save();
 
+
+        $shenqing = new ShenqingModel();
+        $shenqing->su_id = $params['one']['uid'];
+        $shenqing->s_level = 4;
+        $shenqing->sh_id = $house->h_id;
+        $shenqing->s_ctime = time();
+        $shenqing->save();
+
+        echo 1;
+    }
+
+
+
+    public function kuai_wuye_one(){
+        $params = Request::instance()->param();
+        $house = Db::table('house')->where('h_id','=',$params['id'])->field('h_id,h_hname')->find();
+        $list = json_encode($house,JSON_UNESCAPED_UNICODE);
+        return $list;
+    }
+
+    public function kuai_wuye_jiaojie(){
+        $params = Request::instance()->param();
+        if(Db::table('house')->where('h_id','=',$params['id'])->update(['h_tel'=>$params['tel'],'h_wuye'=>2])){
+            echo 1;
+        }
     }
 
 

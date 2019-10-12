@@ -96,6 +96,7 @@ class HouseModel extends Model{
         if(in_array('燃气灶',$config)){array_push($h_config,'ranqizao');}
         if(in_array('抽烟机',$config)){array_push($h_config,'chouyanji');}
         if(in_array('电磁炉',$config)){array_push($h_config,'diancilu');}
+        if(in_array('微波炉',$config)){array_push($h_config,'weibolu');}
         if(in_array('独立卫生间',$config)){array_push($h_config,'duliweishengjian') ;}
         if(in_array('可做饭',$config)){array_push($h_config,'kezuofan');}
 
@@ -115,19 +116,20 @@ class HouseModel extends Model{
         if(in_array('首次出租',$liangdian)){array_push($h_liangdian,'shoucichuzu');}
         if(in_array('有阳台',$liangdian)){array_push($h_liangdian,'youyangtai');}
 
-
+        $test_inmoney = is_string($inmoney)?explode(',',$inmoney):$inmoney;
         $h_inmoney = [0=>'a'];
-        if(in_array('水费',$inmoney)){array_push($h_inmoney,'shuifei');}
-        if(in_array('电费',$inmoney)){array_push($h_inmoney,'dianfei');}
-        if(in_array('燃气费',$inmoney)){array_push($h_inmoney,'ranqifei');}
-        if(in_array('宽带费',$inmoney)){array_push($h_inmoney,'kuandaifei');}
-        if(in_array('物业费',$inmoney)){array_push($h_inmoney,'wuyefei');}
-        if(in_array('有线电视费',$inmoney)){array_push($h_inmoney,'youxiandianshifei');}
-        if(in_array('停车费',$inmoney)){array_push($h_inmoney,'tingche');}
+        if(in_array('水费',$test_inmoney)){array_push($h_inmoney,'shuifei');}
+        if(in_array('电费',$test_inmoney)){array_push($h_inmoney,'dianfei');}
+        if(in_array('燃气费',$test_inmoney)){array_push($h_inmoney,'ranqifei');}
+        if(in_array('宽带费',$test_inmoney)){array_push($h_inmoney,'kuandaifei');}
+        if(in_array('物业费',$test_inmoney)){array_push($h_inmoney,'wuyefei');}
+        if(in_array('有线电视费',$test_inmoney)){array_push($h_inmoney,'youxiandianshifei');}
+        if(in_array('停车费',$test_inmoney)){array_push($h_inmoney,'tingche');}
 
         $h_config = json_encode($h_config,JSON_UNESCAPED_UNICODE);
         $h_ask = json_encode($h_ask,JSON_UNESCAPED_UNICODE);
         $h_liangdian = json_encode($h_liangdian,JSON_UNESCAPED_UNICODE);
+        $h_inmoney = json_encode($h_inmoney,JSON_UNESCAPED_UNICODE);
 
         return ['h_config'=>$h_config,'h_ask'=>$h_ask,'h_liangdian'=>$h_liangdian,'h_inmoney'=>$h_inmoney];
     }

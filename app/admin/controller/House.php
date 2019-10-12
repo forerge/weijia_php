@@ -173,7 +173,16 @@ class House extends Controller{
 
     public function shenhe(){
         $map['h_shenhe'] = -1;
-        $list = Db::table('house')->where($map)->select();
+//        $map['h_pid'] > -1;
+        $list = Db::table('house')->where($map)->where('h_pid','>',-1)->select();
+        $this->assign('list',$list);
+        return $this->fetch();
+    }
+
+    public function weituo(){
+        $map['h_shenhe'] = -1;
+//        $map['h_pid'] < 0;
+        $list = Db::table('house')->where('h_pid','<',0)->where($map)->select();
         $this->assign('list',$list);
         return $this->fetch();
     }
@@ -181,7 +190,20 @@ class House extends Controller{
     public function detail(){
         if($_POST) {
             $params = Request::instance()->param();
-            Db::table('house')->where('h_id','=',intval($params['h_id']))->update(['h_shenhe'=>intval($params['h_shenhe'])]);
+            if(intval($params['h_shenhe'])>0){
+                Db::startTrans();
+                try{
+                    Db::table('house')->where('h_id','=',intval($params['h_id']))->update(['h_shenhe'=>intval($params['h_shenhe'])]);
+                    $list_shen = Db::table('shenqing')->where('sh_id','=',intval($params['h_id']))->where('s_status','=',1)->find();
+                    Db::table('shenqing')->where('s_id','=',$list_shen['s_id'])->update(['s_status'=>2]);
+                    // 提交事务
+                    Db::commit();
+                } catch (\Exception $e) {
+                    echo 1;die;
+                    // 回滚事务
+                    Db::rollback();
+                }
+            }
             $this->redirect('/admin/house/shenhe');
         }else{
             $id = $_GET['id'];

@@ -26,6 +26,34 @@ class User extends Controller{
 
     public function kuai_renzheng(){
         $id = Request::instance()->param('uid');
+        $role = Request::instance()->param('role');
+        $map['su_id'] = $id;
+        $map['s_state'] = 1;
+        if($role<2){
+            $data = Db::table('shenqing')->where($map)->where('s_level','<',3)->select();
+        }else{
+            $data = Db::table('shenqing s')->where($map)
+                ->join('house h','h_id = s.sh_id','left')
+                ->field('s.*,h.h_qv,h.h_addr')
+                ->select();
+        }
+
+//        var_dump($data);
+        $list = [];
+        foreach($data as $k => $v){
+            $list[$k] = $v;
+            $list[$k]['level'] = $v['s_level'];
+            $list[$k]['s_level'] = shenqing_level($v['s_level']);
+            $list[$k]['s_status'] = shenqing_status($v['s_status']);
+        }
+
+        $list = json_encode($list,JSON_UNESCAPED_UNICODE);
+//        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return $list;
+    }
+
+    public function kuai_renzheng_fangdong(){
+        $id = Request::instance()->param('uid');
         $map['su_id'] = $id;
         $map['s_state'] = 1;
         $shenqing = new ShenqingModel();
@@ -42,6 +70,13 @@ class User extends Controller{
 
     public function test(){
         var_dump(Session::get('weijia_pro'));
+    }
+
+    public function kuai_shuaxin(){
+        $params = Request::instance()->param();
+        $data = Db::table('user')->where('u_id','=',$params['uid'])->find();
+        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return $list;
     }
 
 

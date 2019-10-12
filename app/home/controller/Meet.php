@@ -38,16 +38,13 @@ class Meet extends controller{
         }
     }
 
-    public function kuai_list_one(){
+    public function kuai_list_fangke(){
         $params = Request::instance()->param();
-        $test = $params['role'];
-        if($test == 1){
-            $keys = 'mu_id';
-        }else{
-            $keys = 'mhu_id';
-        }
-        $meet = new MeetModel();
-        $list = $meet->join('house','house.h_id = meet.mh_id')->where($keys,'=',$params['id'])->where('meet.mo_id','=',0)->select();
+        $list = Db::table('meet m')->join('house h','h.h_id = m.mh_id')
+            ->where('m_status','<>',-2)           //排除自己删除的
+            ->where('mo_id','=',0)                //在出租状态的
+            ->where('mu_id','=',$params['id'])
+            ->select();
         $data = [];
         if(count($list)>0){
             foreach($list as $key => &$val){
@@ -65,7 +62,6 @@ class Meet extends controller{
         }
         $list_data = json_encode($list,JSON_UNESCAPED_UNICODE);
         return $list_data;
-
     }
 
     public function kuai_list_fangdong(){
@@ -77,7 +73,7 @@ class Meet extends controller{
             ->field('m.*,h.h_qv,h.h_addr,h.h_state,h_level,u.u_phone,u.u_name,u.u_tname')
             ->where('m.mhu_id','=',$params['id'])       //B端收到的预约邀请
             ->where('m.mu_id','<>',$params['id'])       //不是自己预约的
-            ->where('m_status','<>',-1)                 //B端（例：职业经纪人）方删除
+            ->where('m_status','>',0)                 //B端（例：职业经纪人）方删除
             ->where('m_level','<>',-1)                  //排除B端自己拒绝的
             ->order('m_level,m_ctime desc')
             ->select();
@@ -109,9 +105,16 @@ class Meet extends controller{
         echo 1;
     }
 
-    public function kuai_meet_del(){
+    public function kuai_fangdong_del(){
         $params = Request::instance()->param();
         if(Db::table('meet')->where('m_id','=',$params['id'])->update(['m_status'=>-1])){
+            echo 1;
+        }
+    }
+
+    public function kuai_fangke_del(){
+        $params = Request::instance()->param();
+        if(Db::table('meet')->where('m_id','=',$params['id'])->update(['m_status'=>-2])){
             echo 1;
         }
     }
