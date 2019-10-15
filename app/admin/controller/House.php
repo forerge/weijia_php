@@ -58,7 +58,7 @@ class House extends Controller{
     public function update(){
         if($_POST){
             $list = $_POST;
-
+//var_dump($list);die;
             $id = $list['h_id'];
             $data = Db::table('house')->where('h_id','=',$id)->find();
             $images = json_decode($data['h_uploads'],true);

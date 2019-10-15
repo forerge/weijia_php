@@ -50,7 +50,7 @@ function shenqing_status($a){
 }
 function shenqing_level($a){
     $num = is_int($a)?$a:intval($a);
-    $arr = ['不限','职业房东','职业经纪人','房源转到青年公寓','房产认证','实名认证'];
+    $arr = ['不限','职业房东','职业经纪人','房源转到青年公寓','房产认证','实名认证','房东'];
     return $arr[$num];
 }
 
@@ -150,6 +150,10 @@ function book_status($a){
 
 function img_level($a){
     $arr = [0=>'不限',1=>'展示',-1=>'不展示'];
+    return $arr[$a];
+}
+function img_status($a){
+    $arr = ['不限','快出房','青年公寓'];
     return $arr[$a];
 }
 

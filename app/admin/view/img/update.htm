@@ -18,6 +18,16 @@
     </td>
    </tr>
    <tr>
+    <td style="text-align:right;">展示平台：</td>
+    <td>
+     <select name="i_status" class="textBox">
+      <option value="<?php echo $i_status; ?>"><?php echo img_status($i_status); ?></option>
+      <option value="1">--快出房--</option>
+      <option value="2">--青年公寓--</option>
+     </select>
+    </td>
+   </tr>
+   <tr>
     <td style="text-align:right;">排序：</td>
     <td><input type="text" name="i_sort" class="textBox length-middle" value="<?php echo $i_sort; ?>" /></td>
    </tr>

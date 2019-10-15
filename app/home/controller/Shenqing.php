@@ -9,7 +9,7 @@ use think\Request;
 class Shenqing extends Controller{
    public function shenqing(){
        $params = Request::instance()->param();
-
+//var_dump($params);die;
        $map['su_id'] = $params['id'];
        $map['s_ctime'] = time();
        if( array_key_exists('ma',$params)){

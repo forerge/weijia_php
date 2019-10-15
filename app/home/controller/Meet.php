@@ -17,16 +17,17 @@ class Meet extends controller{
        return $data;
    }
 
-    public function add(){
+    public function qing_add(){
         $params = Request::instance()->param();
-        $hu_id = Db::table('house')->where('h_id','=',intval($params['h_id']))->find();
+//        var_dump($params);die;
+//        $hu_id = Db::table('house')->where('h_id','=',intval($params['h_id']))->find();
         $meet = new MeetModel();
         $map['mh_id'] = $params['h_id'];
         $map['mu_id'] = $params['u_id'];
         $map['m_time'] = $params['time']/1000 ;
         $map['m_ctime'] = time();
         $map['m_content'] = $params['content'];
-        $map['mhu_id'] = $hu_id['hu_id'];
+//        $map['mhu_id'] = $hu_id['hu_id'];
 //        var_dump($params);
 //        var_dump($map);
 //        die;
@@ -78,7 +79,6 @@ class Meet extends controller{
             ->order('m_level,m_ctime desc')
             ->select();
 
-        $data = [];
         if(count($list)>0){
             foreach($list as $key => &$val){
                if(!empty($val['u_tname'])){
@@ -89,8 +89,11 @@ class Meet extends controller{
                 $val['h_state'] = $val['h_state']==1?'整租':"合租";
                 $val['m_time'] = date('Y-m-d H:i:s',$val['m_time']);
             }
+            $list_data = json_encode($list,JSON_UNESCAPED_UNICODE);
+        }else{
+            $list_data = 0;
         }
-        $list_data = json_encode($list,JSON_UNESCAPED_UNICODE);
+
         return $list_data;
 
     }

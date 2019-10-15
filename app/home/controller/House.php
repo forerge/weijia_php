@@ -19,11 +19,31 @@ class House extends Controller{
        $map['h_shenhe'] = 1;
 //       $data = $house->where($map)->limit(3)->select();
        $data['house'] = $house_data->where($map)->limit(3)->select();
+
        $img = new ImgModel();
-       $data['banner'] = $img->where('i_level','=',1)->order('i_sort')->select();
+       $data['banner'] = $img->where('i_level','=',1)
+           ->where('i_status','=',1)
+           ->order('i_sort')->select();
        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
        return $list;
    }
+
+    public function qing_hot(){
+        $house_data = new HouseModel();
+        $map['h_level'] = 1;
+        $map['h_tuijian'] = 2;
+        $map['h_status'] = 2;
+        $map['h_shenhe'] = 1;
+//       $data = $house->where($map)->limit(3)->select();
+        $data['house'] = $house_data->where($map)->limit(3)->select();
+
+        $img = new ImgModel();
+        $data['banner'] = $img->where('i_level','=',1)
+            ->where('i_status','=',2)
+            ->order('i_sort')->select();
+        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return $list;
+    }
 
     //快租房----房源列表
     public function kuai_list(){
@@ -36,6 +56,23 @@ class House extends Controller{
             $map['h_state'] = $state['state'];
         }
         $map['h_status'] = 1;
+        $data = $house
+            ->where($map)
+            ->select();
+        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return $list;
+    }
+
+    public function qing_list(){
+        $state = Request::instance()->param();
+
+        $house = new HouseModel();
+        $map['h_level'] = 1;
+        $map['h_status'] = 2;
+        $map['h_shenhe'] = 1;
+        if(!empty($state)){
+            $map['h_state'] = $state['state'];
+        }
         $data = $house
             ->where($map)
             ->select();
@@ -132,13 +169,13 @@ class House extends Controller{
         $house->h_img = $images['h_img'];
         $house->save();
 
-
-        $shenqing = new ShenqingModel();
-        $shenqing->su_id = $params['one']['uid'];
-        $shenqing->s_level = 4;
-        $shenqing->sh_id = $house->h_id;
-        $shenqing->s_ctime = time();
-        $shenqing->save();
+//
+//        $shenqing = new ShenqingModel();
+//        $shenqing->su_id = $params['one']['uid'];
+//        $shenqing->s_level = 4;
+//        $shenqing->sh_id = $house->h_id;
+//        $shenqing->s_ctime = time();
+//        $shenqing->save();
 
         echo 1;
     }
@@ -155,9 +192,55 @@ class House extends Controller{
     public function kuai_wuye_jiaojie(){
         $params = Request::instance()->param();
         if(Db::table('house')->where('h_id','=',$params['id'])->update(['h_tel'=>$params['tel'],'h_wuye'=>2])){
-            echo 1;
+
         }
     }
+
+    public function kuai_wodefabu(){
+        $params = Request::instance()->param();
+        $list = Db::table('house')
+            ->where('hu_id','=',$params['uid'])
+            ->where('h_level','=',intval($params['level']))
+            ->field('h_qv,h_id,h_addr,h_state,h_level,h_space')
+            ->select();
+        if(!empty($list)){
+            $test = array_unique(array_column($list,'h_qv')) ;
+            $test2=[];
+            foreach($list as $k =>$v){
+                $v['h_state'] = $v['h_state'] == 1?'整租':'合租';
+                if(in_array($v['h_qv'],$test)){
+                    $test2[$v['h_qv']][] = $v;
+                }
+            }
+            $data = json_encode($test2,JSON_UNESCAPED_UNICODE);
+        }else{
+            $data =0;
+        }
+        return $data;
+    }
+
+public function kuai_wodefabu_change_level(){
+    $params = Request::instance()->param();
+    if(Db::table('house')->where('h_id','=',intval($params['hid']))->update(['h_level'=>$params['level']])){
+        echo 1;
+    }else{
+        echo 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

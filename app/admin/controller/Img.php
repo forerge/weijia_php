@@ -31,6 +31,7 @@ class Img extends Controller{
             $data['i_ctime'] = time();
             $data['i_sort'] = $params['i_sort'];
             $data['i_level'] = $params['i_level'];
+            $data['i_status'] = $params['i_status'];
             if($img ->save($data,['i_id'=>$params['i_id']])){
                 $this->success('修改成功！','/admin/img/index');
             }else{
@@ -54,6 +55,7 @@ class Img extends Controller{
             $data['i_img'] = $result['img'];
             $data['i_ctime'] = time();
             $data['i_sort'] = $params['i_sort'];
+            $data['i_status'] = $params['i_status'];
             if($img ->save($data)){
                 $this->success('添加成功！','/admin/img/index');
             }else{

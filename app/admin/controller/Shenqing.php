@@ -78,27 +78,24 @@ class Shenqing extends Controller{
         $shenqing = Db::table('shenqing')->where('s_id','=',$list['s_id'])->find();
         if($list['status'] == 1){
             $map['u_tname'] = $list['name'];
-//            $map['u_num'] = $list['num'];
             $map['u_img'] = $shenqing['s_img'];
             $map['u_money'] = $list['money'];
             if($list['s_ma']){
                 $map['u_mato'] = intval($list['s_ma']);
-                $test_ma = is_string($list['u_id'])?$list['u_id']:strval($list['u_id']) ;
-                $map['u_ma'] = intval(str_pad($test_ma,'7','0'));
             }
-
+            $test_ma = is_string($list['u_id'])?$list['u_id']:strval($list['u_id']) ;
+            $map['u_ma'] = intval(str_pad($test_ma,'7','0'));
             if($list['level'] == 1){
                 $map['u_three'] = 1;
             }else if($list['level'] == 2){
                 $map['u_four'] = 1;
             }else if($list['level'] == 3){
 
-
             }else if($list['level'] == 4){
 
-
-
             }else if($list['level'] == 5){
+
+            }else if($list['level'] == 6){
                 $map['u_two'] = 1;
             }
             $_POST['data'] = array_filter($map);

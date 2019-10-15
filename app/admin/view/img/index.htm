@@ -8,6 +8,7 @@
         <tr>
             <th  class="center">编号</th>
             <th  class="center">图片</th>
+            <th  class="center">展示平台</th>
             <th  class="center">排序</th>
             <th  class="center">状态</th>
             <th  class="center">上传时间</th>
@@ -21,6 +22,9 @@
             </td>
             <td class="center">
                 <span class="block"> <img style="max-height:200px;max-width:200px" src="{$Think.PROJECT_PATH}/public/uploads/<?php echo $v['i_img'] ;?>" alt=""> </span>
+            </td>
+            <td class="center">
+                <span class="block"><?php echo img_status($v['i_status']); ?></span>
             </td>
             <td class="center">
                 <span class="block"><?php echo $v['i_sort']; ?></span>
