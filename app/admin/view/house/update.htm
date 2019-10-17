@@ -283,7 +283,7 @@
    <tr>
     <td style="text-align:right;">业主姓名：</td>
     <td>
-     <input name="h_hname" type="text" value="<?php echo $h_hname ?>"  class="textBox length-short"/>
+     <input name="h_hname" type="text" value="<?php echo empty($h_hname)?'唯家':$h_hname ?>"  class="textBox length-short"/>
      <span></span>
     </td>
    </tr>

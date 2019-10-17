@@ -4,6 +4,7 @@ use app\admin\model\MeetModel;
 use think\Controller;
 use app\admin\tools\Page;
 use think\Db;
+use think\Request;
 
 class Meet extends Controller{
    public function index(){
@@ -19,6 +20,11 @@ class Meet extends Controller{
 
     public function update(){
         if($_POST){
+            $params = Request::instance()->param();
+            $id = $params['m_id'];
+            unset($params['m_id']);
+            Db::table('meet')->where('m_id','=',$id)->update($params);
+            $this->redirect('/admin/meet/index');
 
         }else{
             $id = $_GET['id'];

@@ -2,19 +2,9 @@
 <body>
 <div class="wrap">
     <div class="page-title">
-        <span class="block fl"><i class="order"></i><em>代金券管理</em></span>
+        <span class="block fl"><i class="order"></i><em>订单管理</em></span>
     </div>
     <div class="operate">
-        <form>
-            <!--<input type="text" class="textBox length-long" style="width:130px" placeholder="付款方姓名..."/>-->
-            <!--<input type="text" class="textBox length-long" style="width:130px" placeholder="收款方姓名..."/>-->
-            <!--<select class="inline-select">-->
-                <!--<option>代金券</option>-->
-                <!--<option>&#45;&#45;使用&#45;&#45;</option>-->
-                <!--<option>&#45;&#45;未使用&#45;&#45;</option>-->
-            <!--</select>-->
-            <!--<input type="button" value="查询" class="tdBtn"/>-->
-        </form>
     </div>
     <table class="list-style">
         <tr>
@@ -22,8 +12,8 @@
             <th class="center">甲方</th>
             <th class="center">房源编号</th>
             <th class="center">支付金额</th>
-            <th class="center">押金</th>
-            <th class="center">租金</th>
+            <th class="center">类型</th>
+            <th class="center">状态</th>
             <th class="center">支付方式</th>
             <th class="center">转账时间</th>
             <th class="center">操作</th>
@@ -44,10 +34,10 @@
                     <span class="block"><?php echo $v['o_money']; ?></span>
                 </td>
                 <td class="center" >
-                    <span class="block"><?php echo $v['o_ymoney']; ?></span>
+                    <span class="block"><?php echo order_status($v['o_status']) ; ?></span>
                 </td>
                 <td class="center" >
-                    <span class="block"><?php echo $v['o_zmoney']; ?></span>
+                    <span class="block"><?php echo order_leixing($v['o_leixing']) ; ?></span>
                 </td>
                 <td class="center" >
                     <span class="block"><?php echo order_state($v['o_state']); ?></span>

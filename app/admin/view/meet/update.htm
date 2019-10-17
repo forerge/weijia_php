@@ -5,7 +5,7 @@
   <span class="modular fl"><i class="edit_user"></i><em>预约情况</em></span>
  </div>
  <form action="update" method="post">
-  <input type="hidden" class="textBox length-middle" name="m_id" />
+  <input type="hidden" class="textBox length-middle" name="m_id" value="<?php echo $m_id; ?>" />
   <table class="list-style">
    <tr>
     <td style="text-align:right;">预约状态：</td>
@@ -20,18 +20,22 @@
    </tr>
    <tr>
     <td style="width:15%;text-align:right;">发起时间：</td>
-    <td><input type="text" class="textBox length-middle" name="m_ctime" value="<?php echo date('Y-m-d H:i:s',$m_ctime); ?>" /></td>
+    <td><input type="text" class="textBox length-middle" value="<?php echo date('Y-m-d H:i:s',$m_ctime); ?>" /></td>
    </tr>
    <tr>
     <td style="width:15%;text-align:right;">约定时间：</td>
-    <td><input type="text" class="textBox length-middle" name="m_time" value="<?php echo date('Y-m-d H:i:s',$m_time); ?>" /></td>
+    <td><input type="text" class="textBox length-middle" value="<?php echo date('Y-m-d H:i:s',$m_time); ?>" /></td>
    </tr>
    <?php if($m_level == -1){ ?>
    <tr>
     <td style="text-align:right;">失败原因：</td>
-    <td><textarea class="textarea"><?php echo $m_because; ?></textarea></td>
+    <td><textarea name="m_because" class="textarea"><?php echo $m_because; ?></textarea></td>
    </tr>
    <?php } ?>
+   <tr>
+    <td style="text-align:right;"></td>
+    <td><input type="submit" value="修改" class="tdBtn"/></td>
+   </tr>
   </table>
  </form>
 </div>
@@ -148,7 +152,7 @@
     <td style="text-align:right;">是否整租：</td>
     <td>
      <select disabled class="textBox">
-      <option><?php echo yesno($h_state); ?></option>
+      <option><?php echo house_state($h_state); ?></option>
      </select>
     </td>
    </tr>

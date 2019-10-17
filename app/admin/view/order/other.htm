@@ -15,7 +15,6 @@
             <th class="center">支付金额</th>
             <th class="center">支付方式</th>
             <th class="center">转账时间</th>
-            <th class="center">状态</th>
             <th class="center">操作</th>
         </tr>
         <?php if(!empty($list)){ ?>
@@ -41,9 +40,6 @@
             </td>
             <td class="center" >
                 <span class="block"><?php echo date('Y-m-d H:i:s',$v['o_ctime']) ?></span>
-            </td>
-            <td class="center" >
-                <span class="block"><?php echo order_status($v['o_status']); ?></span>
             </td>
             <td class="center" width="260">
                 <a href="/admin/order/update.html?id=<?php echo $v['o_id']; ?>" class="inline-block" title="查看"><img src="{$Think.PROJECT_PATH}/public/static/ht/model/images/icon_view.gif"/></a>

@@ -219,14 +219,93 @@ class House extends Controller{
         return $data;
     }
 
-public function kuai_wodefabu_change_level(){
-    $params = Request::instance()->param();
-    if(Db::table('house')->where('h_id','=',intval($params['hid']))->update(['h_level'=>$params['level']])){
-        echo 1;
-    }else{
-        echo 0;
+    public function kuai_fuwu(){
+        $params = Request::instance()->param();
+        $list = Db::table('house')
+            ->where('hu_id','=',$params['uid'])
+            ->field('h_qv,h_id,h_addr,h_state,h_level,h_space')
+            ->select();
+        if(!empty($list)){
+            $test = array_unique(array_column($list,'h_qv')) ;
+            $test2=[];
+            foreach($list as $k =>$v){
+                $v['h_state'] = $v['h_state'] == 1?'整租':'合租';
+                if(in_array($v['h_qv'],$test)){
+                    $test2[$v['h_qv']][] = $v;
+                }
+            }
+            $data = json_encode($test2,JSON_UNESCAPED_UNICODE);
+        }else{
+            $data =0;
+        }
+        return $data;
     }
-}
+
+    public function kuai_wodefabu_change_level(){
+        $params = Request::instance()->param();
+        if(Db::table('house')->where('h_id','=',intval($params['hid']))->update(['h_level'=>$params['level']])){
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
+    public function qing_shuidian(){
+        $params = Request::instance()->param();
+        $data = Db::table('user u')->join('house h','h.h_id = u.uh_id')
+            ->where('u.u_id','=',$params['u_id'])
+            ->field('u.u_name,u.u_tname,u_phone,h.h_addr,h.h_qv,u.u_id,u.u_phone,u.u_name')
+            ->find();
+        if(!empty($data['u_name'])){
+            $data['username'] = $data['u_name'];
+        }elseif(!empty($data['u_tname'])){
+            $data['username'] = $data['u_tname'];
+        }else{
+            $data['username'] = $data['u_phone'];
+        }
+        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return $list;
+    }
+
+    public function qing_baojie_shenqing(){
+        $params = Request::instance()->param();
+        $data = Db::table('house h')->join('user u','u.uh_id = h.h_id')
+            ->where('h.h_id','=',$params['h_id'])
+            ->field('h.h_qv,h.h_addr,h.h_space,u.u_name,u.u_tname,u.u_tname,u.u_phone')
+            ->find();
+        $money = Db::table('record')->where('r_id','=',1)->find();
+        $data['clear'] = $money['r_clear'];
+        if(!empty($data['u_name'])){
+            $data['username'] = $data['u_name'];
+        }elseif(!empty($data['u_tname'])){
+            $data['username'] = $data['u_tname'];
+        }else{
+            $data['username'] = $data['u_phone'];
+        }
+        $data['money'] = $data['clear']*$data['h_space'];
+        $list = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return $list;
+    }
+
+    public function qing_baojie_jiaofei(){
+        $params = Request::instance()->param();
+        $list = Db::table('order')->where('o_id','=',$params['o_id'])->update(['o_status'=>2]);
+        if($list){
+            echo 1;
+        }else{
+            echo 1;
+        }
+    }
+
+    public function qing_baojie_chexiao(){
+        $params = Request::instance()->param();
+        $list = Db::table('order')->where('o_id','=',$params['o_id'])->update(['o_level'=>-1]);
+        if($list){
+            echo 1;
+        }else{
+            echo 1;
+        }
+    }
 
 
 
